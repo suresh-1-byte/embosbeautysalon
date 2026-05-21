@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import OneSignal from 'react-onesignal';
 
 export function useNotifications() {
   const prompted = useRef(false);
@@ -9,13 +8,8 @@ export function useNotifications() {
     if (prompted.current) return;
     prompted.current = true;
 
-    const timer = setTimeout(async () => {
-      try {
-        const permission = await OneSignal.Notifications.permission;
-        if (!permission) {
-          setShowBanner(true);
-        }
-      } catch {
+    const timer = setTimeout(() => {
+      if ('Notification' in window && Notification.permission === 'default') {
         setShowBanner(true);
       }
     }, 3000);
@@ -26,9 +20,9 @@ export function useNotifications() {
   const handleAllow = async () => {
     setShowBanner(false);
     try {
-      await OneSignal.Notifications.requestPermission();
+      await Notification.requestPermission();
     } catch (err) {
-      console.warn('OneSignal permission error:', err);
+      console.warn('Notification permission error:', err);
     }
   };
 

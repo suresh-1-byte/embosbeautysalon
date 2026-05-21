@@ -24,23 +24,45 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Step 1: Ask browser permission directly — never blocks
+      // Register service worker
+      const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      await navigator.serviceWorker.ready;
+
+      // Ask browser permission
       const result = await Notification.requestPermission();
       setPushDone(true);
 
       if (result === 'granted') {
-        // Step 2: Register with OneSignal in background — non-blocking
-        (async () => {
-          try {
-            const ready = (window as any).__oneSignalReady;
-            if (ready) await Promise.race([ready, new Promise(r => setTimeout(r, 4000))]);
-            const OneSignal = (await import('react-onesignal')).default;
-            await OneSignal.User.PushSubscription.optIn();
-          } catch { /* non-fatal */ }
-        })();
-      }
+        // Subscribe via native Web Push (VAPID)
+        try {
+          const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY as string;
+          const padding = '='.repeat((4 - (VAPID_PUBLIC_KEY.length % 4)) % 4);
+          const base64 = (VAPID_PUBLIC_KEY + padding).replace(/-/g, '+').replace(/_/g, '/');
+          const rawData = atob(base64);
+          const applicationServerKey = Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
 
-      setTimeout(() => setStep('email'), 1000);
+          const sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey,
+          });
+
+          // Save to Supabase
+          const { endpoint, keys } = sub.toJSON() as {
+            endpoint: string;
+            keys: { p256dh: string; auth: string };
+          };
+          const { supabase } = await import('../lib/supabase');
+          await supabase.from('push_subscriptions').upsert(
+            { endpoint, p256dh: keys.p256dh, auth: keys.auth },
+            { onConflict: 'endpoint' }
+          );
+        } catch (e) {
+          console.warn('Push subscription save error:', e);
+        }
+        setTimeout(() => setStep('email'), 1200);
+      } else {
+        setTimeout(() => setStep('email'), 800);
+      }
     } catch {
       setPushDone(true);
       setTimeout(() => setStep('email'), 800);
