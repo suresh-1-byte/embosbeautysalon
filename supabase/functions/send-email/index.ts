@@ -11,7 +11,7 @@
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
 const ADMIN_EMAIL = 'sureshkathirvel601@gmail.com';
-const FROM_EMAIL = 'EMBOS Salon <noreply@embosbeautysalon.com>';
+const FROM_EMAIL = 'EMBOS Salon <noreply@embosbeautysalon.in>';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
