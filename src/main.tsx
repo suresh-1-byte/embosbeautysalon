@@ -3,18 +3,9 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-// Unregister any old service workers (OneSignal, Firebase, VAPID) that conflict with Webpushr
+// Register the Web Push service worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    for (const reg of registrations) {
-      const url = reg.active?.scriptURL ?? '';
-      // Keep only the Webpushr service worker
-      if (!url.includes('webpushr-sw.js')) {
-        reg.unregister();
-        console.log('Unregistered old SW:', url);
-      }
-    }
-  });
+  navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
 }
 
 createRoot(document.getElementById('root')!).render(

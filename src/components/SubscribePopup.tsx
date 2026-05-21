@@ -24,14 +24,25 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Webpushr SDK handles subscription automatically when permission is granted.
-      // We just need to trigger the browser permission prompt.
-      if ('Notification' in window) {
-        await Notification.requestPermission();
-      }
-      // Webpushr SDK picks up the permission and registers the subscriber automatically.
+      const perm = await Notification.requestPermission();
       setPushDone(true);
-      setTimeout(() => setStep('email'), 1200);
+      if (perm === 'granted') {
+        try {
+          const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+          await navigator.serviceWorker.ready;
+          const pub = import.meta.env.VITE_VAPID_PUBLIC_KEY as string;
+          const pad = '='.repeat((4 - pub.length % 4) % 4);
+          const key = Uint8Array.from(atob((pub+pad).replace(/-/g,'+').replace(/_/g,'/')), c=>c.charCodeAt(0));
+          const sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key });
+          const { endpoint, keys } = sub.toJSON() as { endpoint:string; keys:{p256dh:string;auth:string} };
+          const { supabase } = await import('../lib/supabase');
+          await supabase.from('push_subscriptions').upsert({ endpoint, p256dh:keys.p256dh, auth:keys.auth },{ onConflict:'endpoint' });
+          console.log('Push subscribed ✅');
+        } catch(e) { console.error('Push subscribe error:', e); }
+        setTimeout(() => setStep('email'), 1200);
+      } else {
+        setTimeout(() => setStep('email'), 800);
+      }
     } catch {
       setPushDone(true);
       setTimeout(() => setStep('email'), 800);
