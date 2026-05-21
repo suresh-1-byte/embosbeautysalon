@@ -24,14 +24,17 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Wait for OneSignal to finish initialising before requesting permission.
-      // This ensures the device gets properly registered as a subscriber.
+      // Wait for OneSignal ready with a 5s timeout — don't block forever
       const ready = (window as any).__oneSignalReady;
-      if (ready) await ready;
+      if (ready) {
+        await Promise.race([
+          ready,
+          new Promise((resolve) => setTimeout(resolve, 5000)),
+        ]);
+      }
 
       const OneSignal = (await import('react-onesignal')).default;
-      // OneSignal.Notifications.requestPermission() handles BOTH the browser
-      // permission prompt AND the OneSignal subscriber registration in one call.
+      // OneSignal handles BOTH the browser permission prompt AND subscriber registration
       await OneSignal.Notifications.requestPermission();
 
       setPushDone(true);
