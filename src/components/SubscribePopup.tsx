@@ -52,15 +52,18 @@ export default function SubscribePopup() {
             serviceWorkerRegistration: swReg,
           });
 
+          console.log('FCM token received:', token ? token.substring(0, 30) + '...' : 'NULL');
           if (token) {
             const { supabase } = await import('../lib/supabase');
-            await supabase.from('push_subscriptions').upsert(
+            const { error } = await supabase.from('push_subscriptions').upsert(
               { endpoint: token, p256dh: 'fcm', auth: 'fcm' },
               { onConflict: 'endpoint' }
             );
+            if (error) console.error('Supabase upsert error:', error);
+            else console.log('FCM token saved to Supabase ✅');
           }
         } catch (e) {
-          console.warn('FCM token error:', e);
+          console.error('FCM token error:', e);
         }
         setTimeout(() => setStep('email'), 1200);
       } else {
