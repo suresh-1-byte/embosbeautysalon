@@ -241,12 +241,14 @@ export default function Admin() {
     if (!pushTitle.trim() || !pushBody.trim()) { addToast('info', 'Fill in title and message'); return; }
     setPushSending(true);
 
-    // 1. Browser push via OneSignal (to all push subscribers)
-    const pushResult = await sendPushToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/');
-    // 2. Local notification for current browser
-    await showLocalNotification(pushTitle.trim(), pushBody.trim());
-    // 3. Bulk email to all email subscribers
-    const emailResult = await sendBulkOfferEmail(pushTitle.trim(), pushBody.trim(), pushUrl || '/');
+    // Run push + email in parallel — don't wait for one before starting the other
+    const [pushResult, emailResult] = await Promise.all([
+      sendPushToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
+      sendBulkOfferEmail(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
+    ]);
+
+    // Local notification for current browser (non-blocking)
+    showLocalNotification(pushTitle.trim(), pushBody.trim()).catch(() => {});
 
     setPushSending(false);
 

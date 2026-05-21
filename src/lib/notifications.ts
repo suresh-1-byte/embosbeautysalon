@@ -1,5 +1,13 @@
 import { supabase } from './supabase';
 
+/** Wraps a promise with a timeout. Resolves with null if it exceeds ms. */
+function withTimeout<T>(promise: Promise<T>, ms = 15000): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), ms)),
+  ]);
+}
+
 /**
  * Send a push notification to ALL OneSignal subscribers.
  */
@@ -9,9 +17,12 @@ export async function sendPushToAll(
   url = '/'
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const { data, error } = await supabase.functions.invoke('send-push', {
-      body: { title, body, url },
-    });
+    const result = await withTimeout(
+      supabase.functions.invoke('send-push', { body: { title, body, url } }),
+      15000
+    );
+    if (!result) return { success: false, error: 'Request timed out — try again' };
+    const { data, error } = result;
     if (error) return { success: false, error: error.message };
     console.log('Push sent:', data);
     return { success: true };
@@ -30,9 +41,14 @@ export async function sendBulkOfferEmail(
   url = '/'
 ): Promise<{ success: boolean; sent?: number; error?: string }> {
   try {
-    const { data, error } = await supabase.functions.invoke('send-email', {
-      body: { type: 'bulk_offer', booking: { title, body, url } },
-    });
+    const result = await withTimeout(
+      supabase.functions.invoke('send-email', {
+        body: { type: 'bulk_offer', booking: { title, body, url } },
+      }),
+      15000
+    );
+    if (!result) return { success: false, error: 'Email timed out — try again' };
+    const { data, error } = result;
     if (error) return { success: false, error: error.message };
     return { success: true, sent: data?.sent ?? 0 };
   } catch (err) {
@@ -54,9 +70,12 @@ export async function sendBookingEmail(
   }
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const { data, error } = await supabase.functions.invoke('send-email', {
-      body: { type, booking },
-    });
+    const result = await withTimeout(
+      supabase.functions.invoke('send-email', { body: { type, booking } }),
+      15000
+    );
+    if (!result) return { success: false, error: 'Email timed out — try again' };
+    const { data, error } = result;
     if (error) return { success: false, error: error.message };
     console.log('Email sent:', data);
     return { success: true };

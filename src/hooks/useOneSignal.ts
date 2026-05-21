@@ -10,6 +10,18 @@ export interface OneSignalState {
   unsubscribe: () => Promise<void>;
 }
 
+/** Wait for OneSignal to finish initialising (set up in main.tsx) */
+async function getOneSignal() {
+  try {
+    const ready = (window as any).__oneSignalReady;
+    if (ready) await ready;
+    const OneSignal = (await import('react-onesignal')).default;
+    return OneSignal;
+  } catch {
+    return null;
+  }
+}
+
 export function useOneSignal(): OneSignalState {
   const [permission, setPermission] = useState<PermissionState>('loading');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -17,16 +29,22 @@ export function useOneSignal(): OneSignalState {
 
   const refresh = useCallback(async () => {
     try {
-      // Use native Notification API as primary source of truth
+      // Native browser permission is the primary source of truth
       if ('Notification' in window) {
         const nativePerm = Notification.permission as PermissionState;
         setPermission(nativePerm);
         setIsSubscribed(nativePerm === 'granted');
       }
-      // Try OneSignal on top — optional
-      const OneSignal = (await import('react-onesignal')).default;
-      const optedIn = await OneSignal.User.PushSubscription.optedIn;
-      if (optedIn !== undefined) setIsSubscribed(!!optedIn);
+
+      // Refine with OneSignal's actual opted-in state
+      const OneSignal = await getOneSignal();
+      if (OneSignal) {
+        // optedIn is a plain boolean property, NOT a Promise — do not await it
+        const optedIn = OneSignal.User.PushSubscription.optedIn;
+        if (optedIn !== undefined && optedIn !== null) {
+          setIsSubscribed(!!optedIn);
+        }
+      }
     } catch {
       if ('Notification' in window) {
         setPermission(Notification.permission as PermissionState);
@@ -37,28 +55,30 @@ export function useOneSignal(): OneSignalState {
   }, []);
 
   useEffect(() => {
-    // Give OneSignal a moment to initialise before reading state
-    const timer = setTimeout(refresh, 1200);
+    // Wait for OneSignal init then read state
+    const timer = setTimeout(refresh, 1500);
     return () => clearTimeout(timer);
   }, [refresh]);
 
   const subscribe = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Request native browser permission first
-      const result = await Notification.requestPermission();
-      if (result === 'granted') {
-        // Then register with OneSignal
-        try {
-          await OneSignal.Notifications.requestPermission();
-        } catch {
-          // OneSignal may throw on localhost — native permission is enough
-        }
+      // Wait for OneSignal to be ready before requesting permission
+      const OneSignal = await getOneSignal();
+
+      if (OneSignal) {
+        // Let OneSignal handle the full permission + registration flow
+        await OneSignal.Notifications.requestPermission();
+      } else {
+        // Fallback: native browser permission only
+        await Notification.requestPermission();
       }
-      await new Promise((r) => setTimeout(r, 800));
+
+      await new Promise((r) => setTimeout(r, 1000));
       await refresh();
     } catch (err) {
       console.warn('OneSignal subscribe error:', err);
+      await refresh();
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +87,10 @@ export function useOneSignal(): OneSignalState {
   const unsubscribe = useCallback(async () => {
     setIsLoading(true);
     try {
-      await OneSignal.User.PushSubscription.optOut();
+      const OneSignal = await getOneSignal();
+      if (OneSignal) {
+        await OneSignal.User.PushSubscription.optOut();
+      }
       await refresh();
     } catch (err) {
       console.warn('OneSignal unsubscribe error:', err);
