@@ -24,26 +24,24 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Wait for OneSignal ready with a 5s timeout — don't block forever
-      const ready = (window as any).__oneSignalReady;
-      if (ready) {
-        await Promise.race([
-          ready,
-          new Promise((resolve) => setTimeout(resolve, 5000)),
-        ]);
+      // Step 1: Ask browser permission directly — never blocks
+      const result = await Notification.requestPermission();
+      setPushDone(true);
+
+      if (result === 'granted') {
+        // Step 2: Register with OneSignal in background — non-blocking
+        (async () => {
+          try {
+            const ready = (window as any).__oneSignalReady;
+            if (ready) await Promise.race([ready, new Promise(r => setTimeout(r, 4000))]);
+            const OneSignal = (await import('react-onesignal')).default;
+            await OneSignal.User.PushSubscription.optIn();
+          } catch { /* non-fatal */ }
+        })();
       }
 
-      const OneSignal = (await import('react-onesignal')).default;
-      // OneSignal handles BOTH the browser permission prompt AND subscriber registration
-      await OneSignal.Notifications.requestPermission();
-
-      setPushDone(true);
-      setTimeout(() => setStep('email'), 1200);
+      setTimeout(() => setStep('email'), 1000);
     } catch {
-      // Fallback: native browser permission if OneSignal is unavailable
-      try {
-        await Notification.requestPermission();
-      } catch {}
       setPushDone(true);
       setTimeout(() => setStep('email'), 800);
     } finally {
