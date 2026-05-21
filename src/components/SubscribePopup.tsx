@@ -24,51 +24,14 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Request browser permission
-      const perm = await Notification.requestPermission();
-      setPushDone(true);
-
-      if (perm === 'granted') {
-        // Register FCM service worker and get token
-        try {
-          const { initializeApp, getApps } = await import('firebase/app');
-          const { getMessaging, getToken } = await import('firebase/messaging');
-
-          const firebaseConfig = {
-            apiKey:            import.meta.env.VITE_FCM_API_KEY,
-            authDomain:        import.meta.env.VITE_FCM_AUTH_DOMAIN,
-            projectId:         import.meta.env.VITE_FCM_PROJECT_ID,
-            storageBucket:     import.meta.env.VITE_FCM_STORAGE_BUCKET,
-            messagingSenderId: import.meta.env.VITE_FCM_MESSAGING_SENDER_ID,
-            appId:             import.meta.env.VITE_FCM_APP_ID,
-          };
-
-          const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-          const messaging = getMessaging(app);
-          const swReg = await navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/' });
-
-          const token = await getToken(messaging, {
-            vapidKey: import.meta.env.VITE_FCM_VAPID_KEY,
-            serviceWorkerRegistration: swReg,
-          });
-
-          console.log('FCM token received:', token ? token.substring(0, 30) + '...' : 'NULL');
-          if (token) {
-            const { supabase } = await import('../lib/supabase');
-            const { error } = await supabase.from('push_subscriptions').upsert(
-              { endpoint: token, p256dh: 'fcm', auth: 'fcm' },
-              { onConflict: 'endpoint' }
-            );
-            if (error) console.error('Supabase upsert error:', error);
-            else console.log('FCM token saved to Supabase ✅');
-          }
-        } catch (e) {
-          console.error('FCM token error:', e);
-        }
-        setTimeout(() => setStep('email'), 1200);
-      } else {
-        setTimeout(() => setStep('email'), 800);
+      // Webpushr SDK handles subscription automatically when permission is granted.
+      // We just need to trigger the browser permission prompt.
+      if ('Notification' in window) {
+        await Notification.requestPermission();
       }
+      // Webpushr SDK picks up the permission and registers the subscriber automatically.
+      setPushDone(true);
+      setTimeout(() => setStep('email'), 1200);
     } catch {
       setPushDone(true);
       setTimeout(() => setStep('email'), 800);
