@@ -11,6 +11,7 @@ try {
     allowLocalhostAsSecureOrigin: true,
     autoResubscribe: true,
     notifyButton: { enable: false, prenotify: false, showCredit: false, text: {} },
+    serviceWorkerPath: '/OneSignalSDKWorker.js',
     serviceWorkerParam: { scope: '/' },
   }).catch(() => {/* non-fatal */});
 } catch {
