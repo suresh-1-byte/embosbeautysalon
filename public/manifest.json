@@ -1,0 +1,26 @@
+{
+  "name": "EMBOS Beauty Salon & Studio",
+  "short_name": "EMBOS",
+  "description": "Premium Korean Beauty & Indian Bridal Makeup in Valasaravakkam, Chennai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFDD0",
+  "theme_color": "#F4C2C2",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["beauty", "lifestyle", "shopping"],
+  "lang": "en"
+}
