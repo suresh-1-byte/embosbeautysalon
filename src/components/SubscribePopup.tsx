@@ -24,40 +24,43 @@ export default function SubscribePopup() {
   const handlePushAllow = async () => {
     setPushLoading(true);
     try {
-      // Register service worker
-      const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-      await navigator.serviceWorker.ready;
-
-      // Ask browser permission
-      const result = await Notification.requestPermission();
+      // Request browser permission
+      const perm = await Notification.requestPermission();
       setPushDone(true);
 
-      if (result === 'granted') {
-        // Subscribe via native Web Push (VAPID)
+      if (perm === 'granted') {
+        // Register FCM service worker and get token
         try {
-          const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY as string;
-          const padding = '='.repeat((4 - (VAPID_PUBLIC_KEY.length % 4)) % 4);
-          const base64 = (VAPID_PUBLIC_KEY + padding).replace(/-/g, '+').replace(/_/g, '/');
-          const rawData = atob(base64);
-          const applicationServerKey = Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
+          const { initializeApp, getApps } = await import('firebase/app');
+          const { getMessaging, getToken } = await import('firebase/messaging');
 
-          const sub = await reg.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey,
+          const firebaseConfig = {
+            apiKey:            import.meta.env.VITE_FCM_API_KEY,
+            authDomain:        import.meta.env.VITE_FCM_AUTH_DOMAIN,
+            projectId:         import.meta.env.VITE_FCM_PROJECT_ID,
+            storageBucket:     import.meta.env.VITE_FCM_STORAGE_BUCKET,
+            messagingSenderId: import.meta.env.VITE_FCM_MESSAGING_SENDER_ID,
+            appId:             import.meta.env.VITE_FCM_APP_ID,
+          };
+
+          const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+          const messaging = getMessaging(app);
+          const swReg = await navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/' });
+
+          const token = await getToken(messaging, {
+            vapidKey: import.meta.env.VITE_FCM_VAPID_KEY,
+            serviceWorkerRegistration: swReg,
           });
 
-          // Save to Supabase
-          const { endpoint, keys } = sub.toJSON() as {
-            endpoint: string;
-            keys: { p256dh: string; auth: string };
-          };
-          const { supabase } = await import('../lib/supabase');
-          await supabase.from('push_subscriptions').upsert(
-            { endpoint, p256dh: keys.p256dh, auth: keys.auth },
-            { onConflict: 'endpoint' }
-          );
+          if (token) {
+            const { supabase } = await import('../lib/supabase');
+            await supabase.from('push_subscriptions').upsert(
+              { endpoint: token, p256dh: 'fcm', auth: 'fcm' },
+              { onConflict: 'endpoint' }
+            );
+          }
         } catch (e) {
-          console.warn('Push subscription save error:', e);
+          console.warn('FCM token error:', e);
         }
         setTimeout(() => setStep('email'), 1200);
       } else {

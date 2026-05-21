@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, BellOff, BellRing, Loader2, X } from 'lucide-react';
-import { usePushSubscription } from '../hooks/usePushSubscription';
+import { useFCMSubscription } from '../hooks/useFCMSubscription';
 
 interface Props {
   /** Pass 'light' when rendered on a dark/hero background */
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function OneSignalBell({ variant = 'dark' }: Props) {
-  const { permission, isSubscribed, isLoading, subscribe, unsubscribe } = usePushSubscription();
+  const { permission, isSubscribed, isLoading, subscribe, unsubscribe } = useFCMSubscription();
   const [tooltip, setTooltip] = useState(false);
   const [justSubscribed, setJustSubscribed] = useState(false);
 
