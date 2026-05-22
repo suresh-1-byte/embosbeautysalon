@@ -6,6 +6,11 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN') ?? '';
 
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
 async function sendMessage(chatId: number, text: string) {
   await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: 'POST',
@@ -15,6 +20,8 @@ async function sendMessage(chatId: number, text: string) {
 }
 
 Deno.serve(async (req: Request) => {
+  // Allow all requests — Telegram webhook doesn't send auth headers
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   try {
     const body = await req.json();
     const message = body?.message;
