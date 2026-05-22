@@ -3,7 +3,7 @@ importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyDY5mK4fg8_tascdPS4xwrIc_wpIscVDAI',
+  apiKey: 'AIzaSyDY5mK4fgB_tascdPS4xwrIc_wpTscVDAI',
   projectId: 'gen-lang-client-0013050577',
   messagingSenderId: '710020479709',
   appId: '1:710020479709:web:8a86048301de2f25753934',
