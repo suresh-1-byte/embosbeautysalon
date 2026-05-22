@@ -101,6 +101,24 @@ export async function showLocalNotification(title: string, body: string): Promis
   }
 }
 
-export async function registerPushSubscription(): Promise<PushSubscription | null> {
-  return null;
+/**
+ * Send a Telegram message to ALL Telegram subscribers.
+ */
+export async function sendTelegramToAll(
+  title: string,
+  body: string,
+  url = '/'
+): Promise<{ success: boolean; sent?: number; error?: string }> {
+  try {
+    const result = await withTimeout(
+      supabase.functions.invoke('send-telegram', { body: { title, body, url } }),
+      15000
+    );
+    if (!result) return { success: false, error: 'Telegram timed out' };
+    const { data, error } = result;
+    if (error) return { success: false, error: error.message };
+    return { success: true, sent: data?.sent ?? 0 };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
 }

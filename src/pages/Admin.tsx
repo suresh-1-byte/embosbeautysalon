@@ -7,7 +7,7 @@ import {
   Sparkles, Gift, Star, Scissors, MessageSquare,
 } from 'lucide-react';
 import { supabase, type Offer, type GalleryImage, type Transformation, type Booking, type Review } from '../lib/supabase';
-import { sendPushToAll, showLocalNotification, sendBookingEmail, sendBulkOfferEmail } from '../lib/notifications';
+import { sendPushToAll, showLocalNotification, sendBookingEmail, sendBulkOfferEmail, sendTelegramToAll } from '../lib/notifications';
 import Toast, { useToast } from '../components/Toast';
 
 const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL as string;
@@ -241,10 +241,11 @@ export default function Admin() {
     if (!pushTitle.trim() || !pushBody.trim()) { addToast('info', 'Fill in title and message'); return; }
     setPushSending(true);
 
-    // Run push + email in parallel — don't wait for one before starting the other
-    const [pushResult, emailResult] = await Promise.all([
+    // Run push + email + Telegram in parallel
+    const [pushResult, emailResult, telegramResult] = await Promise.all([
       sendPushToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
       sendBulkOfferEmail(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
+      sendTelegramToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
     ]);
 
     // Local notification for current browser (non-blocking)
@@ -252,14 +253,17 @@ export default function Admin() {
 
     setPushSending(false);
 
-    if (pushResult.success) {
-      const emailMsg = emailResult.success
-        ? `Push sent + email sent to ${emailResult.sent ?? 0} subscribers`
-        : 'Push sent (email requires Resend key)';
-      addToast('success', 'Notifications sent!', emailMsg);
+    const parts = [];
+    if (pushResult.success) parts.push('Push sent');
+    if (telegramResult.success && (telegramResult.sent ?? 0) > 0) parts.push(`Telegram: ${telegramResult.sent}`);
+    if (emailResult.success && (emailResult.sent ?? 0) > 0) parts.push(`Email: ${emailResult.sent}`);
+
+    if (parts.length > 0) {
+      addToast('success', 'Notifications sent!', parts.join(' · '));
       setPushTitle(''); setPushBody(''); setPushUrl('/');
     } else {
-      addToast('info', 'Push failed', pushResult.error ?? 'Check Edge Function logs');
+      addToast('info', 'Sent', 'No active subscribers yet — share your bot link!');
+      setPushTitle(''); setPushBody(''); setPushUrl('/');
     }
   };
 
