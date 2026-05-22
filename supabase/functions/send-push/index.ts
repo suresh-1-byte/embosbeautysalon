@@ -156,7 +156,7 @@ Deno.serve(async (req: Request) => {
 
     // Get FCM access token once for all Chrome subscribers
     let fcmToken: string | null = null;
-    const chromeSubs = subs.filter(s => s.endpoint.includes('fcm.googleapis.com'));
+    const chromeSubs = subs.filter(s => s.p256dh === 'fcm-v1');
     if (chromeSubs.length > 0 && FCM_PRIVATE_KEY) {
       try { fcmToken = await getFCMAccessToken(); } catch(e) { console.error('FCM token error:', e); }
     }
@@ -168,16 +168,14 @@ Deno.serve(async (req: Request) => {
     const errors: string[] = [];
 
     await Promise.all(subs.map(async (sub) => {
-      const isChrome = sub.endpoint.includes('fcm.googleapis.com');
+      const isChrome = sub.p256dh === 'fcm-v1';
 
       if (isChrome && fcmToken) {
-        // Extract FCM token from endpoint URL
-        const fcmRegistrationToken = sub.endpoint.split('/').pop();
-        if (!fcmRegistrationToken) return;
-        const result = await sendFCM(fcmRegistrationToken, title, body, targetUrl, fcmToken);
+        // sub.endpoint IS the FCM registration token
+        const result = await sendFCM(sub.endpoint, title, body, targetUrl, fcmToken);
         if (result.ok) { sent++; console.log('FCM sent ✅'); }
         else { errors.push(result.error ?? 'FCM error'); console.error('FCM error:', result.error); }
-      } else {
+      } else if (!isChrome) {
         // VAPID for Firefox, Edge, Safari
         const result = await sendVapid(sub, payload);
         if (result.ok) { sent++; console.log('VAPID sent ✅'); }

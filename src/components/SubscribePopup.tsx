@@ -28,29 +28,40 @@ export default function SubscribePopup() {
       setPushDone(true);
       if (perm === 'granted') {
         try {
-          const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+          const { initializeApp, getApps } = await import('firebase/app');
+          const { getMessaging, getToken } = await import('firebase/messaging');
+
+          const app = getApps().length === 0
+            ? initializeApp({
+                apiKey:            import.meta.env.VITE_FCM_API_KEY,
+                projectId:         import.meta.env.VITE_FCM_PROJECT_ID,
+                messagingSenderId: import.meta.env.VITE_FCM_MESSAGING_SENDER_ID,
+                appId:             import.meta.env.VITE_FCM_APP_ID,
+              })
+            : getApps()[0];
+
+          const messaging = getMessaging(app);
+          const swReg = await navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/' });
           await navigator.serviceWorker.ready;
-          const pub = import.meta.env.VITE_VAPID_PUBLIC_KEY as string;
-          const pad = '='.repeat((4 - pub.length % 4) % 4);
-          const key = Uint8Array.from(atob((pub+pad).replace(/-/g,'+').replace(/_/g,'/')), c=>c.charCodeAt(0));
 
-          // Unsubscribe any existing subscription with a 3s timeout
-          try {
-            const existing = await reg.pushManager.getSubscription();
-            if (existing) {
-              await Promise.race([
-                existing.unsubscribe(),
-                new Promise(r => setTimeout(r, 3000))
-              ]);
-            }
-          } catch { /* ignore unsubscribe errors */ }
+          const fcmToken = await getToken(messaging, {
+            vapidKey: import.meta.env.VITE_FCM_VAPID_KEY,
+            serviceWorkerRegistration: swReg,
+          });
 
-          const sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key });
-          const { endpoint, keys } = sub.toJSON() as { endpoint:string; keys:{p256dh:string;auth:string} };
-          const { supabase } = await import('../lib/supabase');
-          await supabase.from('push_subscriptions').upsert({ endpoint, p256dh:keys.p256dh, auth:keys.auth },{ onConflict:'endpoint' });
-          console.log('Push subscribed ✅');
-        } catch(e) { console.error('Push subscribe error:', e); }
+          if (fcmToken) {
+            const { supabase } = await import('../lib/supabase');
+            await supabase.from('push_subscriptions').upsert(
+              { endpoint: fcmToken, p256dh: 'fcm-v1', auth: 'fcm-v1' },
+              { onConflict: 'endpoint' }
+            );
+            console.log('FCM token saved ✅');
+          } else {
+            console.warn('No FCM token received');
+          }
+        } catch (e) {
+          console.error('FCM subscribe error:', e);
+        }
         setTimeout(() => setStep('email'), 1200);
       } else {
         setTimeout(() => setStep('email'), 800);
