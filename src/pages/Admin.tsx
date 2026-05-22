@@ -145,12 +145,15 @@ export default function Admin() {
     if (data) {
       setOffers([data, ...offers]);
       setNewOffer({ title: '', description: '' });
-      addToast('success', 'Offer added', 'Sending push notification...');
+      addToast('success', 'Offer added', 'Sending notifications...');
       setNotifLoading(true);
-      await sendPushToAll('🔥 New Offer Available', `${data.title} is now live. Check it out now!`, '/#offers');
-      await showLocalNotification('🔥 New Offer Available', `${data.title} is now live. Check it out now!`);
+      await Promise.all([
+        sendPushToAll('🔥 New Offer Available', `${data.title} is now live. Check it out now!`, '/#offers'),
+        sendTelegramToAll('🔥 New Offer Available', `${data.title} is now live. Check it out now!`, '/#offers'),
+        showLocalNotification('🔥 New Offer Available', `${data.title} is now live. Check it out now!`),
+      ]);
       setNotifLoading(false);
-      addToast('info', 'Notification sent', `Push sent for "${data.title}"`);
+      addToast('info', 'Notifications sent', `Push + Telegram sent for "${data.title}"`);
     }
   };
   const toggleOffer = async (id: string, active: boolean) => {
