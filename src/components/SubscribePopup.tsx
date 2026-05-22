@@ -33,6 +33,11 @@ export default function SubscribePopup() {
           const pub = import.meta.env.VITE_VAPID_PUBLIC_KEY as string;
           const pad = '='.repeat((4 - pub.length % 4) % 4);
           const key = Uint8Array.from(atob((pub+pad).replace(/-/g,'+').replace(/_/g,'/')), c=>c.charCodeAt(0));
+
+          // Unsubscribe any existing subscription first (handles key rotation)
+          const existing = await reg.pushManager.getSubscription();
+          if (existing) await existing.unsubscribe();
+
           const sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key });
           const { endpoint, keys } = sub.toJSON() as { endpoint:string; keys:{p256dh:string;auth:string} };
           const { supabase } = await import('../lib/supabase');
