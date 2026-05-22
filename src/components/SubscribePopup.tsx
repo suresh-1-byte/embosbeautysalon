@@ -34,9 +34,16 @@ export default function SubscribePopup() {
           const pad = '='.repeat((4 - pub.length % 4) % 4);
           const key = Uint8Array.from(atob((pub+pad).replace(/-/g,'+').replace(/_/g,'/')), c=>c.charCodeAt(0));
 
-          // Unsubscribe any existing subscription first (handles key rotation)
-          const existing = await reg.pushManager.getSubscription();
-          if (existing) await existing.unsubscribe();
+          // Unsubscribe any existing subscription with a 3s timeout
+          try {
+            const existing = await reg.pushManager.getSubscription();
+            if (existing) {
+              await Promise.race([
+                existing.unsubscribe(),
+                new Promise(r => setTimeout(r, 3000))
+              ]);
+            }
+          } catch { /* ignore unsubscribe errors */ }
 
           const sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key });
           const { endpoint, keys } = sub.toJSON() as { endpoint:string; keys:{p256dh:string;auth:string} };
