@@ -121,7 +121,7 @@ export default function SubscribePopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 24 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[92%] max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[92%] max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden max-h-[90vh] overflow-y-auto"
           >
             {/* Progress dots */}
             <div className="flex gap-1.5 justify-center pt-4">
@@ -207,15 +207,15 @@ export default function SubscribePopup() {
                     </motion.div>
                   ) : (
                     <>
-                      <div className="flex flex-col items-center text-center mb-5">
-                        <div className="w-16 h-16 rounded-2xl bg-[#ADD8E6]/20 flex items-center justify-center mb-3">
-                          <Mail size={28} className="text-[#ADD8E6]" />
+                      <div className="flex flex-col items-center text-center mb-3">
+                        <div className="w-12 h-12 rounded-2xl bg-[#ADD8E6]/20 flex items-center justify-center mb-2">
+                          <Mail size={22} className="text-[#ADD8E6]" />
                         </div>
-                        <h2 className="text-xl font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                        <h2 className="text-lg font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
                           Get Offers by Email
                         </h2>
-                        <p className="text-xs text-gray-500 mt-2 leading-relaxed">
-                          Enter your email to receive exclusive offers, seasonal packages & beauty tips directly in your inbox.
+                        <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                          Enter your email to receive exclusive offers & beauty tips.
                         </p>
                       </div>
 
