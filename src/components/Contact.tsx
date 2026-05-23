@@ -145,8 +145,8 @@ export default function Contact({ onBookingClick }: ContactProps) {
               </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium tracking-wide mb-0.5">Location</p>
-                <p className="font-semibold text-[#1a1a2e]">Valasaravakkam, Chennai</p>
-                <p className="text-xs text-gray-400 mt-0.5">Tamil Nadu, India</p>
+                <p className="font-semibold text-[#1a1a2e]">148, 3rd Main Rd, Ashtalakshmi Nagar</p>
+                <p className="text-xs text-gray-400 mt-0.5">Alapakkam, Valasaravakkam, Chennai 600116</p>
               </div>
             </motion.div>
           </div>
@@ -157,18 +157,26 @@ export default function Contact({ onBookingClick }: ContactProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="rounded-3xl overflow-hidden shadow-xl border border-pink-100 h-96 lg:h-full min-h-80"
+            className="rounded-3xl overflow-hidden shadow-xl border border-pink-100 h-96 lg:h-full min-h-80 flex flex-col"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.215!2d80.1976!3d12.9876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sEMBOS%20Beauty%20Salon%20Valasaravakkam!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=80.1725%2C13.0435%2C80.1825%2C13.0535&layer=mapnik&marker=13.0485%2C80.1775"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '320px' }}
+              style={{ border: 0, minHeight: '300px', flex: 1 }}
               allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="EMBOS Beauty Salon Location"
+              title="EMBOS Beauty Salon - 148, 3rd Main Rd, Ashtalakshmi Nagar, Alapakkam, Valasaravakkam, Chennai"
             />
+            <a
+              href="https://www.google.com/maps/search/148+3rd+Main+Rd+Ashtalakshmi+Nagar+Alapakkam+Valasaravakkam+Chennai+600116"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 py-3 bg-white text-sm font-medium text-[#40BFFF] hover:bg-pink-50 transition-colors border-t border-pink-100"
+            >
+              <MapPin size={14} />
+              Get Directions on Google Maps
+            </a>
           </motion.div>
         </div>
       </div>
