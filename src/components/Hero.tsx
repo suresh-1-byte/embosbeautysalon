@@ -2,119 +2,55 @@ import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden">
+    <section id="home" className="relative min-h-[100dvh] w-full overflow-hidden">
       {/* Desktop: Diagonal Split */}
       <div className="hidden md:block absolute inset-0">
-        {/* Korean side - left */}
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' }}
-        >
-          <img
-            src="/KOREAN_GIRL.png"
-            alt="Korean beauty makeup"
-            className="w-full h-full object-cover"
-          />
+        <div className="absolute inset-0" style={{ clipPath: 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' }}>
+          <img src="/KOREAN_GIRL.png" alt="Korean beauty" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-br from-[#40BFFF]/50 via-white/10 to-transparent" />
         </div>
-
-        {/* Bridal side - right */}
-        <div
-          className="absolute inset-0"
-          style={{ clipPath: 'polygon(60% 0, 100% 0, 100% 100%, 40% 100%)' }}
-        >
-          <img
-            src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg"
-            alt="Indian bridal wedding"
-            className="w-full h-full object-cover"
-          />
+        <div className="absolute inset-0" style={{ clipPath: 'polygon(60% 0, 100% 0, 100% 100%, 40% 100%)' }}>
+          <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Indian bridal" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-bl from-[#FFE8F0]/50 via-pink-100/10 to-transparent" />
         </div>
-
-        {/* Diagonal center overlay gradient */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(105deg, rgba(64,191,255,0.15) 0%, rgba(255,232,240,0.6) 45%, rgba(255,200,230,0.15) 100%)',
-          }}
-        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(64,191,255,0.15) 0%, rgba(255,232,240,0.6) 45%, rgba(255,200,230,0.15) 100%)' }} />
       </div>
 
-      {/* Mobile: Stacked */}
+      {/* Mobile: Single background with overlay */}
       <div className="md:hidden absolute inset-0">
-        <div className="absolute top-0 left-0 right-0 h-1/2">
-          <img
-            src="/KOREAN_GIRL.png"
-            alt="Korean beauty makeup"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[#40BFFF]/40" />
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/2">
-          <img
-            src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg"
-            alt="Indian bridal wedding"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[#FFE8F0]/40" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/30" />
+        <img src="/KOREAN_GIRL.png" alt="EMBOS Beauty" className="w-full h-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/60" />
       </div>
 
-      {/* Dark overlay on desktop for text readability */}
+      {/* Desktop dark overlay */}
       <div className="hidden md:block absolute inset-0 bg-black/30" />
 
-      {/* Decorative floral elements */}
+      {/* Decorative — desktop only */}
       <div className="absolute top-24 right-8 w-32 h-32 opacity-20 pointer-events-none hidden lg:block">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 120 120" fill="none">
           <circle cx="60" cy="60" r="50" stroke="#FFE8F0" strokeWidth="1" />
           <circle cx="60" cy="60" r="35" stroke="#FFE8F0" strokeWidth="1" />
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
-            <ellipse
-              key={i}
-              cx={60 + 42 * Math.cos((deg * Math.PI) / 180)}
-              cy={60 + 42 * Math.sin((deg * Math.PI) / 180)}
-              rx="8"
-              ry="14"
-              transform={`rotate(${deg} ${60 + 42 * Math.cos((deg * Math.PI) / 180)} ${60 + 42 * Math.sin((deg * Math.PI) / 180)})`}
-              fill="#FFE8F0"
-            />
-          ))}
-        </svg>
-      </div>
-
-      <div className="absolute bottom-24 left-8 w-24 h-24 opacity-20 pointer-events-none hidden lg:block">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {[0, 60, 120, 180, 240, 300].map((deg, i) => (
-            <ellipse
-              key={i}
-              cx={40 + 28 * Math.cos((deg * Math.PI) / 180)}
-              cy={40 + 28 * Math.sin((deg * Math.PI) / 180)}
-              rx="5"
-              ry="10"
-              transform={`rotate(${deg} ${40 + 28 * Math.cos((deg * Math.PI) / 180)} ${40 + 28 * Math.sin((deg * Math.PI) / 180)})`}
-              fill="#40BFFF"
-            />
+          {[0,45,90,135,180,225,270,315].map((deg,i) => (
+            <ellipse key={i}
+              cx={60+42*Math.cos(deg*Math.PI/180)} cy={60+42*Math.sin(deg*Math.PI/180)}
+              rx="8" ry="14"
+              transform={`rotate(${deg} ${60+42*Math.cos(deg*Math.PI/180)} ${60+42*Math.sin(deg*Math.PI/180)})`}
+              fill="#FFE8F0" />
           ))}
         </svg>
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 py-24 w-full max-w-full">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] text-center px-5 sm:px-6 py-20 w-full">
         {/* Logo */}
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="mb-8"
+          className="mb-5 sm:mb-8"
         >
-          <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white/60 shadow-2xl mx-auto">
-            <img
-              src="/logo.jpeg"
-              alt="EMBOS Logo"
-              className="w-full h-full object-cover"
-            />
+          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white/60 shadow-2xl mx-auto">
+            <img src="/logo.jpeg" alt="EMBOS Logo" className="w-full h-full object-cover" />
           </div>
         </motion.div>
 
@@ -122,7 +58,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-xs tracking-[0.4em] text-[#FFFDD0] uppercase mb-3 font-medium"
+          className="text-[10px] sm:text-xs tracking-[0.35em] text-[#FFFDD0] uppercase mb-2 sm:mb-3 font-medium"
         >
           Welcome to
         </motion.p>
@@ -131,7 +67,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-3 leading-none"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-2 sm:mb-3 leading-none"
           style={{ fontFamily: 'Playfair Display, serif', textShadow: '0 4px 32px rgba(0,0,0,0.4)' }}
         >
           EMBOS
@@ -141,74 +77,63 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="text-sm sm:text-base tracking-[0.3em] text-[#40BFFF] uppercase font-semibold mb-2"
+          className="text-xs sm:text-base tracking-[0.25em] sm:tracking-[0.3em] text-[#40BFFF] uppercase font-semibold mb-1 sm:mb-2"
         >
           Beauty Salon + Studio
         </motion.p>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.75, duration: 0.6 }}
-          className="text-xs sm:text-sm tracking-[0.25em] text-[#F4C2C2]/80 uppercase font-medium mb-8"
+          className="text-[10px] sm:text-sm tracking-[0.2em] text-[#F4C2C2]/80 uppercase font-medium mb-5 sm:mb-8"
         >
-          For Ladies & Kids
+          For Ladies &amp; Kids
         </motion.p>
 
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
-          className="w-24 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-8"
+          className="w-20 sm:w-24 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-5 sm:mb-8"
         />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.8 }}
-          className="max-w-xl text-white/90 text-base sm:text-lg leading-relaxed font-light"
+          className="max-w-xs sm:max-w-xl text-white/90 text-sm sm:text-lg leading-relaxed font-light px-2"
           style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
         >
-          Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair — curating your most radiant self.
+          Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.6 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none justify-center"
+          className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-[280px] sm:max-w-none justify-center"
         >
           <a
             href="#services"
-            className="px-8 py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg text-sm text-center"
+            className="px-7 py-3 sm:px-8 sm:py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-lg text-sm text-center"
           >
             Explore Services
           </a>
-          <button
-            onClick={() => (window as any).openBookingModal?.()}
-            className="px-8 py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] hover:scale-105 transition-all duration-300 text-sm backdrop-blur-sm text-center"
+          <a
+            href="#contact"
+            className="px-7 py-3 sm:px-8 sm:py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] transition-all duration-300 text-sm text-center"
           >
             Book Appointment
-          </button>
+          </a>
         </motion.div>
 
-        {/* Split labels */}
+        {/* Split labels — desktop only */}
         <div className="hidden md:flex absolute bottom-12 left-0 right-0 justify-between px-16 pointer-events-none">
-          <motion.p
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="text-xs tracking-[0.3em] text-[#ADD8E6] uppercase font-medium"
-          >
-            Korean Beauty
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="text-xs tracking-[0.3em] text-[#F4C2C2] uppercase font-medium"
-          >
-            Bridal Studio
-          </motion.p>
+          <motion.p initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.6, duration: 0.6 }}
+            className="text-xs tracking-[0.3em] text-[#ADD8E6] uppercase font-medium">Korean Beauty</motion.p>
+          <motion.p initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.6, duration: 0.6 }}
+            className="text-xs tracking-[0.3em] text-[#F4C2C2] uppercase font-medium">Bridal Studio</motion.p>
         </div>
       </div>
 
@@ -217,7 +142,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

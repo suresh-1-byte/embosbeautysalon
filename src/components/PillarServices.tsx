@@ -33,9 +33,10 @@ export default function PillarServices() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="relative rounded-3xl overflow-hidden group max-w-4xl mx-auto"
+            className="relative rounded-3xl overflow-hidden group max-w-4xl mx-auto w-full"
           >
-            <div className="relative h-[28rem] overflow-hidden">
+            {/* Responsive height: shorter on mobile, full on desktop */}
+            <div className="relative h-56 sm:h-80 md:h-[28rem] overflow-hidden">
               <motion.img
                 src="/Bridal card.png"
                 alt="Bridal Studio"
@@ -44,36 +45,32 @@ export default function PillarServices() {
                 transition={{ duration: 0.6 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#FFE8F0]/80 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute inset-0 bg-black/25" />
 
-              {/* Gold filigree decoration */}
-              <div className="absolute top-6 left-6 opacity-40">
+              {/* Gold filigree — desktop only */}
+              <div className="absolute top-6 left-6 opacity-40 hidden sm:block">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                   <circle cx="30" cy="30" r="28" stroke="#FFFDD0" strokeWidth="0.8" />
                   {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
-                    <line
-                      key={i}
-                      x1="30"
-                      y1="30"
+                    <line key={i} x1="30" y1="30"
                       x2={30 + 25 * Math.cos((deg * Math.PI) / 180)}
                       y2={30 + 25 * Math.sin((deg * Math.PI) / 180)}
-                      stroke="#FFFDD0"
-                      strokeWidth="0.5"
-                    />
+                      stroke="#FFFDD0" strokeWidth="0.5" />
                   ))}
                 </svg>
               </div>
 
-              <div className="absolute bottom-8 left-6 sm:left-20 right-4 p-4 sm:p-6 pb-6 sm:pb-8 flex flex-col items-start justify-end">
-                <p className="text-xs tracking-[0.3em] text-white/70 uppercase font-medium mb-2">Signature Service</p>
+              <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 flex flex-col items-start">
+                <p className="text-[10px] sm:text-xs tracking-[0.3em] text-white/70 uppercase font-medium mb-1 sm:mb-2">Signature Service</p>
                 <h3
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 leading-tight"
-                  style={{ fontFamily: 'Playfair Display, serif',
-                    textShadow: '0 4px 12px rgba(0, 0, 0, 0.6)'}}
+                  className="text-xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2 leading-tight"
+                  style={{ fontFamily: 'Playfair Display, serif', textShadow: '0 4px 12px rgba(0,0,0,0.6)' }}
                 >
-                  Bridal<br />Studio
+                  Bridal Studio
                 </h3>
-                <p className="text-white/90 text-sm leading-relaxed max-w-sm mb-4 hidden sm:block">Traditional elegance with modern artistry for your special day.</p>
+                <p className="text-white/90 text-xs sm:text-sm leading-relaxed max-w-sm mb-3 hidden sm:block">
+                  Traditional elegance with modern artistry for your special day.
+                </p>
                 <Link
                   to="/bridal-studio"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#40BFFF]/95 text-white text-xs font-semibold hover:bg-[#20A8F3] transition-colors group"

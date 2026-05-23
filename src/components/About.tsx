@@ -20,7 +20,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
 
         {/* Main Story Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center mb-12 sm:mb-24">
 
           {/* Image Collage with Pink Smoke Highlight */}
           <motion.div
@@ -80,22 +80,19 @@ export default function About() {
               Our team of passionate beauty therapists specializes in brow architecture, skin restoration, and hair transformation — delivering results that honor your natural beauty while elevating it to its most radiant form.
             </p>
 
-            {/* Stats Styling matching the Image */}
-            <div className="flex flex-wrap gap-6 sm:gap-12 mt-10 sm:mt-12 justify-start">
-              {stats.map((stat, i) => {
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-8 mt-10 sm:mt-12">
+              {stats.map((stat) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={stat.label} className="flex flex-col items-center min-w-[80px]">
-                    {/* Icon Box: Pink Background, Sky Blue Icon */}
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#fee2e2] flex items-center justify-center mb-3 sm:mb-4">
-                      <Icon size={24} className="text-sky-400" strokeWidth={1.5} />
+                  <div key={stat.label} className="flex flex-col items-center text-center">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-[#fee2e2] flex items-center justify-center mb-2 sm:mb-4">
+                      <Icon size={20} className="text-sky-400" strokeWidth={1.5} />
                     </div>
-                    {/* Value: Bold Serif */}
-                    <p className="text-2xl sm:text-3xl font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>
+                    <p className="text-xl sm:text-3xl font-bold text-[#1a1a2e] mb-0.5" style={{ fontFamily: 'Playfair Display, serif' }}>
                       {stat.value}
                     </p>
-                    {/* Label: Soft gray-blue */}
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium text-center">
+                    <p className="text-[11px] sm:text-sm text-slate-500 font-medium leading-tight">
                       {stat.label}
                     </p>
                   </div>
@@ -110,7 +107,7 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`mb-24 bg-[#FFD1DC] rounded-3xl p-6 sm:p-10 md:p-14 border-2 border-sky-400 ${pinkSmoke}`}
+          className={`mb-12 sm:mb-24 bg-[#FFD1DC] rounded-3xl p-6 sm:p-10 md:p-14 border-2 border-sky-400 ${pinkSmoke}`}
         >
           <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center">
             <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden flex-shrink-0 shadow-lg border-4 border-white mx-auto md:mx-0">
@@ -144,9 +141,9 @@ export default function About() {
             Client Reviews
           </h2>
 
-          {/* GOOGLE REVIEWS: Sky Blue Outline */}
-          <div className="mb-24">
-            <h3 className="text-2xl font-bold text-sky-700 mb-8">Google Reviews</h3>
+          {/* GOOGLE REVIEWS */}
+          <div className="mb-12 sm:mb-24">
+            <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mb-6 sm:mb-8">Google Reviews</h3>
             
             <div 
               className={`p-4 transition-all duration-300 h-[400px] rounded-2xl border-2 border-sky-400 bg-white/30 ${

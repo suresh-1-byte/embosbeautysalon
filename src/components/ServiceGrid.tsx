@@ -159,7 +159,7 @@ export default function ServiceGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-[#F4C2C2]/20 via-[#FFFDD0]/40 to-[#ADD8E6]/20 border border-pink-100 text-center"
+          className="mt-12 p-5 sm:p-8 rounded-2xl bg-gradient-to-r from-[#F4C2C2]/20 via-[#FFFDD0]/40 to-[#ADD8E6]/20 border border-pink-100 text-center"
         >
           <Home size={28} className="mx-auto mb-3 text-[#F4C2C2]" />
           <h3

@@ -143,9 +143,9 @@ export default function Contact({ onBookingClick }: ContactProps) {
               <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0">
                 <MapPin size={20} className="text-gray-400" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs text-gray-400 font-medium tracking-wide mb-0.5">Location</p>
-                <p className="font-semibold text-[#1a1a2e]">148, 3rd Main Rd, Ashtalakshmi Nagar</p>
+                <p className="font-semibold text-[#1a1a2e] text-sm leading-snug">148, 3rd Main Rd, Ashtalakshmi Nagar</p>
                 <p className="text-xs text-gray-400 mt-0.5">Alapakkam, Valasaravakkam, Chennai 600116</p>
               </div>
             </motion.div>

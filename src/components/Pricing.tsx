@@ -118,33 +118,35 @@ export default function Pricing({ onBookingClick }: PricingProps) {
                 </h3>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {cat.services.map((svc) => (
-                  <div key={svc.name}
-                    className="flex items-center justify-between gap-2 py-2 border-b border-gray-100 last:border-0">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start gap-1.5 flex-wrap">
-                        <p className="text-sm font-medium text-[#1a1a2e]">{svc.name}</p>
-                        {svc.popular && (
-                          <span className="flex-shrink-0 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#F4C2C2]/30 text-[10px] font-bold text-[#c47a7a]">
-                            <Star size={8} fill="currentColor" /> Popular
-                          </span>
-                        )}
-                      </div>
-                      {svc.duration && (
-                        <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
-                          <Clock size={10} /> {svc.duration}
-                        </p>
+                  <div key={svc.name} className="py-2 border-b border-gray-100 last:border-0">
+                    {/* Top row: name + popular badge */}
+                    <div className="flex items-start gap-1.5 mb-1">
+                      <p className="text-sm font-medium text-[#1a1a2e] flex-1 min-w-0 leading-snug">{svc.name}</p>
+                      {svc.popular && (
+                        <span className="flex-shrink-0 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#F4C2C2]/30 text-[10px] font-bold text-[#c47a7a] mt-0.5">
+                          <Star size={8} fill="currentColor" /> Popular
+                        </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-sm font-bold text-[#1a1a2e]">{svc.price}</span>
-                      <button
-                        onClick={() => onBookingClick(svc.name)}
-                        className="px-2.5 py-1 rounded-lg bg-[#F4C2C2] text-[#1a1a2e] text-[11px] font-bold hover:bg-[#e8a8a8] transition-colors whitespace-nowrap"
-                      >
-                        Book
-                      </button>
+                    {/* Bottom row: duration + price + book */}
+                    <div className="flex items-center justify-between gap-2">
+                      {svc.duration ? (
+                        <p className="text-xs text-gray-400 flex items-center gap-1">
+                          <Clock size={10} /> {svc.duration}
+                        </p>
+                      ) : <span />}
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="text-sm font-bold text-[#1a1a2e]">{svc.price}</span>
+                        <button
+                          onClick={() => onBookingClick(svc.name)}
+                          className="px-2.5 py-1 rounded-lg bg-[#F4C2C2] text-[#1a1a2e] text-[11px] font-bold hover:bg-[#e8a8a8] transition-colors whitespace-nowrap"
+                          style={{ minHeight: 'unset' }}
+                        >
+                          Book
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

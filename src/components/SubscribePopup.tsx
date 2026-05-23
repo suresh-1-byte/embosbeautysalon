@@ -17,8 +17,11 @@ export default function SubscribePopup() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Always show on mount — remove localStorage check for testing
-    setShow(true);
+    // Show only once per session — respect localStorage dismissal
+    const dismissed = localStorage.getItem('embos_popup_dismissed');
+    if (dismissed) return;
+    const timer = setTimeout(() => setShow(true), 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handlePushAllow = async () => {

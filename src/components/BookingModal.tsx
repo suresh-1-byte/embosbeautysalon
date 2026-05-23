@@ -342,6 +342,7 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
                                   key={slot}
                                   type="button"
                                   onClick={() => setFormData({ ...formData, time_slot: slot })}
+                                  style={{ minHeight: 'unset' }}
                                   className={`py-2.5 px-1 rounded-xl text-[11px] sm:text-xs font-semibold border-2 transition-all ${
                                     formData.time_slot === slot
                                       ? 'border-[#F4C2C2] bg-[#F4C2C2] text-[#1a1a2e]'

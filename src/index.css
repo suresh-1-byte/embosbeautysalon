@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Global Reset & Overflow Prevention ─────────────────────────────────── */
+/* ── Global Reset ────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html {
-  overflow-x: hidden;
   scroll-behavior: smooth;
+  /* NOTE: overflow-x on html breaks position:sticky — use body only */
 }
 
 body {
@@ -17,6 +17,8 @@ body {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   min-width: 0;
+  /* Prevent horizontal scroll without breaking sticky */
+  position: relative;
 }
 
 img {
@@ -25,21 +27,15 @@ img {
   display: block;
 }
 
-/* ── Touch-friendly tap targets ─────────────────────────────────────────── */
-button, a {
+/* ── Touch-friendly tap targets — scoped to interactive elements only ────── */
+button:not(.no-min),
+a:not(.no-min) {
   min-height: 44px;
-  min-width: 44px;
 }
 
 /* ── Scrollbar hide utility ─────────────────────────────────────────────── */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* ── Masonry columns fix on mobile ─────────────────────────────────────── */
-.columns-2 { column-count: 2; }
-@media (max-width: 480px) {
-  .columns-2 { column-count: 2; gap: 0.5rem; }
-}
 
 /* ── Prevent text overflow ──────────────────────────────────────────────── */
 p, h1, h2, h3, h4, h5, h6 {
@@ -50,4 +46,14 @@ p, h1, h2, h3, h4, h5, h6 {
 /* ── Safe area insets for iPhone notch ─────────────────────────────────── */
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Section spacing — tighter on mobile ───────────────────────────────── */
+@media (max-width: 640px) {
+  .section-gap { margin-bottom: 3rem !important; }
+}
+
+/* ── Gallery masonry ────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .gallery-masonry { column-count: 2 !important; gap: 0.5rem !important; }
 }
