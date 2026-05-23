@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle, Bell, BellRing, Mail, ArrowRight, Loader2 } from 'lucide-react';
+import { X, CheckCircle, Bell, BellRing, Mail, ArrowRight, Loader2, Send } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 type Step = 'push' | 'email' | 'done';
@@ -215,6 +215,14 @@ export default function SubscribePopup() {
                       <CheckCircle size={48} className="text-green-400 mb-3" />
                       <p className="font-bold text-[#1a1a2e] text-lg">You're all set!</p>
                       <p className="text-xs text-gray-400 mt-1">We'll send you exclusive offers by email.</p>
+                      <a
+                        href="https://t.me/Embosbeautysalon_bot"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#40BFFF]/10 text-[#40BFFF] text-sm font-semibold hover:bg-[#40BFFF]/20 transition-colors"
+                      >
+                        <Send size={14} /> Also get Telegram notifications
+                      </a>
                     </motion.div>
                   ) : (
                     <>

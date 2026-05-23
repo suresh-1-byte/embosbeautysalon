@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Instagram, Phone, MapPin, Heart } from 'lucide-react';
+import { Instagram, Phone, MapPin, Heart, Send } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -57,6 +57,11 @@ export default function Footer() {
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#F4C2C2] transition-colors group">
                 <Phone size={16} className="group-hover:scale-110 transition-transform" />
                 Call for Bookings
+              </a>
+              <a href="https://t.me/Embosbeautysalon_bot" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#40BFFF] transition-colors group">
+                <Send size={16} className="group-hover:scale-110 transition-transform" />
+                Get Offers on Telegram
               </a>
               <div className="flex items-start gap-3 text-sm text-gray-400">
                 <MapPin size={16} className="mt-0.5 flex-shrink-0" />

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Phone, Instagram, MapPin, ExternalLink, MessageCircle } from 'lucide-react';
+import { Phone, Instagram, MapPin, ExternalLink, MessageCircle, Send } from 'lucide-react';
 
 interface ContactProps {
   onBookingClick?: () => void;
@@ -67,6 +67,28 @@ export default function Contact({ onBookingClick }: ContactProps) {
                 <p className="font-semibold text-[#1a1a2e]">Message on WhatsApp</p>
               </div>
               <ExternalLink size={16} className="ml-auto text-gray-300 group-hover:text-green-400 transition-colors" />
+            </motion.a>
+
+            <motion.a
+              href="https://t.me/Embosbeautysalon_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12, duration: 0.5 }}
+              whileHover={{ x: 6 }}
+              className="flex items-center gap-5 p-5 rounded-2xl bg-white border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#40BFFF]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#40BFFF]/20 transition-colors">
+                <Send size={20} className="text-[#40BFFF]" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 font-medium tracking-wide mb-0.5">Telegram</p>
+                <p className="font-semibold text-[#1a1a2e]">Get Offers & Updates</p>
+                <p className="text-xs text-gray-400 mt-0.5">@Embosbeautysalon_bot</p>
+              </div>
+              <ExternalLink size={16} className="ml-auto text-gray-300 group-hover:text-[#40BFFF] transition-colors" />
             </motion.a>
 
             <motion.a
