@@ -132,7 +132,9 @@ export default function SubscribePopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 24 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[92%] max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[92%] max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden"
+            style={{ maxHeight: '88dvh', overflowY: 'auto' }}
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Progress dots */}
             <div className="flex gap-1.5 justify-center pt-4">
@@ -246,6 +248,7 @@ export default function SubscribePopup() {
                             value={name}
                             onChange={(e) => { setName(e.target.value); setError(''); }}
                             placeholder="e.g. Priya"
+                            style={{ fontSize: '16px' }}
                             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#ADD8E6] focus:ring-1 focus:ring-[#ADD8E6]"
                           />
                         </div>
@@ -256,6 +259,7 @@ export default function SubscribePopup() {
                             value={email}
                             onChange={(e) => { setEmail(e.target.value); setError(''); }}
                             placeholder="your@email.com"
+                            style={{ fontSize: '16px' }}
                             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#ADD8E6] focus:ring-1 focus:ring-[#ADD8E6]"
                           />
                         </div>

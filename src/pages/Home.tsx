@@ -58,26 +58,26 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[9999] w-[90%] max-w-sm bg-white rounded-2xl shadow-2xl border border-pink-100 p-4 flex items-center gap-4"
+            className="fixed bottom-4 left-3 right-3 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-[90%] sm:max-w-sm z-[9999] bg-white rounded-2xl shadow-2xl border border-pink-100 p-3 sm:p-4 flex items-center gap-3"
           >
-            <div className="w-10 h-10 rounded-full bg-[#F4C2C2]/30 flex items-center justify-center flex-shrink-0">
-              <Bell size={20} className="text-[#e8a8a8]" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4C2C2]/30 flex items-center justify-center flex-shrink-0">
+              <Bell size={18} className="text-[#e8a8a8]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-[#1a1a2e]">Stay Updated!</p>
-              <p className="text-xs text-gray-400 mt-0.5">Get notified about new offers & updates from EMBOS</p>
+              <p className="text-sm font-bold text-[#1a1a2e] leading-tight">Stay Updated!</p>
+              <p className="text-xs text-gray-400 mt-0.5 leading-snug">Get notified about new offers & updates</p>
             </div>
             <div className="flex flex-col gap-1.5 flex-shrink-0">
               <button onClick={handleAllow}
-                className="px-3 py-1.5 rounded-lg bg-[#F4C2C2] text-[#1a1a2e] text-xs font-bold hover:bg-[#e8a8a8] transition-colors">
+                className="px-3 py-1.5 rounded-lg bg-[#F4C2C2] text-[#1a1a2e] text-xs font-bold hover:bg-[#e8a8a8] transition-colors whitespace-nowrap">
                 Allow
               </button>
               <button onClick={handleDismiss}
-                className="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-500 text-xs font-medium hover:bg-gray-200 transition-colors">
+                className="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-500 text-xs font-medium hover:bg-gray-200 transition-colors whitespace-nowrap">
                 No thanks
               </button>
             </div>
-            <button onClick={handleDismiss} className="absolute top-2 right-2 text-gray-300 hover:text-gray-500">
+            <button onClick={handleDismiss} className="absolute top-2 right-2 text-gray-300 hover:text-gray-500 p-1">
               <X size={14} />
             </button>
           </motion.div>

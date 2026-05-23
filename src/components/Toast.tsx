@@ -30,14 +30,14 @@ const borders = {
 
 export default function Toast({ toasts, onRemove }: ToastProps) {
   return (
-    <div className="fixed bottom-5 right-4 z-[9999] flex flex-col gap-2 max-w-xs w-full pointer-events-none">
+    <div className="fixed bottom-5 right-3 left-3 sm:left-auto sm:right-4 z-[9999] flex flex-col gap-2 sm:max-w-xs pointer-events-none">
       <AnimatePresence>
         {toasts.map((t) => (
           <motion.div
             key={t.id}
-            initial={{ opacity: 0, x: 60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 60, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
             className={`pointer-events-auto flex items-start gap-3 px-4 py-3 rounded-2xl border shadow-lg ${borders[t.type]}`}
           >
@@ -46,7 +46,7 @@ export default function Toast({ toasts, onRemove }: ToastProps) {
               <p className="text-sm font-semibold text-[#1a1a2e] leading-tight">{t.title}</p>
               {t.body && <p className="text-xs text-gray-500 mt-0.5 leading-snug">{t.body}</p>}
             </div>
-            <button onClick={() => onRemove(t.id)} className="text-gray-400 hover:text-gray-600 flex-shrink-0 mt-0.5">
+            <button onClick={() => onRemove(t.id)} className="text-gray-400 hover:text-gray-600 flex-shrink-0 mt-0.5 p-1">
               <X size={14} />
             </button>
           </motion.div>
