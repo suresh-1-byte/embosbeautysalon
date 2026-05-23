@@ -155,6 +155,7 @@ Deno.serve(async (req: Request) => {
       },
       body: JSON.stringify({
         from: FROM_EMAIL,
+        reply_to: ADMIN_EMAIL,
         // new_booking  → only admin
         // booking_confirmed → only the customer (they already know admin email)
         to: type === 'new_booking' ? [ADMIN_EMAIL] : [booking.email],
