@@ -83,7 +83,8 @@ Deno.serve(async (req: Request) => {
               <p style="margin: 8px 0; color: #1a1a2e;"><strong>🕐 Time:</strong> ${booking.time_slot}</p>
               <p style="margin: 8px 0; color: #1a1a2e;"><strong>📍 Location:</strong> ${booking.location === 'home' ? 'Home Service' : 'EMBOS Salon, Valasaravakkam'}</p>
             </div>
-            <p style="color: #888; font-size: 14px;">Questions? WhatsApp us at +91 98765 43210</p>
+            <p style="color: #888; font-size: 14px;">Questions? WhatsApp us at <a href="https://wa.me/919176160204" style="color:#F4C2C2;">+91 91761 60204</a></p>
+            <p style="color: #888; font-size: 14px; margin-top: 8px;">📍 148, 3rd Main Rd, Ashtalakshmi Nagar, Valasaravakkam, Chennai 600116</p>
           </div>
           <div style="padding: 20px; text-align: center; background: #1a1a2e; border-radius: 0 0 12px 12px;">
             <p style="color: #aaa; margin: 0; font-size: 12px;">EMBOS Beauty Salon & Studio · Valasaravakkam, Chennai</p>
@@ -154,9 +155,9 @@ Deno.serve(async (req: Request) => {
       },
       body: JSON.stringify({
         from: FROM_EMAIL,
-        to: type === 'new_booking'
-          ? [ADMIN_EMAIL]
-          : [ADMIN_EMAIL, booking.email].filter((e, i, a) => a.indexOf(e) === i), // dedupe
+        // new_booking  → only admin
+        // booking_confirmed → only the customer (they already know admin email)
+        to: type === 'new_booking' ? [ADMIN_EMAIL] : [booking.email],
         subject,
         html,
       }),
