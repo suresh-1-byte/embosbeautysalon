@@ -157,7 +157,8 @@ export default function Contact({ onBookingClick }: ContactProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="rounded-3xl overflow-hidden shadow-xl border border-pink-100 h-96 lg:h-full min-h-80 flex flex-col"
+            className="rounded-3xl overflow-hidden shadow-xl border border-pink-100 flex flex-col"
+            style={{ minHeight: '360px' }}
           >
             <iframe
               src="https://www.openstreetmap.org/export/embed.html?bbox=80.1725%2C13.0435%2C80.1825%2C13.0535&layer=mapnik&marker=13.0485%2C80.1775"
@@ -172,7 +173,7 @@ export default function Contact({ onBookingClick }: ContactProps) {
               href="https://www.google.com/maps/search/148+3rd+Main+Rd+Ashtalakshmi+Nagar+Alapakkam+Valasaravakkam+Chennai+600116"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 py-3 bg-white text-sm font-medium text-[#40BFFF] hover:bg-pink-50 transition-colors border-t border-pink-100"
+              className="flex items-center justify-center gap-2 py-3 bg-white text-sm font-medium text-[#40BFFF] hover:bg-pink-50 transition-colors border-t border-pink-100 flex-shrink-0"
             >
               <MapPin size={14} />
               Get Directions on Google Maps

@@ -27,9 +27,9 @@ export default function About() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative pb-10 sm:pb-0"
           >
-            <div className={`relative h-96 rounded-3xl overflow-hidden border-4 border-white ${pinkSmoke}`}>
+            <div className={`relative h-72 sm:h-96 rounded-3xl overflow-hidden border-4 border-white ${pinkSmoke}`}>
               <img
                 src="/interior.png" 
                 alt="EMBOS Studio"
@@ -39,12 +39,12 @@ export default function About() {
 
             {/* Floating Logo Card */}
             <motion.div
-              className={`absolute -bottom-6 -right-6 bg-white rounded-2xl p-5 border border-sky-200 w-48 ${pinkSmoke}`}
+              className={`absolute -bottom-4 right-2 sm:-bottom-6 sm:-right-6 bg-white rounded-2xl p-4 sm:p-5 border border-sky-200 w-40 sm:w-48 ${pinkSmoke}`}
             >
               <img
                 src="/logo.jpeg"
                 alt="EMBOS Logo"
-                className="w-14 h-14 rounded-full mx-auto mb-2 object-cover border-2 border-sky-400"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full mx-auto mb-2 object-cover border-2 border-sky-400"
               />
               <p className="text-center text-xs text-gray-500 font-medium">Est. in Chennai</p>
               <p className="text-center text-xs text-sky-500 font-semibold tracking-wide mt-0.5">Valasaravakkam</p>
@@ -81,21 +81,21 @@ export default function About() {
             </p>
 
             {/* Stats Styling matching the Image */}
-            <div className="flex flex-wrap gap-12 mt-12 justify-start">
+            <div className="flex flex-wrap gap-6 sm:gap-12 mt-10 sm:mt-12 justify-start">
               {stats.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={stat.label} className="flex flex-col items-center">
+                  <div key={stat.label} className="flex flex-col items-center min-w-[80px]">
                     {/* Icon Box: Pink Background, Sky Blue Icon */}
-                    <div className="w-16 h-16 rounded-2xl bg-[#fee2e2] flex items-center justify-center mb-4">
-                      <Icon size={28} className="text-sky-400" strokeWidth={1.5} />
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#fee2e2] flex items-center justify-center mb-3 sm:mb-4">
+                      <Icon size={24} className="text-sky-400" strokeWidth={1.5} />
                     </div>
                     {/* Value: Bold Serif */}
-                    <p className="text-3xl font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>
+                    <p className="text-2xl sm:text-3xl font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>
                       {stat.value}
                     </p>
                     {/* Label: Soft gray-blue */}
-                    <p className="text-sm text-slate-500 font-medium">
+                    <p className="text-xs sm:text-sm text-slate-500 font-medium text-center">
                       {stat.label}
                     </p>
                   </div>
@@ -110,10 +110,10 @@ export default function About() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`mb-24 bg-[#FFD1DC] rounded-3xl p-10 md:p-14 border-2 border-sky-400 ${pinkSmoke}`}
+          className={`mb-24 bg-[#FFD1DC] rounded-3xl p-6 sm:p-10 md:p-14 border-2 border-sky-400 ${pinkSmoke}`}
         >
-          <div className="flex flex-col md:flex-row gap-10 items-center">
-            <div className="w-40 h-40 rounded-full overflow-hidden flex-shrink-0 shadow-lg border-4 border-white">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden flex-shrink-0 shadow-lg border-4 border-white mx-auto md:mx-0">
               <img
                 src="/profile.png"
                 alt="Ms. T. S. Hemavathy"
@@ -121,11 +121,11 @@ export default function About() {
               />
             </div>
 
-            <div>
-              <h3 className="text-3xl font-bold text-[#1a1a2e] mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#1a1a2e] mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Meet the Expert
               </h3>
-              <p className="text-lg font-bold text-sky-600 mb-4 uppercase tracking-wide">
+              <p className="text-base sm:text-lg font-bold text-sky-600 mb-4 uppercase tracking-wide">
                 Ms. T. S. Hemavathy
               </p>
 
@@ -134,8 +134,6 @@ export default function About() {
 
                 With a formal background in Beauty Business Management, she ensures every client receives high-quality service backed by professional industry standards.
               </p>
-
-              
             </div>
           </div>
         </motion.div>
@@ -155,11 +153,11 @@ export default function About() {
                 showGoogleMore ? 'overflow-y-auto' : 'overflow-hidden'
               }`}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <img src="/review1.png" alt="Review" className="rounded-2xl shadow-sm border border-white" />
-                <img src="/review2.png" alt="Review" className="rounded-2xl shadow-sm border border-white" />
-                <img src="/review3.png" alt="Review" className="rounded-2xl shadow-sm border border-white" />
-                <img src="/review4.png" alt="Review" className="rounded-2xl shadow-sm border border-white" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <img src="/review1.png" alt="Review" className="rounded-2xl shadow-sm border border-white w-full" />
+                <img src="/review2.png" alt="Review" className="rounded-2xl shadow-sm border border-white w-full" />
+                <img src="/review3.png" alt="Review" className="rounded-2xl shadow-sm border border-white w-full" />
+                <img src="/review4.png" alt="Review" className="rounded-2xl shadow-sm border border-white w-full" />
               </div>
             </div>
 
@@ -182,11 +180,11 @@ export default function About() {
                 showStickyMore ? 'overflow-y-auto' : 'overflow-hidden'
               }`}
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <img src="/sticky1.png" alt="Note" className="rounded-2xl shadow-md border border-white" />
-                <img src="/sticky2.png" alt="Note" className="rounded-2xl shadow-md border border-white" />
-                <img src="/sticky3.png" alt="Note" className="rounded-2xl shadow-md border border-white" />
-                <img src="/sticky4.png" alt="Note" className="rounded-2xl shadow-md border border-white" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <img src="/sticky1.png" alt="Note" className="rounded-2xl shadow-md border border-white w-full" />
+                <img src="/sticky2.png" alt="Note" className="rounded-2xl shadow-md border border-white w-full" />
+                <img src="/sticky3.png" alt="Note" className="rounded-2xl shadow-md border border-white w-full" />
+                <img src="/sticky4.png" alt="Note" className="rounded-2xl shadow-md border border-white w-full" />
               </div>
             </div>
 

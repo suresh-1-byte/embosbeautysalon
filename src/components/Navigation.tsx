@@ -139,13 +139,13 @@ export default function Navigation() {
         )}
       </AnimatePresence>
 
-      {/* Floating Book Now */}
+      {/* Floating Book Now — hidden on mobile (WhatsApp button is there) */}
       <motion.a
         href="#contact"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.5, duration: 0.4 }}
-        className="fixed bottom-8 right-6 z-50 px-5 py-3 rounded-full bg-[#40BFFF] text-white font-bold text-sm tracking-wide shadow-xl hover:bg-[#1c9ff9] hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-white/40"
+        className="hidden md:flex fixed bottom-8 right-6 z-50 px-5 py-3 rounded-full bg-[#40BFFF] text-white font-bold text-sm tracking-wide shadow-xl hover:bg-[#1c9ff9] hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-white/40 items-center"
         style={{ backdropFilter: 'blur(10px)' }}
       >
         Book Now

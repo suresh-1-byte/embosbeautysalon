@@ -42,15 +42,15 @@ export default function Offers() {
           className="text-center mb-14"
         >
           <p className="text-xs tracking-[0.35em] text-[#FFE8F0] uppercase font-semibold mb-3">Special Offers</p>
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Exclusive Home Page Offers
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Exclusive Offers
           </h2>
           <p className="max-w-2xl mx-auto text-gray-600 mt-4 text-sm leading-relaxed">
             Discover curated packages designed to make your wedding journey effortless and beautiful.
           </p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
           {OFFERS.map((offer) => (
             <motion.div
               key={offer.title}
@@ -58,17 +58,26 @@ export default function Offers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-3xl border border-[#40BFFF]/30 bg-white/50 p-8 shadow-sm hover:shadow-xl transition-shadow duration-300"
+              className="rounded-3xl border border-[#40BFFF]/30 bg-white/50 p-6 sm:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-xl font-semibold text-[#1a1a2e] mb-3">{offer.title}</h3>
+              <div className="text-3xl sm:text-4xl mb-4">✨</div>
+              <h3 className="text-lg sm:text-xl font-semibold text-[#1a1a2e] mb-3 leading-snug">{offer.title}</h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">{offer.description}</p>
-              <ul className="mb-4 list-disc list-inside text-sm text-gray-600 space-y-2">
+              <ul className="mb-5 space-y-2">
                 {offer.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
+                  <li key={feature} className="flex items-start gap-2 text-sm text-gray-600">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#40BFFF] flex-shrink-0 mt-1.5" />
+                    {feature}
+                  </li>
                 ))}
               </ul>
-              <p className="text-sm font-semibold text-[#1a1a2e]">Price: {offer.price}</p>
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <p className="text-base font-bold text-[#1a1a2e]">Price: {offer.price}</p>
+                <a href="#contact"
+                  className="px-5 py-2.5 rounded-full bg-[#40BFFF] text-white text-sm font-semibold hover:bg-[#1c9ff9] transition-colors shadow-sm">
+                  Book Now
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>

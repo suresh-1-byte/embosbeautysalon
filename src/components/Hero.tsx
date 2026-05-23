@@ -101,7 +101,7 @@ export default function Hero() {
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 py-24">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 py-24 w-full max-w-full">
         {/* Logo */}
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}
@@ -175,17 +175,17 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.6 }}
-          className="mt-12 flex flex-col sm:flex-row gap-4"
+          className="mt-10 flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none justify-center"
         >
           <a
             href="#services"
-            className="px-8 py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg text-sm"
+            className="px-8 py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg text-sm text-center"
           >
             Explore Services
           </a>
           <button
             onClick={() => (window as any).openBookingModal?.()}
-            className="px-8 py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] hover:scale-105 transition-all duration-300 text-sm backdrop-blur-sm"
+            className="px-8 py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] hover:scale-105 transition-all duration-300 text-sm backdrop-blur-sm text-center"
           >
             Book Appointment
           </button>

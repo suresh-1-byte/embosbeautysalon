@@ -64,17 +64,16 @@ export default function PillarServices() {
                 </svg>
               </div>
 
-              <div className="absolute bottom-16 left-20 right-0 p-6 pb-8 flex flex-col items-start justify-end">
+              <div className="absolute bottom-8 left-6 sm:left-20 right-4 p-4 sm:p-6 pb-6 sm:pb-8 flex flex-col items-start justify-end">
                 <p className="text-xs tracking-[0.3em] text-white/70 uppercase font-medium mb-2">Signature Service</p>
                 <h3
-                  className="text-3xl sm:text-4xl font-bold text-white mb-2 leading-tight"
-                  style={{ fontFamily: 'Playfair Display, serif' ,
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 leading-tight"
+                  style={{ fontFamily: 'Playfair Display, serif',
                     textShadow: '0 4px 12px rgba(0, 0, 0, 0.6)'}}
-              
                 >
                   Bridal<br />Studio
                 </h3>
-                <p className="text-white/90 text-sm leading-relaxed max-w-sm mb-4">Traditional elegance with modern artistry for your special day.</p>
+                <p className="text-white/90 text-sm leading-relaxed max-w-sm mb-4 hidden sm:block">Traditional elegance with modern artistry for your special day.</p>
                 <Link
                   to="/bridal-studio"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#40BFFF]/95 text-white text-xs font-semibold hover:bg-[#20A8F3] transition-colors group"

@@ -123,8 +123,8 @@ export default function Pricing({ onBookingClick }: PricingProps) {
                   <div key={svc.name}
                     className="flex items-center justify-between gap-2 py-2 border-b border-gray-100 last:border-0">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <p className="text-sm font-medium text-[#1a1a2e] truncate">{svc.name}</p>
+                      <div className="flex items-start gap-1.5 flex-wrap">
+                        <p className="text-sm font-medium text-[#1a1a2e]">{svc.name}</p>
                         {svc.popular && (
                           <span className="flex-shrink-0 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#F4C2C2]/30 text-[10px] font-bold text-[#c47a7a]">
                             <Star size={8} fill="currentColor" /> Popular

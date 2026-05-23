@@ -2,6 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Global Reset & Overflow Prevention ─────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   background: #FFF1F5;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  min-width: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Touch-friendly tap targets ─────────────────────────────────────────── */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ── Scrollbar hide utility ─────────────────────────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Masonry columns fix on mobile ─────────────────────────────────────── */
+.columns-2 { column-count: 2; }
+@media (max-width: 480px) {
+  .columns-2 { column-count: 2; gap: 0.5rem; }
+}
+
+/* ── Prevent text overflow ──────────────────────────────────────────────── */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ── Safe area insets for iPhone notch ─────────────────────────────────── */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
