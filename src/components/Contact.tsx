@@ -49,7 +49,7 @@ export default function Contact({ onBookingClick }: ContactProps) {
             </motion.button>
 
             <motion.a
-              href="https://wa.me/919876543210?text=Hi%20EMBOS%20Beauty%20Salon%2C%20I%20would%20like%20to%20book%20an%20appointment"
+              href="https://wa.me/919176160204?text=Hi%20EMBOS%20Beauty%20Salon%2C%20I%20would%20like%20to%20book%20an%20appointment"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, x: -30 }}

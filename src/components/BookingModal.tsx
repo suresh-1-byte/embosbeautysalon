@@ -121,7 +121,7 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
 
       // Also open WhatsApp as backup
       const msg = `📅 *New Booking Request*\n\n👤 *Name:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n✉️ *Email:* ${formData.email}\n💅 *Service:* ${formData.service}\n📍 *Location:* ${formData.location === 'salon' ? 'Salon Visit' : 'Home Service'}\n📆 *Date:* ${formData.date}\n🕐 *Time:* ${formData.time_slot}${formData.notes ? `\n📝 *Notes:* ${formData.notes}` : ''}`;
-      window.open(`https://wa.me/919876543210?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/919176160204?text=${encodeURIComponent(msg)}`, '_blank');
 
       setSubmitted(true);
       setTimeout(() => {

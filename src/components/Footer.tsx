@@ -53,7 +53,7 @@ export default function Footer() {
                 <Instagram size={16} className="group-hover:scale-110 transition-transform" />
                 @embos_beautysalon
               </a>
-              <a href="tel:+919876543210"
+              <a href="tel:+919176160204"
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-[#F4C2C2] transition-colors group">
                 <Phone size={16} className="group-hover:scale-110 transition-transform" />
                 Call for Bookings
