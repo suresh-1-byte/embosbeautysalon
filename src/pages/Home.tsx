@@ -58,7 +58,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed bottom-4 left-3 right-3 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-[90%] sm:max-w-sm z-[9999] bg-white rounded-2xl shadow-2xl border border-pink-100 p-3 sm:p-4 flex items-center gap-3"
+            className="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-4 sm:w-80 z-[200] bg-white rounded-2xl shadow-2xl border border-pink-100 p-3 sm:p-4 flex items-center gap-3"
           >
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4C2C2]/30 flex items-center justify-center flex-shrink-0">
               <Bell size={18} className="text-[#e8a8a8]" />

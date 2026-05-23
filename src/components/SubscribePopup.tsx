@@ -129,16 +129,20 @@ export default function SubscribePopup() {
             onClick={handleDismiss}
           />
 
-          {/* Popup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 24 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[92%] max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden"
-            style={{ maxHeight: '88dvh', overflowY: 'auto' }}
-            onClick={(e) => e.stopPropagation()}
+          {/* Centering wrapper — flex is the most reliable cross-device centering */}
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
+            onClick={handleDismiss}
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+              className="w-full max-w-sm bg-white rounded-3xl shadow-2xl border border-pink-100 overflow-hidden"
+              style={{ maxHeight: '88dvh', overflowY: 'auto' }}
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Progress dots */}
             <div className="flex gap-1.5 justify-center pt-4">
               <div className={`w-6 h-1 rounded-full transition-colors ${step === 'push' ? 'bg-[#F4C2C2]' : 'bg-[#F4C2C2]'}`} />
@@ -291,7 +295,8 @@ export default function SubscribePopup() {
               )}
 
             </AnimatePresence>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
