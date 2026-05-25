@@ -3,57 +3,48 @@
 @tailwind utilities;
 
 /* ── Global Reset ────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
-  /* NOTE: overflow-x on html breaks position:sticky — use body only */
+  overflow-x: clip; /* clip is stronger than hidden — doesn't break sticky */
+  max-width: 100vw;
 }
 
 body {
   background: #FFF1F5;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100vw;
   -webkit-text-size-adjust: 100%;
   min-width: 0;
-  /* Prevent horizontal scroll without breaking sticky */
-  position: relative;
+  /* NO position:relative — it breaks overflow-x:hidden on mobile */
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Every direct child of body must not overflow */
+#root {
+  overflow-x: clip;
+  max-width: 100vw;
+  width: 100%;
 }
 
-/* ── Touch-friendly tap targets — scoped to interactive elements only ────── */
-button:not(.no-min),
-a:not(.no-min) {
-  min-height: 44px;
-}
+img { max-width: 100%; height: auto; display: block; }
 
-/* ── Scrollbar hide utility ─────────────────────────────────────────────── */
+/* Touch-friendly — only real interactive elements */
+button:not(.no-min), a:not(.no-min) { min-height: 44px; }
+
+/* Scrollbar hide */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ── Prevent text overflow ──────────────────────────────────────────────── */
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
+/* Prevent text overflow */
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; word-break: break-word; }
 
-/* ── Safe area insets for iPhone notch ─────────────────────────────────── */
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
+/* Safe area for iPhone notch */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
-/* ── Section spacing — tighter on mobile ───────────────────────────────── */
-@media (max-width: 640px) {
-  .section-gap { margin-bottom: 3rem !important; }
-}
-
-/* ── Gallery masonry ────────────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .gallery-masonry { column-count: 2 !important; gap: 0.5rem !important; }
-}
+/* ── Fix Tailwind invalid classes used in codebase ──────────────────────── */
+.from-pink-150\/50 { --tw-gradient-from: rgb(252 231 243 / 0.5); }
+.to-pink-150\/50   { --tw-gradient-to:   rgb(252 231 243 / 0.5); }
+.via-pink-150\/50  { --tw-gradient-via:  rgb(252 231 243 / 0.5); }
+.from-pink-150\/30 { --tw-gradient-from: rgb(252 231 243 / 0.3); }
+.to-pink-150\/30   { --tw-gradient-to:   rgb(252 231 243 / 0.3); }

@@ -41,7 +41,7 @@ export default function Hero() {
       </div>
 
       {/* Center Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] text-center px-5 sm:px-6 py-20 w-full">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] text-center px-5 sm:px-6 py-20 w-full max-w-full overflow-hidden">
         {/* Logo */}
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}

@@ -28,7 +28,7 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans bg-[#FFF1F5] min-h-screen">
+    <div className="font-sans bg-[#FFF1F5] min-h-screen overflow-x-hidden w-full max-w-full">
       <Navigation />
       <Hero />
       <PillarServices />
