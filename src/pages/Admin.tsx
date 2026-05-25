@@ -22,6 +22,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showForgot, setShowForgot] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +50,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           <h1 className="text-2xl font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>Admin Portal</h1>
           <p className="text-gray-400 text-xs mt-1">EMBOS Beauty Salon & Studio</p>
         </div>
+
         <AnimatePresence>
           {error && (
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -57,11 +59,34 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Forgot Password Panel */}
+        <AnimatePresence>
+          {showForgot && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden mb-4"
+            >
+              <div className="px-4 py-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-700 space-y-1.5">
+                <p className="font-semibold">🔑 Password Recovery</p>
+                <p>Your admin credentials are stored in the <code className="bg-blue-100 px-1 rounded">.env</code> file:</p>
+                <p>• Open <code className="bg-blue-100 px-1 rounded">EMBOS Beauty Salon & studio fe/.env</code></p>
+                <p>• Look for <code className="bg-blue-100 px-1 rounded">VITE_ADMIN_PASSWORD</code></p>
+                <p>• Update it to a new password and redeploy</p>
+                <p className="text-blue-500 mt-1">Or contact your developer to reset it.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <form onSubmit={handleSignIn} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Email</label>
             <input type="email" value={email} onChange={(e) => { setEmail(e.target.value); setError(''); }}
               placeholder="admin@embos.in" autoComplete="email"
+              style={{ fontSize: '16px' }}
               className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#F4C2C2] focus:ring-1 focus:ring-[#F4C2C2]" />
           </div>
           <div>
@@ -70,12 +95,23 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               <input type={showPw ? 'text' : 'password'} value={password}
                 onChange={(e) => { setPassword(e.target.value); setError(''); }}
                 placeholder="••••••••" autoComplete="current-password"
+                style={{ fontSize: '16px' }}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#F4C2C2] focus:ring-1 focus:ring-[#F4C2C2] pr-11" />
               <button type="button" onClick={() => setShowPw(!showPw)}
+                style={{ minHeight: 'unset' }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                 {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
+            {/* Forgot password link */}
+            <button
+              type="button"
+              onClick={() => setShowForgot(!showForgot)}
+              style={{ minHeight: 'unset' }}
+              className="mt-1.5 text-xs text-[#40BFFF] hover:underline float-right"
+            >
+              Forgot password?
+            </button>
           </div>
           <button type="submit" disabled={loading}
             className="w-full py-3 rounded-xl bg-[#F4C2C2] text-[#1a1a2e] font-bold text-sm hover:bg-[#e8a8a8] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-2">
