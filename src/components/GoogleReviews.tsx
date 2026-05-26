@@ -24,13 +24,12 @@ export default function GoogleReviews() {
       .order('created_at', { ascending: false })
       .then(({ data }) => {
         const dbReviews = data ?? [];
+        // If DB has images, show only DB images (no duplicates with placeholders)
+        // If DB is empty, fall back to placeholders
         if (dbReviews.length > 0) {
-          // Merge: DB reviews first (newest on top), then placeholders not already in DB
-          const dbUrls = new Set(dbReviews.map((r) => r.image_url));
-          const uniquePlaceholders = PLACEHOLDER_REVIEWS.filter((p) => !dbUrls.has(p.image_url));
-          setReviews([...dbReviews, ...uniquePlaceholders]);
+          setReviews(dbReviews);
         }
-        // If DB empty, placeholders stay as initial state
+        // else: placeholders stay as initial state
         setLoading(false);
       });
   }, []);

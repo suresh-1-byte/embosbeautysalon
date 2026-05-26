@@ -24,13 +24,12 @@ export default function LoveNotes() {
       .order('created_at', { ascending: false })
       .then(({ data }) => {
         const dbNotes = data ?? [];
+        // If DB has images, show only DB images (no duplicates with placeholders)
+        // If DB is empty, fall back to placeholders
         if (dbNotes.length > 0) {
-          // Merge: DB notes first (newest on top), then placeholders not already in DB
-          const dbUrls = new Set(dbNotes.map((n) => n.image_url));
-          const uniquePlaceholders = PLACEHOLDER_NOTES.filter((p) => !dbUrls.has(p.image_url));
-          setNotes([...dbNotes, ...uniquePlaceholders]);
+          setNotes(dbNotes);
         }
-        // If DB empty, placeholders stay as initial state
+        // else: placeholders stay as initial state
         setLoading(false);
       });
   }, []);
