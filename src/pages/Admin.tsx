@@ -270,7 +270,6 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
 
   const [newOffer, setNewOffer] = useState({ title: '', description: '' });
-  const [newGallery, setNewGallery] = useState({ url: '', description: '', category: 'Bridal' });
   const { toasts, addToast, removeToast } = useToast();
   const [notifLoading, setNotifLoading] = useState(false);
 
@@ -281,7 +280,9 @@ export default function Admin() {
 
   // Image upload state
   const [galleryUploading, setGalleryUploading] = useState(false);
-  const [galleryPreview, setGalleryPreview] = useState('');
+  const [galleryPreviews, setGalleryPreviews] = useState<{ file: File; preview: string; url: string; uploading: boolean }[]>([]);
+  const [galleryDescription, setGalleryDescription] = useState('');
+  const [galleryCategory, setGalleryCategory] = useState('Bridal');
   const [pushImageUrl, setPushImageUrl] = useState('');
   const [pushImageUploading, setPushImageUploading] = useState(false);
   const [pushImagePreview, setPushImagePreview] = useState('');
@@ -382,32 +383,63 @@ export default function Admin() {
   };
 
   // ── Gallery CRUD ───────────────────────────────────────────────────────────
-  const addGalleryImage = async () => {
-    if (!newGallery.url.trim()) return;
-    const { data } = await supabase.from('gallery_images').insert([newGallery]).select().single();
+  const handleGalleryFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (!files.length) return;
+
+    // Add all files to preview list immediately
+    const newEntries = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      url: '',
+      uploading: true,
+    }));
+    setGalleryPreviews((prev) => [...prev, ...newEntries]);
+
+    // Upload each file in parallel
+    const uploaded = await Promise.all(
+      newEntries.map(async (entry) => {
+        const url = await uploadImage(entry.file, 'gallery');
+        return { ...entry, url: url ?? '', uploading: false };
+      })
+    );
+
+    setGalleryPreviews((prev) =>
+      prev.map((p) => {
+        const match = uploaded.find((u) => u.preview === p.preview);
+        return match ? { ...p, url: match.url, uploading: false } : p;
+      })
+    );
+  };
+
+  const removeGalleryPreview = (preview: string) => {
+    setGalleryPreviews((prev) => prev.filter((p) => p.preview !== preview));
+  };
+
+  const addGalleryImages = async () => {
+    const ready = galleryPreviews.filter((p) => p.url && !p.uploading);
+    if (!ready.length) return;
+    setGalleryUploading(true);
+    const inserts = ready.map((p) => ({
+      url: p.url,
+      description: galleryDescription,
+      category: galleryCategory,
+    }));
+    const { data } = await supabase.from('gallery_images').insert(inserts).select();
+    setGalleryUploading(false);
     if (data) {
-      setGallery([data, ...gallery]);
-      setNewGallery({ url: '', description: '', category: 'Bridal' });
-      setGalleryPreview('');
-      addToast('success', 'Image added');
-      setNotifLoading(true);
-      await sendPushToAll('📸 New Gallery Update', `New ${data.category} photo added. Come see the latest looks!`, '/#gallery');
-      setNotifLoading(false);
+      setGallery((prev) => [...data, ...prev]);
+      setGalleryPreviews([]);
+      setGalleryDescription('');
+      setGalleryCategory('Bridal');
+      addToast('success', `${data.length} image${data.length > 1 ? 's' : ''} added to gallery`);
+      await sendPushToAll('📸 New Gallery Update', `${data.length} new photo${data.length > 1 ? 's' : ''} added. Come see the latest looks!`, '/#gallery');
     }
   };
 
-  const handleGalleryFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setGalleryPreview(URL.createObjectURL(file));
-    setGalleryUploading(true);
-    const url = await uploadImage(file, 'gallery');
-    setGalleryUploading(false);
-    if (url) setNewGallery(g => ({ ...g, url }));
-  };
   const deleteGalleryImage = async (id: string) => {
     await supabase.from('gallery_images').delete().eq('id', id);
-    setGallery(gallery.filter((g) => g.id !== id));
+    setGallery((prev) => prev.filter((g) => g.id !== id));
     addToast('success', 'Image deleted');
   };
 
@@ -820,66 +852,124 @@ export default function Admin() {
               {/* ── GALLERY TAB ── */}
               {tab === 'gallery' && (
                 <div className="space-y-5">
+                  {/* Upload card */}
                   <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                    <h3 className="font-bold text-[#1a1a2e] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Add Gallery Image</h3>
+                    <h3 className="font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>Add Gallery Images</h3>
+                    <p className="text-xs text-gray-400 mb-4">Select one or multiple images — they are added to the existing gallery without removing anything.</p>
                     <div className="space-y-3">
-                      {/* File upload */}
+                      {/* Multi-file upload zone */}
                       <label className="block">
-                        <span className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Upload Image</span>
-                        <div className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${galleryPreview ? 'border-[#F4C2C2]' : 'border-gray-200 hover:border-[#F4C2C2]'}`}>
-                          {galleryPreview ? (
-                            <div className="relative">
-                              <img src={galleryPreview} alt="Preview" className="w-full h-40 object-cover rounded-lg" />
-                              {galleryUploading && (
-                                <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-lg">
-                                  <Loader2 size={20} className="animate-spin text-[#F4C2C2]" />
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="py-4">
-                              <Image size={28} className="text-gray-300 mx-auto mb-2" />
-                              <p className="text-sm text-gray-400">Click to choose from laptop or gallery</p>
-                              <p className="text-xs text-gray-300 mt-1">JPG, PNG, WEBP up to 10MB</p>
-                            </div>
-                          )}
-                          <input type="file" accept="image/*" onChange={handleGalleryFileChange} className="absolute inset-0 opacity-0 cursor-pointer" />
+                        <span className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Upload Images (select multiple)</span>
+                        <div className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${galleryPreviews.length > 0 ? 'border-[#ADD8E6]' : 'border-gray-200 hover:border-[#ADD8E6]'}`}>
+                          <div className="py-3">
+                            <Image size={28} className="text-gray-300 mx-auto mb-2" />
+                            <p className="text-sm text-gray-400">Click to choose images from laptop or gallery</p>
+                            <p className="text-xs text-gray-300 mt-1">JPG, PNG, WEBP — multiple files supported</p>
+                          </div>
+                          <input type="file" accept="image/*" multiple onChange={handleGalleryFileChange} className="absolute inset-0 opacity-0 cursor-pointer" />
                         </div>
                       </label>
-                      {/* Or paste URL */}
-                      <div>
-                        <span className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Or Paste Image URL</span>
-                        <input className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#F4C2C2]"
-                          placeholder="https://..." value={newGallery.url} onChange={(e) => { setNewGallery({ ...newGallery, url: e.target.value }); setGalleryPreview(e.target.value); }} />
-                      </div>
-                      <input className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#F4C2C2]"
-                        placeholder="Description" value={newGallery.description} onChange={(e) => setNewGallery({ ...newGallery, description: e.target.value })} />
-                      <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#F4C2C2] bg-white"
-                        value={newGallery.category} onChange={(e) => setNewGallery({ ...newGallery, category: e.target.value })}>
+
+                      {/* Preview grid of selected files */}
+                      {galleryPreviews.length > 0 && (
+                        <div>
+                          <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">{galleryPreviews.length} image{galleryPreviews.length > 1 ? 's' : ''} selected</p>
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                            {galleryPreviews.map((p) => (
+                              <div key={p.preview} className="relative rounded-lg overflow-hidden aspect-square bg-gray-50">
+                                <img src={p.preview} alt="" className="w-full h-full object-cover" />
+                                {p.uploading && (
+                                  <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                                    <Loader2 size={16} className="animate-spin text-[#ADD8E6]" />
+                                  </div>
+                                )}
+                                {!p.uploading && p.url && (
+                                  <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-green-400 flex items-center justify-center">
+                                    <CheckCircle size={10} className="text-white" />
+                                  </div>
+                                )}
+                                {!p.uploading && !p.url && (
+                                  <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-red-400 flex items-center justify-center">
+                                    <XCircle size={10} className="text-white" />
+                                  </div>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => removeGalleryPreview(p.preview)}
+                                  className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                                  style={{ minHeight: 'unset' }}
+                                >
+                                  <XCircle size={11} />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <input
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#ADD8E6]"
+                        placeholder="Description (applies to all selected images)"
+                        value={galleryDescription}
+                        onChange={(e) => setGalleryDescription(e.target.value)}
+                      />
+                      <select
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#ADD8E6] bg-white"
+                        value={galleryCategory}
+                        onChange={(e) => setGalleryCategory(e.target.value)}
+                      >
                         {['Bridal', 'Korean', 'Nails', 'Hair', 'Saree', 'Other'].map((c) => <option key={c}>{c}</option>)}
                       </select>
-                      <button onClick={addGalleryImage} disabled={!newGallery.url.trim() || galleryUploading}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ADD8E6] text-[#1a1a2e] text-sm font-semibold hover:bg-[#8ec8d8] transition-colors disabled:opacity-50">
-                        {galleryUploading ? <><Loader2 size={15} className="animate-spin" /> Uploading...</> : <><Plus size={16} /> Add Image</>}
+                      <button
+                        onClick={addGalleryImages}
+                        disabled={galleryPreviews.length === 0 || galleryPreviews.some((p) => p.uploading) || galleryUploading}
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#ADD8E6] text-[#1a1a2e] text-sm font-semibold hover:bg-[#8ec8d8] transition-colors disabled:opacity-50"
+                      >
+                        {galleryUploading
+                          ? <><Loader2 size={15} className="animate-spin" /> Saving...</>
+                          : galleryPreviews.some((p) => p.uploading)
+                            ? <><Loader2 size={15} className="animate-spin" /> Uploading {galleryPreviews.filter((p) => p.uploading).length} file{galleryPreviews.filter((p) => p.uploading).length > 1 ? 's' : ''}...</>
+                            : <><Plus size={16} /> Add {galleryPreviews.length > 0 ? `${galleryPreviews.length} ` : ''}Image{galleryPreviews.length !== 1 ? 's' : ''} to Gallery</>
+                        }
                       </button>
                     </div>
                   </div>
-                  {gallery.length === 0 && <p className="text-center text-gray-400 text-sm py-8">No gallery images yet</p>}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {gallery.map((img) => (
-                      <motion.div key={img.id} layout className="relative rounded-xl overflow-hidden group shadow-sm">
-                        <img src={img.url} alt={img.description} className="w-full h-36 object-cover" />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                          <div className="flex-1 min-w-0">
-                            <span className="text-xs text-[#F4C2C2] font-semibold">{img.category}</span>
-                            <p className="text-white text-xs truncate">{img.description}</p>
-                          </div>
-                          <button onClick={() => deleteGalleryImage(img.id)} className="text-red-300 hover:text-red-400 ml-2 flex-shrink-0">
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
-                      </motion.div>
-                    ))}
+
+                  {/* Existing gallery */}
+                  <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                        Gallery
+                      </h3>
+                      <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">
+                        {gallery.length} image{gallery.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                    {gallery.length === 0 ? (
+                      <p className="text-center text-gray-400 text-sm py-8">No gallery images yet — upload some above</p>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {gallery.map((img) => (
+                          <motion.div key={img.id} layout className="relative rounded-xl overflow-hidden shadow-sm group">
+                            <img src={img.url} alt={img.description} className="w-full h-36 object-cover" loading="lazy" />
+                            {/* Overlay — always visible on mobile, hover on desktop */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-2.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+                              <span className="text-[10px] font-semibold tracking-wide text-[#ADD8E6] uppercase">{img.category}</span>
+                              <p className="text-white text-xs truncate leading-tight">{img.description}</p>
+                            </div>
+                            {/* Delete button — always visible */}
+                            <button
+                              onClick={() => deleteGalleryImage(img.id)}
+                              className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/60 flex items-center justify-center text-red-300 hover:text-red-400 hover:bg-black/80 transition-colors shadow-sm"
+                              style={{ minHeight: 'unset' }}
+                              title="Delete image"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

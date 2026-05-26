@@ -2,21 +2,48 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase, type GalleryImage, type Transformation } from '../lib/supabase';
 
-const FILTERS = ['All', 'Bridal', 'Nails', 'Hair', 'Saree'];
+const FILTERS = ['All', 'Bridal', 'Hair', 'Nails', 'Saree', 'Other'];
 
 const PLACEHOLDER_IMAGES: GalleryImage[] = [
-  { id: '1', url: '/saree g1.png', description: 'Saree Draping', category: 'Saree', created_at: '' },
-  { id: '2', url: '/bridal look gallery.png', description: 'Bridal Makeover', category: 'Bridal', created_at: '' },
-  { id: '3', url: '/bridal look gallery 1.png', description: 'Engagement Look', category: 'Bridal', created_at: '' },
-  { id: '4', url: '/nail gallery 1.png', description: 'Nail Art', category: 'Nails', created_at: '' },
-  { id: '5', url: '/hairstyle g.png', description: 'Hair Styling', category: 'Hair', created_at: '' },
-  { id: '6', url: '/bridal look 8.jpeg', description: 'Bridal Hair & Makeup', category: 'Bridal', created_at: '' },
-  { id: '7', url: '/hairstyle g3.png', description: 'Hair Treatment', category: 'Hair', created_at: '' },
-  { id: '8', url: '/hairstyle g2.png', description: 'Bridal Hairstyle', category: 'Hair', created_at: '' },
-  { id: '9', url: '/saree g2.png', description: 'Saree Draping', category: 'Saree', created_at: '' },
-  { id: '10', url: '/hairstyle g4.png', description: 'Bridal Hairstyle', category: 'Hair', created_at: '' },
-  { id: '11', url: '/saree g3.png', description: 'Saree Draping', category: 'Saree', created_at: '' },
-  { id: '12', url: '/hairstyle g5.png', description: 'Bridal Hairstyle', category: 'Hair', created_at: '' },
+  // Bridal
+  { id: 'p1',  url: '/bridal look gallery.png',   description: 'Bridal Makeover',         category: 'Bridal', created_at: '' },
+  { id: 'p2',  url: '/bridal look gallery 1.png',  description: 'Engagement Look',          category: 'Bridal', created_at: '' },
+  { id: 'p3',  url: '/bridal look gallery 2.png',  description: 'Bridal Look',              category: 'Bridal', created_at: '' },
+  { id: 'p4',  url: '/bridal look 1.jpeg',         description: 'Bridal Makeup',            category: 'Bridal', created_at: '' },
+  { id: 'p5',  url: '/bridal look 2.webp',         description: 'Bridal Look 2',            category: 'Bridal', created_at: '' },
+  { id: 'p6',  url: '/bridal look 3.webp',         description: 'Bridal Look 3',            category: 'Bridal', created_at: '' },
+  { id: 'p7',  url: '/bridal look 4.jpeg',         description: 'Bridal Look 4',            category: 'Bridal', created_at: '' },
+  { id: 'p8',  url: '/bridal look 5.jpeg',         description: 'Bridal Look 5',            category: 'Bridal', created_at: '' },
+  { id: 'p9',  url: '/bridal look 6.jpeg',         description: 'Bridal Look 6',            category: 'Bridal', created_at: '' },
+  { id: 'p10', url: '/bridal look 7.jpeg',         description: 'Bridal Look 7',            category: 'Bridal', created_at: '' },
+  { id: 'p11', url: '/bridal look 8.jpeg',         description: 'Bridal Hair & Makeup',     category: 'Bridal', created_at: '' },
+  { id: 'p12', url: '/bridal makeover.jpg',        description: 'Bridal Makeover',          category: 'Bridal', created_at: '' },
+  { id: 'p13', url: '/bridal makeup trial.jpg',    description: 'Bridal Makeup Trial',      category: 'Bridal', created_at: '' },
+  { id: 'p14', url: '/bridal vision.jpg',          description: 'Bridal Vision',            category: 'Bridal', created_at: '' },
+  { id: 'p15', url: '/Engegment look.webp',        description: 'Engagement Look',          category: 'Bridal', created_at: '' },
+  { id: 'p16', url: '/Bridal card.png',            description: 'Bridal Package',           category: 'Bridal', created_at: '' },
+  // Hair
+  { id: 'p17', url: '/hairstyle g.png',            description: 'Hair Styling',             category: 'Hair',   created_at: '' },
+  { id: 'p18', url: '/hairstyle g2.png',           description: 'Bridal Hairstyle',         category: 'Hair',   created_at: '' },
+  { id: 'p19', url: '/hairstyle g3.png',           description: 'Hair Treatment',           category: 'Hair',   created_at: '' },
+  { id: 'p20', url: '/hairstyle g4.png',           description: 'Bridal Hairstyle',         category: 'Hair',   created_at: '' },
+  { id: 'p21', url: '/hairstyle g5.png',           description: 'Bridal Hairstyle',         category: 'Hair',   created_at: '' },
+  { id: 'p22', url: '/hairstyle g6.png',           description: 'Hair Styling',             category: 'Hair',   created_at: '' },
+  { id: 'p23', url: '/hairstyle g7.png',           description: 'Hair Styling',             category: 'Hair',   created_at: '' },
+  { id: 'p24', url: '/hairstyling.jpg',            description: 'Hair Styling',             category: 'Hair',   created_at: '' },
+  // Nails
+  { id: 'p25', url: '/nail gallery 1.png',         description: 'Nail Art',                 category: 'Nails',  created_at: '' },
+  { id: 'p26', url: '/mehendi and nail art.jpg',   description: 'Mehendi & Nail Art',       category: 'Nails',  created_at: '' },
+  // Saree
+  { id: 'p27', url: '/saree g1.png',               description: 'Saree Draping',            category: 'Saree',  created_at: '' },
+  { id: 'p28', url: '/saree g2.png',               description: 'Saree Draping',            category: 'Saree',  created_at: '' },
+  { id: 'p29', url: '/saree g3.png',               description: 'Saree Draping',            category: 'Saree',  created_at: '' },
+  { id: 'p30', url: '/saree draping.jpg',          description: 'Saree Draping',            category: 'Saree',  created_at: '' },
+  { id: 'p31', url: '/Madisar mami.webp',          description: 'Madisar Draping',          category: 'Saree',  created_at: '' },
+  // Other / Skincare
+  { id: 'p32', url: '/facial treatment.jpg',       description: 'Facial Treatment',         category: 'Other',  created_at: '' },
+  { id: 'p33', url: '/prebridal skincare.jpg',     description: 'Pre-Bridal Skincare',      category: 'Other',  created_at: '' },
+  { id: 'p34', url: '/jewellery and blouse consultation.jpg', description: 'Jewellery & Blouse Consultation', category: 'Bridal', created_at: '' },
 ];
 
 const PLACEHOLDER_TRANSFORMATIONS: Transformation[] = [
@@ -84,8 +111,15 @@ export default function Gallery() {
   const [transformations, setTransformations] = useState<Transformation[]>(PLACEHOLDER_TRANSFORMATIONS);
 
   useEffect(() => {
+    // Always show all placeholder images PLUS any DB-uploaded images on top.
+    // DB images are never deleted from the gallery — only manual delete in admin removes them.
     supabase.from('gallery_images').select('*').order('created_at', { ascending: false }).then(({ data }) => {
-      if (data && data.length > 0) setImages(data);
+      const dbImages = data ?? [];
+      // Deduplicate: skip placeholders whose URL already exists in DB (exact match)
+      const dbUrls = new Set(dbImages.map((d) => d.url));
+      const uniquePlaceholders = PLACEHOLDER_IMAGES.filter((p) => !dbUrls.has(p.url));
+      // DB images first (newest uploads on top), then all placeholders
+      setImages([...dbImages, ...uniquePlaceholders]);
     });
     supabase.from('transformations').select('*').order('created_at', { ascending: false }).then(({ data }) => {
       if (data && data.length > 0) setTransformations(data);
