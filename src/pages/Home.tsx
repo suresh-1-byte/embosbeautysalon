@@ -11,6 +11,8 @@ import Footer from '../components/Footer';
 import BookingModal from '../components/BookingModal';
 import Pricing from '../components/Pricing';
 import CustomerReviews from '../components/CustomerReviews';
+import LoveNotes from '../components/LoveNotes';
+import GoogleReviews from '../components/GoogleReviews';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { useNotifications } from '../hooks/useNotifications';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,6 +39,8 @@ export default function Home() {
       <Gallery />
       <Offers />
       <CustomerReviews />
+      <LoveNotes />
+      <GoogleReviews />
       <About />
       <Contact onBookingClick={() => handleBookingClick()} />
       <Footer />
