@@ -52,3 +52,17 @@ export type Review = {
   approved: boolean;
   created_at: string;
 };
+
+export type StickyNote = {
+  id: string;
+  image_url: string;
+  caption: string;
+  created_at: string;
+};
+
+export type GoogleReview = {
+  id: string;
+  image_url: string;
+  reviewer_name: string;
+  created_at: string;
+};

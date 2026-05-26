@@ -38,12 +38,13 @@ export async function sendPushToAll(
 export async function sendBulkOfferEmail(
   title: string,
   body: string,
-  url = '/'
+  url = '/',
+  imageUrl?: string
 ): Promise<{ success: boolean; sent?: number; error?: string }> {
   try {
     const result = await withTimeout(
       supabase.functions.invoke('send-email', {
-        body: { type: 'bulk_offer', booking: { title, body, url } },
+        body: { type: 'bulk_offer', booking: { title, body, url, imageUrl } },
       }),
       15000
     );

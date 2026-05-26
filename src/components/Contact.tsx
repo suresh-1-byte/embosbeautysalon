@@ -7,7 +7,7 @@ interface ContactProps {
 
 export default function Contact({ onBookingClick }: ContactProps) {
   return (
-    <section id="contact" className="py-24 px-4 bg-gradient-to-b from-pink-100 via-pink-150/50 to-pink-100/30">
+    <section id="contact" className="py-16 sm:py-24 px-4 bg-gradient-to-b from-pink-100 via-pink-100/50 to-pink-100/30">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

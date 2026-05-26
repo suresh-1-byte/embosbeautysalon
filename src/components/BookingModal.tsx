@@ -379,13 +379,21 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
                 <div className="flex-shrink-0 px-4 sm:px-5 py-3 sm:py-4 border-t border-gray-100 bg-white flex gap-3"
                   style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
                   {step === 1 ? (
-                    <button
+                    <motion.button
                       type="button"
                       onClick={handleNext}
-                      className="w-full py-3.5 rounded-xl bg-[#F4C2C2] text-[#1a1a2e] font-bold text-sm hover:bg-[#e8a8a8] transition-colors"
+                      whileTap={{ scale: 0.97 }}
+                      animate={{ boxShadow: ['0 0 0 0 rgba(244,194,194,0)', '0 0 0 8px rgba(244,194,194,0.3)', '0 0 0 0 rgba(244,194,194,0)'] }}
+                      transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                      className="w-full py-3.5 rounded-xl bg-[#F4C2C2] text-[#1a1a2e] font-bold text-sm hover:bg-[#e8a8a8] transition-colors relative overflow-hidden"
                     >
+                      <motion.span
+                        className="absolute inset-0 bg-white/20"
+                        animate={{ x: ['-100%', '100%'] }}
+                        transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut', repeatDelay: 1 }}
+                      />
                       Next — Pick Date & Time →
-                    </button>
+                    </motion.button>
                   ) : (
                     <>
                       <button
@@ -395,14 +403,24 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
                       >
                         ← Back
                       </button>
-                      <button
+                      <motion.button
                         type="button"
                         onClick={handleSubmit as any}
                         disabled={loading}
-                        className="flex-1 py-3.5 rounded-xl bg-[#F4C2C2] text-[#1a1a2e] font-bold text-sm hover:bg-[#e8a8a8] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                        whileTap={{ scale: 0.97 }}
+                        animate={{ boxShadow: ['0 0 0 0 rgba(244,194,194,0)', '0 0 0 8px rgba(244,194,194,0.3)', '0 0 0 0 rgba(244,194,194,0)'] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                        className="flex-1 py-3.5 rounded-xl bg-[#F4C2C2] text-[#1a1a2e] font-bold text-sm hover:bg-[#e8a8a8] transition-colors disabled:opacity-60 flex items-center justify-center gap-2 relative overflow-hidden"
                       >
+                        {!loading && (
+                          <motion.span
+                            className="absolute inset-0 bg-white/20"
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut', repeatDelay: 1 }}
+                          />
+                        )}
                         {loading ? <><Loader2 size={15} className="animate-spin" /> Booking...</> : 'Confirm Booking ✓'}
-                      </button>
+                      </motion.button>
                     </>
                   )}
                 </div>

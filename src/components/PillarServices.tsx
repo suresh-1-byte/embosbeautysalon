@@ -20,7 +20,7 @@ export default function PillarServices() {
           >
             Signature Experience
           </h2>
-          <p className="text-skyblue-400 max-w-md mx-auto text-sm leading-relaxed">
+          <p className="text-gray-500 max-w-md mx-auto text-sm leading-relaxed">
             A promise of radiance for your most beautiful beginning.
           </p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#40BFFF] to-transparent mx-auto mt-4" />

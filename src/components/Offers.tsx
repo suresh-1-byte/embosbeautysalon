@@ -32,7 +32,7 @@ const OFFERS = [
 
 export default function Offers() {
   return (
-    <section id="offers" className="py-24 px-4 bg-gradient-to-b from-pink-150/30 to-pink-100/20">
+    <section id="offers" className="py-16 sm:py-24 px-4 bg-gradient-to-b from-pink-100/30 to-pink-100/20">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -41,7 +41,7 @@ export default function Offers() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="text-xs tracking-[0.35em] text-[#FFE8F0] uppercase font-semibold mb-3">Special Offers</p>
+          <p className="text-xs tracking-[0.35em] text-[#40BFFF] uppercase font-semibold mb-3">Special Offers</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
             Exclusive Offers
           </h2>

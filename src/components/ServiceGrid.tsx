@@ -71,7 +71,7 @@ const categories = [
 
 export default function ServiceGrid() {
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-pink-100 to-pink-150/50">
+    <section className="py-16 sm:py-24 px-4 bg-gradient-to-b from-pink-100 to-pink-100/50">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
