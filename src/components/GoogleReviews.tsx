@@ -3,8 +3,18 @@ import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { supabase, type GoogleReview } from '../lib/supabase';
 
+// Fallback placeholder reviews (always shown when DB has no entries)
+const PLACEHOLDER_REVIEWS: GoogleReview[] = [
+  { id: 'gr1', image_url: '/review1.png', reviewer_name: '', created_at: '' },
+  { id: 'gr2', image_url: '/review2.png', reviewer_name: '', created_at: '' },
+  { id: 'gr3', image_url: '/review3.png', reviewer_name: '', created_at: '' },
+  { id: 'gr4', image_url: '/review4.png', reviewer_name: '', created_at: '' },
+  { id: 'gr5', image_url: '/review5.png', reviewer_name: '', created_at: '' },
+  { id: 'gr6', image_url: '/review6.png', reviewer_name: '', created_at: '' },
+];
+
 export default function GoogleReviews() {
-  const [reviews, setReviews] = useState<GoogleReview[]>([]);
+  const [reviews, setReviews] = useState<GoogleReview[]>(PLACEHOLDER_REVIEWS);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +23,17 @@ export default function GoogleReviews() {
       .select('*')
       .order('created_at', { ascending: false })
       .then(({ data }) => {
-        setReviews(data ?? []);
+        const dbReviews = data ?? [];
+        if (dbReviews.length > 0) {
+          // Merge: DB reviews first (newest on top), then placeholders not already in DB
+          const dbUrls = new Set(dbReviews.map((r) => r.image_url));
+          const uniquePlaceholders = PLACEHOLDER_REVIEWS.filter((p) => !dbUrls.has(p.image_url));
+          setReviews([...dbReviews, ...uniquePlaceholders]);
+        }
+        // If DB empty, placeholders stay as initial state
         setLoading(false);
       });
   }, []);
-
-  if (!loading && reviews.length === 0) return null;
 
   return (
     <section className="py-16 sm:py-20 px-4 bg-white">

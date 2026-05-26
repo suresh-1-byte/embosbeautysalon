@@ -979,7 +979,7 @@ export default function Admin() {
                 <div className="space-y-5">
                   <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                     <h3 className="font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>Add Love Note</h3>
-                    <p className="text-xs text-gray-400 mb-4">Upload a sticky note / handwritten message from a happy client</p>
+                    <p className="text-xs text-gray-400 mb-4">Upload sticky note / handwritten message photos from happy clients. New uploads are added alongside existing ones.</p>
                     <div className="space-y-3">
                       <label className="block">
                         <span className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Upload Image</span>
@@ -987,7 +987,18 @@ export default function Admin() {
                           {stickyPreview ? (
                             <div className="relative">
                               <img src={stickyPreview} alt="Preview" className="w-full h-48 object-contain rounded-lg bg-amber-50" />
-                              {stickyUploading && <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-lg"><Loader2 size={20} className="animate-spin text-[#F4C2C2]" /></div>}
+                              {stickyUploading && (
+                                <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-lg">
+                                  <Loader2 size={20} className="animate-spin text-[#F4C2C2]" />
+                                </div>
+                              )}
+                              {!stickyUploading && (
+                                <button type="button" onClick={(e) => { e.preventDefault(); setStickyFile(null); setStickyPreview(''); }}
+                                  className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                                  style={{ minHeight: 'unset' }}>
+                                  <XCircle size={13} />
+                                </button>
+                              )}
                             </div>
                           ) : (
                             <div className="py-6">
@@ -1007,18 +1018,36 @@ export default function Admin() {
                       </button>
                     </div>
                   </div>
-                  {stickyNotes.length === 0 && <p className="text-center text-gray-400 text-sm py-8">No love notes yet</p>}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {stickyNotes.map((note) => (
-                      <motion.div key={note.id} layout className="relative rounded-xl overflow-hidden group shadow-sm bg-amber-50 border border-amber-100">
-                        <img src={note.image_url} alt={note.caption} className="w-full h-40 object-contain p-2" />
-                        {note.caption && <p className="text-xs text-center text-amber-700 px-2 pb-2 font-medium">{note.caption}</p>}
-                        <button onClick={() => deleteStickyNote(note.id)}
-                          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/80 flex items-center justify-center text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                          <Trash2 size={12} />
-                        </button>
-                      </motion.div>
-                    ))}
+
+                  {/* Existing sticky notes */}
+                  <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>Uploaded Love Notes</h3>
+                      <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">
+                        {stickyNotes.length} note{stickyNotes.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                    {stickyNotes.length === 0 ? (
+                      <p className="text-center text-gray-400 text-sm py-8">No love notes uploaded yet — add one above</p>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        {stickyNotes.map((note) => (
+                          <motion.div key={note.id} layout className="relative rounded-xl overflow-hidden shadow-sm bg-amber-50 border border-amber-100">
+                            <img src={note.image_url} alt={note.caption} className="w-full h-40 object-contain p-2" loading="lazy" />
+                            {note.caption && <p className="text-xs text-center text-amber-700 px-2 pb-2 font-medium">{note.caption}</p>}
+                            {/* Delete — always visible */}
+                            <button
+                              onClick={() => deleteStickyNote(note.id)}
+                              className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 flex items-center justify-center text-red-300 hover:text-white hover:bg-red-500 transition-colors shadow-sm"
+                              style={{ minHeight: 'unset' }}
+                              title="Delete love note"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -1028,7 +1057,7 @@ export default function Admin() {
                 <div className="space-y-5">
                   <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                     <h3 className="font-bold text-[#1a1a2e] mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>Add Google Review Screenshot</h3>
-                    <p className="text-xs text-gray-400 mb-4">Upload screenshots of your Google reviews to display on the website</p>
+                    <p className="text-xs text-gray-400 mb-4">Upload screenshots of Google reviews. New uploads are added alongside existing ones — nothing is deleted automatically.</p>
                     <div className="space-y-3">
                       <label className="block">
                         <span className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Upload Screenshot</span>
@@ -1036,7 +1065,18 @@ export default function Admin() {
                           {grPreview ? (
                             <div className="relative">
                               <img src={grPreview} alt="Preview" className="w-full h-48 object-contain rounded-lg bg-gray-50" />
-                              {grUploading && <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-lg"><Loader2 size={20} className="animate-spin text-[#40BFFF]" /></div>}
+                              {grUploading && (
+                                <div className="absolute inset-0 bg-white/70 flex items-center justify-center rounded-lg">
+                                  <Loader2 size={20} className="animate-spin text-[#40BFFF]" />
+                                </div>
+                              )}
+                              {!grUploading && (
+                                <button type="button" onClick={(e) => { e.preventDefault(); setGrFile(null); setGrPreview(''); }}
+                                  className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                                  style={{ minHeight: 'unset' }}>
+                                  <XCircle size={13} />
+                                </button>
+                              )}
                             </div>
                           ) : (
                             <div className="py-6">
@@ -1056,18 +1096,36 @@ export default function Admin() {
                       </button>
                     </div>
                   </div>
-                  {googleReviews.length === 0 && <p className="text-center text-gray-400 text-sm py-8">No Google reviews added yet</p>}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {googleReviews.map((gr) => (
-                      <motion.div key={gr.id} layout className="relative rounded-xl overflow-hidden group shadow-sm bg-white border border-gray-100">
-                        <img src={gr.image_url} alt={gr.reviewer_name} className="w-full object-contain max-h-64 p-2" />
-                        {gr.reviewer_name && <p className="text-xs text-center text-gray-500 px-3 pb-3 font-medium">{gr.reviewer_name}</p>}
-                        <button onClick={() => deleteGoogleReview(gr.id)}
-                          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/80 flex items-center justify-center text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                          <Trash2 size={12} />
-                        </button>
-                      </motion.div>
-                    ))}
+
+                  {/* Existing google reviews */}
+                  <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>Uploaded Reviews</h3>
+                      <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">
+                        {googleReviews.length} review{googleReviews.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                    {googleReviews.length === 0 ? (
+                      <p className="text-center text-gray-400 text-sm py-8">No Google reviews uploaded yet — add one above</p>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {googleReviews.map((gr) => (
+                          <motion.div key={gr.id} layout className="relative rounded-xl overflow-hidden shadow-sm bg-white border border-gray-100">
+                            <img src={gr.image_url} alt={gr.reviewer_name} className="w-full object-contain max-h-64 p-2" loading="lazy" />
+                            {gr.reviewer_name && <p className="text-xs text-center text-gray-500 px-3 pb-3 font-medium">{gr.reviewer_name}</p>}
+                            {/* Delete — always visible */}
+                            <button
+                              onClick={() => deleteGoogleReview(gr.id)}
+                              className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 flex items-center justify-center text-red-300 hover:text-white hover:bg-red-500 transition-colors shadow-sm"
+                              style={{ minHeight: 'unset' }}
+                              title="Delete review"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

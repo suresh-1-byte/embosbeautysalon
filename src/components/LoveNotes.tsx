@@ -3,8 +3,18 @@ import { motion } from 'framer-motion';
 import { Heart, Loader2 } from 'lucide-react';
 import { supabase, type StickyNote } from '../lib/supabase';
 
+// Fallback placeholder sticky notes (always shown when DB has no entries)
+const PLACEHOLDER_NOTES: StickyNote[] = [
+  { id: 'sn1', image_url: '/sticky1.png', caption: '', created_at: '' },
+  { id: 'sn2', image_url: '/sticky2.png', caption: '', created_at: '' },
+  { id: 'sn3', image_url: '/sticky3.png', caption: '', created_at: '' },
+  { id: 'sn4', image_url: '/sticky4.png', caption: '', created_at: '' },
+  { id: 'sn5', image_url: '/sticky5.png', caption: '', created_at: '' },
+  { id: 'sn6', image_url: '/sticky6.png', caption: '', created_at: '' },
+];
+
 export default function LoveNotes() {
-  const [notes, setNotes] = useState<StickyNote[]>([]);
+  const [notes, setNotes] = useState<StickyNote[]>(PLACEHOLDER_NOTES);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +23,17 @@ export default function LoveNotes() {
       .select('*')
       .order('created_at', { ascending: false })
       .then(({ data }) => {
-        setNotes(data ?? []);
+        const dbNotes = data ?? [];
+        if (dbNotes.length > 0) {
+          // Merge: DB notes first (newest on top), then placeholders not already in DB
+          const dbUrls = new Set(dbNotes.map((n) => n.image_url));
+          const uniquePlaceholders = PLACEHOLDER_NOTES.filter((p) => !dbUrls.has(p.image_url));
+          setNotes([...dbNotes, ...uniquePlaceholders]);
+        }
+        // If DB empty, placeholders stay as initial state
         setLoading(false);
       });
   }, []);
-
-  if (!loading && notes.length === 0) return null;
 
   // Slight random rotations for sticky note feel
   const rotations = [-2, 1.5, -1, 2.5, -1.5, 1, -2.5, 2];
