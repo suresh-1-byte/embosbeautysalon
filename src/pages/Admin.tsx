@@ -257,7 +257,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   );
 }
 
-// ─── Admin Dashboard ──────────────────────────────────────────────────────────
+// ─── Admin Dashboard ─────────────────────────────────────────────────────────
 export default function Admin() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('embos_admin') === '1');
   const [tab, setTab] = useState<Tab>('bookings');
