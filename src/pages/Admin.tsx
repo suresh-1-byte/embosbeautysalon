@@ -586,10 +586,23 @@ export default function Admin() {
   );
 
   const SERVICE_PRICES: Record<string, number> = {
-    'Korean Glass Skin Facial': 1499, 'Bridal Makeup': 5999, 'Hair Cut & Styling': 499,
-    'Nail Art & Extensions': 799, 'Mehendi Application': 1299, 'Gold Facial': 1199,
-    'Brow Sculpting': 399, 'Hair Botox': 2499, 'D-Tan Treatment': 599,
-    'Keratin Hair Spa': 1299, 'Essential Beauty Combo': 499, 'Mega Summer Combo': 1999,
+    'Simple Bridal Makeup': 5000,
+    'Professional Bridal Makeup': 7000,
+    'Reception Makeup': 7000,
+    'Engagement Makeup': 3500,
+    'Baby Shower Makeup': 3000,
+    'Party Makeup': 2000,
+    'Sider Makeup': 1500,
+    'Hair Styling': 1000,
+    'Saree Draping': 1000,
+    'Korean Glass Skin Facial': 1499,
+    'Gold Facial': 1199,
+    'Hair Botox': 2499,
+    'Keratin Hair Spa': 1299,
+    'Nail Art & Extensions': 799,
+    'Mehendi Application': 1299,
+    'Brow Sculpting': 399,
+    'D-Tan Treatment': 599,
   };
   const estimatedRevenue = bookings
     .filter(b => b.status === 'confirmed')

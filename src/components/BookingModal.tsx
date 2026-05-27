@@ -11,16 +11,23 @@ interface BookingModalProps {
 }
 
 const SERVICES = [
+  { name: 'Simple Bridal Makeup', duration: '120 min', price: '₹5,000' },
+  { name: 'Professional Bridal Makeup', duration: '150 min', price: '₹7,000' },
+  { name: 'Reception Makeup', duration: '120 min', price: '₹7,000' },
+  { name: 'Engagement Makeup', duration: '90 min', price: '₹3,500' },
+  { name: 'Baby Shower Makeup', duration: '75 min', price: '₹3,000' },
+  { name: 'Party Makeup', duration: '60 min', price: '₹2,000' },
+  { name: 'Sider Makeup', duration: '60 min', price: '₹1,500' },
+  { name: 'Hair Styling', duration: '45–90 min', price: '₹1,000 – ₹4,000' },
+  { name: 'Saree Draping', duration: '30 min', price: '₹1,000' },
   { name: 'Korean Glass Skin Facial', duration: '60 min', price: '₹1,499' },
-  { name: 'Bridal Makeup', duration: '120 min', price: '₹5,999' },
-  { name: 'Hair Cut & Styling', duration: '45 min', price: '₹499' },
+  { name: 'Gold Facial', duration: '60 min', price: '₹1,199' },
+  { name: 'Hair Botox', duration: '90 min', price: '₹2,499' },
+  { name: 'Keratin Hair Spa', duration: '60 min', price: '₹1,299' },
   { name: 'Nail Art & Extensions', duration: '60 min', price: '₹799' },
   { name: 'Mehendi Application', duration: '90 min', price: '₹1,299' },
-  { name: 'Gold Facial', duration: '60 min', price: '₹1,199' },
   { name: 'Brow Sculpting', duration: '30 min', price: '₹399' },
-  { name: 'Hair Botox', duration: '90 min', price: '₹2,499' },
   { name: 'D-Tan Treatment', duration: '45 min', price: '₹599' },
-  { name: 'Keratin Hair Spa', duration: '60 min', price: '₹1,299' },
   { name: 'Other', duration: '', price: '' },
 ];
 

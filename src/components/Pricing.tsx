@@ -7,6 +7,42 @@ interface PricingProps {
 
 const CATEGORIES = [
   {
+    name: 'Bridal & Makeup',
+    emoji: '👰',
+    color: 'from-[#FFE8F0]/30 to-[#FFE8F0]/5',
+    border: 'border-pink-200/60',
+    services: [
+      { name: 'Simple Bridal Makeup', duration: '120 min', price: '₹5,000', popular: true },
+      { name: 'Professional Bridal Makeup', duration: '150 min', price: '₹7,000', popular: true },
+      { name: 'Reception Makeup', duration: '120 min', price: '₹7,000' },
+      { name: 'Engagement Makeup', duration: '90 min', price: '₹3,500' },
+      { name: 'Baby Shower Makeup', duration: '75 min', price: '₹3,000' },
+      { name: 'Party Makeup', duration: '60 min', price: '₹2,000' },
+      { name: 'Sider Makeup', duration: '60 min', price: '₹1,500' },
+    ],
+  },
+  {
+    name: 'Hair',
+    emoji: '💇',
+    color: 'from-[#ADD8E6]/20 to-[#ADD8E6]/5',
+    border: 'border-[#ADD8E6]/40',
+    services: [
+      { name: 'Hair Styling', duration: '45–90 min', price: '₹1,000 – ₹4,000', popular: true },
+      { name: 'Hair Botox', duration: '90 min', price: '₹2,499' },
+      { name: 'Keratin Hair Spa', duration: '60 min', price: '₹1,299' },
+      { name: 'Hair Colour', duration: '90 min', price: '₹1,999' },
+    ],
+  },
+  {
+    name: 'Saree & Draping',
+    emoji: '🥻',
+    color: 'from-amber-100/20 to-amber-50/5',
+    border: 'border-amber-200/40',
+    services: [
+      { name: 'Saree Draping', duration: '30 min', price: '₹1,000', popular: true },
+    ],
+  },
+  {
     name: 'Skin & Facial',
     emoji: '✨',
     color: 'from-[#F4C2C2]/20 to-[#F4C2C2]/5',
@@ -16,30 +52,6 @@ const CATEGORIES = [
       { name: 'Gold Facial', duration: '60 min', price: '₹1,199' },
       { name: 'D-Tan Treatment', duration: '45 min', price: '₹599' },
       { name: 'Deep Facial Cleanup', duration: '45 min', price: '₹699' },
-    ],
-  },
-  {
-    name: 'Bridal & Makeup',
-    emoji: '👰',
-    color: 'from-[#FFE8F0]/30 to-[#FFE8F0]/5',
-    border: 'border-pink-200/60',
-    services: [
-      { name: 'Bridal Makeup (Full)', duration: '120 min', price: '₹5,999', popular: true },
-      { name: 'Engagement Look', duration: '90 min', price: '₹3,499' },
-      { name: 'Party Makeup', duration: '60 min', price: '₹1,999' },
-      { name: 'Saree Draping', duration: '30 min', price: '₹499' },
-    ],
-  },
-  {
-    name: 'Hair',
-    emoji: '💇',
-    color: 'from-[#ADD8E6]/20 to-[#ADD8E6]/5',
-    border: 'border-[#ADD8E6]/40',
-    services: [
-      { name: 'Hair Botox', duration: '90 min', price: '₹2,499', popular: true },
-      { name: 'Keratin Hair Spa', duration: '60 min', price: '₹1,299' },
-      { name: 'Hair Cut & Styling', duration: '45 min', price: '₹499' },
-      { name: 'Hair Colour', duration: '90 min', price: '₹1,999' },
     ],
   },
   {
@@ -69,8 +81,8 @@ const CATEGORIES = [
   {
     name: 'Special Packages',
     emoji: '🎁',
-    color: 'from-amber-100/20 to-amber-50/5',
-    border: 'border-amber-200/40',
+    color: 'from-green-100/20 to-green-50/5',
+    border: 'border-green-200/40',
     services: [
       { name: 'Essential Beauty Combo', duration: '90 min', price: '₹499', popular: true },
       { name: 'Mega Summer Combo', duration: '180 min', price: '₹1,999', popular: true },
