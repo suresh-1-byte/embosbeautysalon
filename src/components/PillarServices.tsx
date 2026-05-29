@@ -38,7 +38,7 @@ export default function PillarServices() {
             {/* Responsive height: shorter on mobile, full on desktop */}
             <div className="relative h-56 sm:h-80 md:h-[28rem] overflow-hidden">
               <motion.img
-                src="/Bridal card.png"
+                src="/bridal page background.png"
                 alt="Bridal Studio"
                 className="w-full h-full object-cover"
                 whileHover={{ scale: 1.05 }}

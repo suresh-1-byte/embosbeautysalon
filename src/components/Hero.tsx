@@ -3,42 +3,28 @@ import { motion } from 'framer-motion';
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-[100dvh] w-full overflow-hidden">
-      {/* Desktop: Diagonal Split */}
-      <div className="hidden md:block absolute inset-0">
-        <div className="absolute inset-0" style={{ clipPath: 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' }}>
-          <img src="/KOREAN_GIRL.png" alt="Korean beauty" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#40BFFF]/50 via-white/10 to-transparent" />
-        </div>
-        <div className="absolute inset-0" style={{ clipPath: 'polygon(60% 0, 100% 0, 100% 100%, 40% 100%)' }}>
-          <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg" alt="Indian bridal" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-bl from-[#FFE8F0]/50 via-pink-100/10 to-transparent" />
-        </div>
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(64,191,255,0.15) 0%, rgba(255,232,240,0.6) 45%, rgba(255,200,230,0.15) 100%)' }} />
+      {/* Full background: black & gold — full image visible, no crop */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundColor: '#000',
+          backgroundImage: 'url("/bg image.png")',
+          backgroundSize: '75%',
+          backgroundPosition: 'center 80px',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
 
-      {/* Mobile: Single background with overlay */}
-      <div className="md:hidden absolute inset-0">
-        <img src="/KOREAN_GIRL.png" alt="EMBOS Beauty" className="w-full h-full object-cover object-top" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/60" />
+      {/* Accent portrait, desktop only, bottom-right */}
+      <div className="hidden md:block absolute bottom-16 right-10 z-10 w-36 h-48 lg:w-44 lg:h-60 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
+        style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}>
+        <img src="/kerala bridal.jpeg" alt="Kerala Bridal portrait" className="w-full h-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
       </div>
 
-      {/* Desktop dark overlay */}
-      <div className="hidden md:block absolute inset-0 bg-black/30" />
 
-      {/* Decorative — desktop only */}
-      <div className="absolute top-24 right-8 w-32 h-32 opacity-20 pointer-events-none hidden lg:block">
-        <svg viewBox="0 0 120 120" fill="none">
-          <circle cx="60" cy="60" r="50" stroke="#FFE8F0" strokeWidth="1" />
-          <circle cx="60" cy="60" r="35" stroke="#FFE8F0" strokeWidth="1" />
-          {[0,45,90,135,180,225,270,315].map((deg,i) => (
-            <ellipse key={i}
-              cx={60+42*Math.cos(deg*Math.PI/180)} cy={60+42*Math.sin(deg*Math.PI/180)}
-              rx="8" ry="14"
-              transform={`rotate(${deg} ${60+42*Math.cos(deg*Math.PI/180)} ${60+42*Math.sin(deg*Math.PI/180)})`}
-              fill="#FFE8F0" />
-          ))}
-        </svg>
-      </div>
 
       {/* Center Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] text-center px-5 sm:px-6 py-20 w-full max-w-full overflow-hidden">

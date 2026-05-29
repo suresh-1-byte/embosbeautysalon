@@ -17,11 +17,7 @@ const PLACEHOLDER_IMAGES: GalleryImage[] = [
   { id: 'p9',  url: '/bridal look 6.jpeg',         description: 'Bridal Look 6',            category: 'Bridal', created_at: '' },
   { id: 'p10', url: '/bridal look 7.jpeg',         description: 'Bridal Look 7',            category: 'Bridal', created_at: '' },
   { id: 'p11', url: '/bridal look 8.jpeg',         description: 'Bridal Hair & Makeup',     category: 'Bridal', created_at: '' },
-  { id: 'p12', url: '/bridal makeover.jpg',        description: 'Bridal Makeover',          category: 'Bridal', created_at: '' },
-  { id: 'p13', url: '/bridal makeup trial.jpg',    description: 'Bridal Makeup Trial',      category: 'Bridal', created_at: '' },
-  { id: 'p14', url: '/bridal vision.jpg',          description: 'Bridal Vision',            category: 'Bridal', created_at: '' },
   { id: 'p15', url: '/Engegment look.webp',        description: 'Engagement Look',          category: 'Bridal', created_at: '' },
-  { id: 'p16', url: '/Bridal card.png',            description: 'Bridal Package',           category: 'Bridal', created_at: '' },
   // Hair
   { id: 'p17', url: '/hairstyle g.png',            description: 'Hair Styling',             category: 'Hair',   created_at: '' },
   { id: 'p18', url: '/hairstyle g2.png',           description: 'Bridal Hairstyle',         category: 'Hair',   created_at: '' },
@@ -41,9 +37,7 @@ const PLACEHOLDER_IMAGES: GalleryImage[] = [
   { id: 'p30', url: '/saree draping.jpg',          description: 'Saree Draping',            category: 'Saree',  created_at: '' },
   { id: 'p31', url: '/Madisar mami.webp',          description: 'Madisar Draping',          category: 'Saree',  created_at: '' },
   // Other / Skincare
-  { id: 'p32', url: '/facial treatment.jpg',       description: 'Facial Treatment',         category: 'Other',  created_at: '' },
   { id: 'p33', url: '/prebridal skincare.jpg',     description: 'Pre-Bridal Skincare',      category: 'Other',  created_at: '' },
-  { id: 'p34', url: '/jewellery and blouse consultation.jpg', description: 'Jewellery & Blouse Consultation', category: 'Bridal', created_at: '' },
 ];
 
 const PLACEHOLDER_TRANSFORMATIONS: Transformation[] = [

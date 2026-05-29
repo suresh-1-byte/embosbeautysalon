@@ -1206,7 +1206,7 @@ export default function Admin() {
               )}
 
             </motion.div>
-          </AnimatePresence>
+           </AnimatePresence>
         )}
       </div>
     </div>

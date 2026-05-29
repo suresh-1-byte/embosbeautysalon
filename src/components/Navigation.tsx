@@ -48,7 +48,7 @@ export default function Navigation() {
                 <img src="/logo.jpeg" alt="EMBOS Logo" className="w-full h-full object-cover" />
               </div>
               <div className="hidden sm:block">
-                <p className="text-lg sm:text-xl font-bold tracking-widest text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                <p className="text-lg sm:text-xl font-bold tracking-widest text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
                   EMBOS
                 </p>
                 <p className="text-[10px] tracking-[0.25em] text-[#ADD8E6] font-medium uppercase">
