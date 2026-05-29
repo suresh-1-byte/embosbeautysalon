@@ -1,4 +1,6 @@
+Sitemap: https://embosbeautysalon.in/sitemap.xml
+
+# Block admin page from indexing
 User-agent: *
 Allow: /
-
-Sitemap: https://embosbeautysalon.in/sitemap.xml
+Disallow: /admin
