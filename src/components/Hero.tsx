@@ -18,7 +18,7 @@ export default function Hero() {
           style={{
             backgroundImage: 'url("/bg image.png")',
             backgroundSize: 'cover',
-            backgroundPosition: 'center 0%',
+            backgroundPosition: 'center 30%',
             backgroundRepeat: 'no-repeat',
             backgroundColor: '#000',
           }}
@@ -30,10 +30,10 @@ export default function Hero() {
           style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.88) 100%)' }}
         />
 
-        {/* Content — overlaid, pulled up closer to image */}
+        {/* Content — right below the image, no gap */}
         <div
           className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
-          style={{ top: '55%' }}
+          style={{ top: '62%' }}
         >
           {/* Logo */}
           <img
