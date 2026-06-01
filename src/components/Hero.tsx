@@ -12,13 +12,13 @@ export default function Hero() {
         className="lg:hidden relative w-full overflow-hidden"
         style={{ minHeight: '100svh', backgroundColor: '#000' }}
       >
-        {/* Background image — absolute, zoomed out to show full portrait */}
+        {/* Background image — covers full section height, face visible */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage: 'url("/bg image.png")',
-            backgroundSize: '100% auto',
-            backgroundPosition: 'center top',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 0%',
             backgroundRepeat: 'no-repeat',
             backgroundColor: '#000',
           }}
@@ -27,13 +27,13 @@ export default function Hero() {
         {/* Dark overlay */}
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.85) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 20%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.88) 100%)' }}
         />
 
         {/* Content — overlaid, pulled up closer to image */}
         <div
           className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
-          style={{ top: '52%' }}
+          style={{ top: '55%' }}
         >
           {/* Logo */}
           <img
