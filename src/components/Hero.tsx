@@ -20,6 +20,8 @@ export default function Hero() {
           style={{
             objectFit: 'cover',
             objectPosition: 'center 10%',
+            transform: 'scale(0.82)',
+            transformOrigin: 'center top',
           }}
         />
 
