@@ -132,10 +132,14 @@ export default function About() {
         </motion.div>
 
         {/* Reviews Section */}
+        
         <div className="mb-12">
+          {/* Client Reviews heading — disabled */}
+          {/*
           <h2 className="text-4xl font-bold text-[#1a1a2e] mb-12 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
             Client Reviews
           </h2>
+          */}
 
           {/* GOOGLE REVIEWS — disabled */}
           {/*
