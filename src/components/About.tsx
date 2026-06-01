@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Award, Heart, Star, GraduationCap } from 'lucide-react';
+import { Award, Heart, Star } from 'lucide-react';
 
 const stats = [
   { icon: Star, value: '500+', label: 'Happy Clients' },
@@ -9,9 +8,6 @@ const stats = [
 ];
 
 export default function About() {
-  const [showGoogleMore, setShowGoogleMore] = useState(false);
-  const [showStickyMore, setShowStickyMore] = useState(false);
-
   // Pink Smoke Effect Class
   const pinkSmoke = "shadow-[0_0_20px_rgba(255,182,193,0.8)]";
 
@@ -141,10 +137,10 @@ export default function About() {
             Client Reviews
           </h2>
 
-          {/* GOOGLE REVIEWS */}
+          {/* GOOGLE REVIEWS — disabled */}
+          {/*
           <div className="mb-12 sm:mb-24">
             <h3 className="text-xl sm:text-2xl font-bold text-sky-700 mb-6 sm:mb-8">Google Reviews</h3>
-            
             <div 
               className={`p-4 transition-all duration-300 h-[400px] rounded-2xl border-2 border-sky-400 bg-white/30 ${
                 showGoogleMore ? 'overflow-y-auto' : 'overflow-hidden'
@@ -157,7 +153,6 @@ export default function About() {
                 <img src="/review4.png" alt="Review" className="rounded-2xl shadow-sm border border-white w-full" />
               </div>
             </div>
-
             <div className="flex justify-center mt-8">
               <button
                 onClick={() => setShowGoogleMore(!showGoogleMore)}
@@ -167,11 +162,12 @@ export default function About() {
               </button>
             </div>
           </div>
+          */}
 
-          {/* STICKY NOTES: Sky Blue Outline */}
+          {/* STICKY NOTES — disabled */}
+          {/*
           <div>
             <h3 className="text-2xl font-bold text-sky-700 mb-8">Sticky Love Notes 💌</h3>
-            
             <div 
               className={`p-4 transition-all duration-300 h-[340px] rounded-2xl border-2 border-sky-400 bg-white/30 ${
                 showStickyMore ? 'overflow-y-auto' : 'overflow-hidden'
@@ -184,7 +180,6 @@ export default function About() {
                 <img src="/sticky4.png" alt="Note" className="rounded-2xl shadow-md border border-white w-full" />
               </div>
             </div>
-
             <div className="flex justify-center mt-8">
               <button
                 onClick={() => setShowStickyMore(!showStickyMore)}
@@ -194,6 +189,7 @@ export default function About() {
               </button>
             </div>
           </div>
+          */}
         </div>
       </div>
     </section>

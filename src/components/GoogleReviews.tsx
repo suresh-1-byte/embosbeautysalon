@@ -100,7 +100,7 @@ export default function GoogleReviews() {
           className="text-center mt-8"
         >
           <a
-            href="https://g.page/r/embosbeautysalon/review"
+            href="https://www.google.com/search?q=embos+beauty+salon+%26+studio+ladies+%26+kid+chennai&oq=embos+beauty&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRg5MggIAhBFGCcYOzIICAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB7SAQoxMTI0MWowajE1qAIIsAIB8QXYgX8ANRpoMvEF2IF_ADUaaDI&sourceid=chrome&ie=UTF-8#"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#40BFFF] text-[#40BFFF] font-semibold text-sm hover:bg-[#40BFFF]/10 transition-colors"
