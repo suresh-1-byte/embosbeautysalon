@@ -5,27 +5,44 @@ export default function Hero() {
     <>
       {/* ══════════════════════════════════════
           MOBILE + TABLET (hidden on lg+)
+          Image as true background, content overlaid
       ══════════════════════════════════════ */}
-      <section id="home" className="lg:hidden w-full bg-black flex flex-col items-center">
-        {/* Navbar spacer */}
-        <div className="h-16 w-full" />
-
-        {/* Hero image — full width, edge to edge, no side gaps */}
+      <section
+        id="home"
+        className="lg:hidden relative w-full overflow-hidden"
+        style={{ minHeight: '100svh', backgroundColor: '#000' }}
+      >
+        {/* Background image — absolute, covers full section */}
         <img
           src="/bg image.png"
           alt="EMBOS Beauty"
-          className="w-full block"
-          style={{ display: 'block', maxWidth: '100%' }}
+          className="absolute inset-0 w-full h-full"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center 10%',
+          }}
         />
 
-        {/* Content — tight below image */}
-        <div className="w-full flex flex-col items-center text-center px-4 pt-4 pb-10 bg-black">
+        {/* Dark overlay for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(0,0,0,0.45)' }}
+        />
+
+        {/* Content — overlaid, centered, bottom 35% of screen */}
+        <div
+          className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
+          style={{ bottom: '8%' }}
+        >
           {/* Logo */}
           <img
             src="/logo wobg.png"
             alt="EMBOS Beauty Salon & Studio"
-            className="w-48 sm:w-56 mx-auto object-contain mb-2"
-            style={{ mixBlendMode: 'screen' }}
+            className="mx-auto object-contain mb-2"
+            style={{
+              width: 'clamp(180px, 55vw, 220px)',
+              mixBlendMode: 'screen',
+            }}
           />
 
           <p className="text-[10px] tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-2">
@@ -34,20 +51,27 @@ export default function Hero() {
 
           <div className="w-14 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-3" />
 
-          <p className="max-w-sm text-xs sm:text-sm text-white/90 leading-relaxed font-light mb-5 px-2">
+          <p
+            className="text-white/90 leading-relaxed font-light mb-5 px-2"
+            style={{
+              fontSize: 'clamp(13px, 3.5vw, 15px)',
+              maxWidth: '300px',
+              textShadow: '0 2px 10px rgba(0,0,0,0.8)',
+            }}
+          >
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
           </p>
 
-          <div className="flex flex-col gap-3 w-full max-w-[260px] sm:max-w-xs">
+          <div className="flex flex-col gap-3 w-full" style={{ maxWidth: '300px' }}>
             <a
               href="#services"
-              className="px-6 py-3 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-sm text-center hover:bg-white transition-all duration-300 shadow-lg"
+              className="w-full py-3 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-sm text-center hover:bg-white transition-all duration-300 shadow-lg"
             >
               Explore Services
             </a>
             <a
               href="#contact"
-              className="px-6 py-3 rounded-full bg-[#40BFFF] text-white font-semibold text-sm text-center hover:bg-[#1c9ff9] transition-all duration-300"
+              className="w-full py-3 rounded-full bg-[#40BFFF] text-white font-semibold text-sm text-center hover:bg-[#1c9ff9] transition-all duration-300"
             >
               Book Appointment
             </a>
