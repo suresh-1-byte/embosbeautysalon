@@ -12,16 +12,15 @@ export default function Hero() {
         className="lg:hidden relative w-full overflow-hidden"
         style={{ minHeight: '100svh', backgroundColor: '#000' }}
       >
-        {/* Background image — absolute, covers full section */}
-        <img
-          src="/bg image.png"
-          alt="EMBOS Beauty"
-          className="absolute inset-0 w-full h-full"
+        {/* Background image — absolute, zoomed out to show full portrait */}
+        <div
+          className="absolute inset-0"
           style={{
-            objectFit: 'cover',
-            objectPosition: 'center 10%',
-            transform: 'scale(0.82)',
-            transformOrigin: 'center top',
+            backgroundImage: 'url("/bg image.png")',
+            backgroundSize: '90%',
+            backgroundPosition: 'center 8%',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: '#000',
           }}
         />
 
