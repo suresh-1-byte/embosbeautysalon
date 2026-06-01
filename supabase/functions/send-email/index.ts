@@ -10,7 +10,7 @@
 // @ts-nocheck — Deno runtime
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const ADMIN_EMAIL = 'sureshkathirvel601@gmail.com';
+const ADMIN_EMAIL = 'embossbeautysalon2023@gmail.com';
 // Use a real-looking sender address — Gmail/Outlook spam-filter "noreply@" heavily
 const FROM_EMAIL = 'EMBOS Beauty Salon <hello@embosbeautysalon.in>';
 
