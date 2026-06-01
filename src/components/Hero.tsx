@@ -8,11 +8,11 @@ export default function Hero() {
           Image on top, content stacked below
       ════════════════════════════════════════ */}
       <section id="home" className="md:hidden w-full bg-black flex flex-col items-center">
-        {/* Hero image — full width, no crop */}
+        {/* Hero image — full width, no crop, pushed below navbar */}
         <img
           src="/bg image.png"
           alt="EMBOS Beauty"
-          className="w-full object-contain"
+          className="w-full object-contain mt-16"
         />
 
         {/* Content below image */}
