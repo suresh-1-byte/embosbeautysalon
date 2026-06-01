@@ -15,8 +15,8 @@ export default function Hero() {
           className="w-full object-contain mt-16"
         />
 
-        {/* Content below image */}
-        <div className="w-full flex flex-col items-center text-center px-4 py-8 bg-black">
+        {/* Content below image — pulled up towards image */}
+        <div className="w-full flex flex-col items-center text-center px-4 py-8 bg-black -mt-12">
           {/* Logo */}
           <img
             src="/logo wobg.png"
