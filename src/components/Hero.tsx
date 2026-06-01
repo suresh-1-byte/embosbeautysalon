@@ -17,7 +17,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             backgroundImage: 'url("/bg image.png")',
-            backgroundSize: '95%',
+            backgroundSize: '100% auto',
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
             backgroundColor: '#000',
@@ -27,13 +27,13 @@ export default function Hero() {
         {/* Dark overlay */}
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.85) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.85) 100%)' }}
         />
 
-        {/* Content — overlaid at bottom 30% */}
+        {/* Content — overlaid, pulled up closer to image */}
         <div
           className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
-          style={{ bottom: '5%' }}
+          style={{ top: '52%' }}
         >
           {/* Logo */}
           <img
