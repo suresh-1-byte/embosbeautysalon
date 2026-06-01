@@ -10,31 +10,18 @@ export default function Hero() {
       <section
         id="home"
         className="lg:hidden relative w-full overflow-hidden"
-        style={{ minHeight: '100svh', backgroundColor: '#000' }}
+        style={{ backgroundColor: '#000', paddingBottom: '2rem' }}
       >
         {/* Background image — real img tag, fills width, natural height */}
         <img
           src="/bg image.png"
           alt=""
-          className="absolute left-0 right-0 w-full"
-          style={{ top: '64px', objectFit: 'contain' }}
+          className="w-full block"
+          style={{ marginTop: '64px', objectFit: 'contain' }}
         />
 
-        {/* Dark overlay — only over image area */}
-        <div
-          className="absolute left-0 right-0"
-          style={{
-            top: '64px',
-            height: '56vw',
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%)',
-          }}
-        />
-
-        {/* Content — sits right below the image, no gap */}
-        <div
-          className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
-          style={{ top: 'calc(64px + 56vw - 20px)' }}
-        >
+        {/* Content — sits directly below image, no gap */}
+        <div className="w-full flex flex-col items-center text-center px-4 pt-3 pb-6 bg-black">
           {/* Logo */}
           <img
             src="/logo wobg.png"
