@@ -17,23 +17,23 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             backgroundImage: 'url("/bg image.png")',
-            backgroundSize: '90%',
-            backgroundPosition: 'center 8%',
+            backgroundSize: '95%',
+            backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
             backgroundColor: '#000',
           }}
         />
 
-        {/* Dark overlay for text readability */}
+        {/* Dark overlay */}
         <div
           className="absolute inset-0"
-          style={{ background: 'rgba(0,0,0,0.45)' }}
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.85) 100%)' }}
         />
 
-        {/* Content — overlaid, centered, bottom 35% of screen */}
+        {/* Content — overlaid at bottom 30% */}
         <div
           className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-4"
-          style={{ bottom: '8%' }}
+          style={{ bottom: '5%' }}
         >
           {/* Logo */}
           <img
