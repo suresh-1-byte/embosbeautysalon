@@ -3,48 +3,51 @@ import { motion } from 'framer-motion';
 export default function Hero() {
   return (
     <>
-      {/* ════════════════════════════════════════
-          MOBILE LAYOUT (hidden on md+)
-          Image on top, content stacked below
-      ════════════════════════════════════════ */}
-      <section id="home" className="md:hidden w-full bg-black flex flex-col items-center">
-        {/* Hero image — full width, no crop, pushed below navbar */}
+      {/* ══════════════════════════════════════
+          MOBILE + TABLET (hidden on lg+)
+      ══════════════════════════════════════ */}
+      <section id="home" className="lg:hidden w-full bg-black flex flex-col items-center">
+        {/* Navbar spacer */}
+        <div className="h-16 w-full" />
+
+        {/* Hero image — full width, edge to edge, no side gaps */}
         <img
           src="/bg image.png"
           alt="EMBOS Beauty"
-          className="w-full object-contain mt-16"
+          className="w-full block"
+          style={{ display: 'block', maxWidth: '100%' }}
         />
 
-        {/* Content below image — pulled up towards image */}
-        <div className="w-full flex flex-col items-center text-center px-4 py-8 bg-black -mt-12">
+        {/* Content — tight below image */}
+        <div className="w-full flex flex-col items-center text-center px-4 pt-4 pb-10 bg-black">
           {/* Logo */}
           <img
             src="/logo wobg.png"
             alt="EMBOS Beauty Salon & Studio"
-            className="w-52 mx-auto object-contain mb-2"
+            className="w-48 sm:w-56 mx-auto object-contain mb-2"
             style={{ mixBlendMode: 'screen' }}
           />
 
-          <p className="text-[9px] tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-3">
+          <p className="text-[10px] tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-2">
             For Ladies &amp; Kids
           </p>
 
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-3" />
+          <div className="w-14 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-3" />
 
-          <p className="max-w-xs text-[11px] text-white/90 leading-relaxed font-light mb-5">
+          <p className="max-w-sm text-xs sm:text-sm text-white/90 leading-relaxed font-light mb-5 px-2">
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
           </p>
 
-          <div className="flex flex-col gap-3 w-full max-w-[240px]">
+          <div className="flex flex-col gap-3 w-full max-w-[260px] sm:max-w-xs">
             <a
               href="#services"
-              className="px-5 py-2.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-sm text-center hover:bg-white transition-all duration-300 shadow-lg"
+              className="px-6 py-3 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-sm text-center hover:bg-white transition-all duration-300 shadow-lg"
             >
               Explore Services
             </a>
             <a
               href="#contact"
-              className="px-5 py-2.5 rounded-full bg-[#40BFFF] text-white font-semibold text-sm text-center hover:bg-[#1c9ff9] transition-all duration-300"
+              className="px-6 py-3 rounded-full bg-[#40BFFF] text-white font-semibold text-sm text-center hover:bg-[#1c9ff9] transition-all duration-300"
             >
               Book Appointment
             </a>
@@ -52,12 +55,12 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          DESKTOP LAYOUT (hidden on mobile) — UNCHANGED
-      ════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════
+          DESKTOP (lg+) — UNCHANGED
+      ══════════════════════════════════════ */}
       <section
         id="home"
-        className="relative w-full overflow-hidden hidden md:block"
+        className="relative w-full overflow-hidden hidden lg:block"
         style={{ minHeight: '100svh' }}
       >
         {/* Desktop background */}
@@ -76,7 +79,7 @@ export default function Hero() {
 
         {/* Accent portrait — bottom-right */}
         <div
-          className="absolute bottom-16 right-10 z-10 w-36 h-48 lg:w-44 lg:h-60 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
+          className="absolute bottom-16 right-10 z-10 w-36 h-48 xl:w-44 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
           style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
         >
           <img src="/kerala bridal.jpeg" alt="Kerala Bridal portrait" className="w-full h-full object-cover object-top" />
@@ -97,7 +100,7 @@ export default function Hero() {
             <img
               src="/logo wobg.png"
               alt="EMBOS Beauty Salon & Studio"
-              className="w-64 sm:w-72 md:w-80 lg:w-96 mx-auto object-contain"
+              className="w-72 lg:w-80 xl:w-96 mx-auto object-contain"
               style={{ mixBlendMode: 'screen' }}
             />
           </motion.div>
@@ -106,7 +109,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-[10px] sm:text-sm tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-2"
+            className="text-xs lg:text-sm tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-2"
           >
             For Ladies &amp; Kids
           </motion.p>
@@ -121,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="max-w-xs sm:max-w-lg text-xs sm:text-sm md:text-base leading-relaxed font-light px-2 mb-5 text-white/90"
+            className="max-w-lg text-sm lg:text-base leading-relaxed font-light px-2 mb-5 text-white/90"
             style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}
           >
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
@@ -135,13 +138,13 @@ export default function Hero() {
           >
             <a
               href="#services"
-              className="px-7 py-3 sm:px-8 sm:py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-lg text-sm text-center"
+              className="px-8 py-3.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-lg text-sm text-center"
             >
               Explore Services
             </a>
             <a
               href="#contact"
-              className="px-7 py-3 sm:px-8 sm:py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] transition-all duration-300 text-sm text-center"
+              className="px-8 py-3.5 rounded-full bg-[#40BFFF] text-white font-semibold tracking-wide hover:bg-[#1c9ff9] transition-all duration-300 text-sm text-center"
             >
               Book Appointment
             </a>
