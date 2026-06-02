@@ -112,18 +112,42 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-[60] flex flex-col items-center justify-center"
-            style={{ gap: 'clamp(1.25rem, 4vh, 2rem)', backgroundColor: '#ffffff' }}
+            className="fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0a0a0f 0%, #1a0a1a 40%, #0a1020 100%)',
+              gap: 'clamp(1rem, 3.5vh, 1.75rem)',
+            }}
           >
-            {/* Close button top-right */}
+            {/* Decorative background glow */}
+            <div className="absolute top-0 left-0 w-64 h-64 rounded-full opacity-20 pointer-events-none"
+              style={{ background: 'radial-gradient(circle, #F4C2C2 0%, transparent 70%)', transform: 'translate(-30%, -30%)' }} />
+            <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-15 pointer-events-none"
+              style={{ background: 'radial-gradient(circle, #40BFFF 0%, transparent 70%)', transform: 'translate(30%, 30%)' }} />
+
+            {/* Logo at top */}
+            <div className="absolute top-6 left-5 flex items-center gap-2">
+              <div className="w-9 h-9 rounded-full overflow-hidden border border-white/20">
+                <img src="/logo.jpeg" alt="EMBOS" className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-white text-sm font-bold tracking-widest" style={{ fontFamily: 'Playfair Display, serif' }}>EMBOS</p>
+                <p className="text-[#ADD8E6] text-[9px] tracking-[0.2em] uppercase">Beauty Salon + Studio</p>
+              </div>
+            </div>
+
+            {/* Close button */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-5 right-4 p-2 rounded-full bg-gray-100 text-gray-500"
+              className="absolute top-5 right-4 p-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 transition-all"
               aria-label="Close menu"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
 
+            {/* Divider */}
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-2" />
+
+            {/* Nav items */}
             {NAV_ITEMS.map((item, i) => (
               <motion.a
                 key={item.href}
@@ -132,23 +156,31 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07 }}
                 onClick={() => setMenuOpen(false)}
-                className="no-min text-xl sm:text-2xl font-semibold text-[#1a1a2e] tracking-wide hover:text-[#F4C2C2] transition-colors"
+                className="no-min text-xl font-semibold tracking-[0.08em] text-white/90 hover:text-[#F4C2C2] transition-colors relative group"
                 style={{ fontFamily: 'Playfair Display, serif', minHeight: 'unset' }}
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-[#F4C2C2] group-hover:w-full transition-all duration-300" />
               </motion.a>
             ))}
 
+            {/* Divider */}
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#40BFFF]/50 to-transparent mt-1" />
+
+            {/* Book Now */}
             <motion.a
               href="#contact"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
               onClick={() => setMenuOpen(false)}
-              className="mt-2 px-8 py-3 rounded-full bg-[#40BFFF] text-white font-semibold text-base tracking-wide shadow-md hover:bg-[#1c9ff9] transition-all duration-300"
+              className="px-10 py-3 rounded-full bg-[#40BFFF] text-white font-semibold text-sm tracking-wide shadow-lg shadow-[#40BFFF]/30 hover:bg-[#1c9ff9] transition-all duration-300"
             >
               Book Now
             </motion.a>
+
+            {/* Bottom tagline */}
+            <p className="absolute bottom-8 text-white/20 text-[10px] tracking-[0.3em] uppercase">For Ladies &amp; Kids</p>
           </motion.div>
         )}
       </AnimatePresence>
