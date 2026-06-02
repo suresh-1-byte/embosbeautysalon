@@ -12,65 +12,76 @@ export default function Hero() {
         className="lg:hidden relative w-full overflow-hidden"
         style={{ minHeight: '100svh', backgroundColor: '#000' }}
       >
-        {/* Black & gold background — same as desktop */}
+        {/* Black & gold background — zoomed out to show full portrait */}
         <div
           className="absolute inset-0"
           style={{
             backgroundColor: '#000',
             backgroundImage: 'url("/hero bg.jpeg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 15%',
+            backgroundSize: '140%',
+            backgroundPosition: 'center 8%',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-black/80" />
         </div>
 
-        {/* Owner photo — small floating card, bottom-right */}
+        {/* Small floating card — bottom-right */}
         <div
-          className="absolute bottom-20 right-3 z-10 rounded-xl overflow-hidden shadow-2xl border border-white/20"
-          style={{ width: '18vw', maxWidth: '72px', aspectRatio: '3/4', boxShadow: '0 4px 20px rgba(0,0,0,0.6)' }}
+          className="absolute z-10 rounded-xl overflow-hidden border border-white/20 shadow-xl"
+          style={{
+            bottom: '22%',
+            right: '4%',
+            width: '16vw',
+            maxWidth: '64px',
+            aspectRatio: '3/4',
+          }}
         >
           <img src="/kerala bridal.jpeg" alt="Bridal" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
 
-        {/* Center content — overlaid on image */}
+        {/* Center content — positioned at bottom 18% so no overlap with image */}
         <div
-          className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-5"
-          style={{ bottom: '7%' }}
+          className="absolute left-0 right-0 z-10 flex flex-col items-center text-center"
+          style={{ bottom: '4%', padding: '0 1.25rem' }}
         >
-          {/* Logo */}
           <img
             src="/logo wobg.png"
             alt="EMBOS Beauty Salon & Studio"
-            className="mx-auto object-contain mb-1"
-            style={{ width: 'clamp(160px, 50vw, 210px)', mixBlendMode: 'screen' }}
+            className="mx-auto object-contain mb-2"
+            style={{ width: 'clamp(150px, 45vw, 200px)', mixBlendMode: 'screen' }}
           />
 
-          <p className="text-[9px] tracking-[0.2em] text-[#F4C2C2]/90 uppercase font-medium mb-2">
+          <p className="text-[9px] tracking-[0.18em] text-[#F4C2C2]/90 uppercase font-medium mb-2">
             For Ladies &amp; Kids
           </p>
 
-          <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-2" />
+          <div className="w-10 h-px bg-gradient-to-r from-transparent via-[#F4C2C2] to-transparent mb-2" />
 
           <p
-            className="text-white/85 leading-relaxed font-light mb-4 px-1"
-            style={{ fontSize: '11px', maxWidth: '260px', textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}
+            className="text-white/85 leading-relaxed font-light mb-4"
+            style={{
+              fontSize: 'clamp(10px, 2.8vw, 13px)',
+              maxWidth: '240px',
+              textShadow: '0 2px 8px rgba(0,0,0,0.95)',
+            }}
           >
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
           </p>
 
-          <div className="flex flex-row gap-2 justify-center w-full" style={{ maxWidth: '280px' }}>
+          <div className="flex flex-row gap-2 justify-center" style={{ maxWidth: '270px', width: '100%' }}>
             <a
               href="#services"
-              className="flex-1 py-2.5 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-xs text-center hover:bg-white transition-all duration-300 shadow-lg"
+              className="flex-1 rounded-full bg-[#F4C2C2] text-[#1a1a2e] font-semibold text-center hover:bg-white transition-all duration-300 shadow-lg"
+              style={{ padding: '8px 0', fontSize: '11px' }}
             >
-              Explore Services
+              Explore
             </a>
             <a
               href="#contact"
-              className="flex-1 py-2.5 rounded-full bg-[#40BFFF] text-white font-semibold text-xs text-center hover:bg-[#1c9ff9] transition-all duration-300"
+              className="flex-1 rounded-full bg-[#40BFFF] text-white font-semibold text-center hover:bg-[#1c9ff9] transition-all duration-300"
+              style={{ padding: '8px 0', fontSize: '11px' }}
             >
               Book Now
             </a>
@@ -78,9 +89,9 @@ export default function Hero() {
         </div>
 
         {/* Bottom labels */}
-        <div className="absolute bottom-3 left-0 right-0 flex justify-between px-5 pointer-events-none z-10">
-          <p className="text-[8px] tracking-[0.25em] text-[#ADD8E6]/70 uppercase font-medium">Korean Beauty</p>
-          <p className="text-[8px] tracking-[0.25em] text-[#F4C2C2]/70 uppercase font-medium">Bridal Studio</p>
+        <div className="absolute bottom-1 left-0 right-0 flex justify-between px-4 pointer-events-none z-10">
+          <p className="text-[7px] tracking-[0.2em] text-[#ADD8E6]/60 uppercase">Korean Beauty</p>
+          <p className="text-[7px] tracking-[0.2em] text-[#F4C2C2]/60 uppercase">Bridal Studio</p>
         </div>
       </section>
 
