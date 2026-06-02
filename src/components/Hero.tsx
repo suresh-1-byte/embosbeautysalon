@@ -14,7 +14,7 @@ export default function Hero() {
       >
         {/* Background image — real img tag, fills width, natural height */}
         <img
-          src="/bg image.png"
+          src="/hero bg.jpeg"
           alt=""
           className="w-full block"
           style={{ marginTop: '64px', objectFit: 'contain' }}
@@ -80,7 +80,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             backgroundColor: '#000',
-            backgroundImage: 'url("/bg image.png")',
+            backgroundImage: 'url("/hero bg.jpeg")',
             backgroundSize: 'contain',
             backgroundPosition: 'center 70px',
             backgroundRepeat: 'no-repeat',
