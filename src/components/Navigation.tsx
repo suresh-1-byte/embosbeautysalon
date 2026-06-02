@@ -48,10 +48,10 @@ export default function Navigation() {
                 <img src="/logo.jpeg" alt="EMBOS Logo" className="w-full h-full object-cover" />
               </div>
               <div className="hidden sm:block">
-                <p className="text-lg sm:text-xl font-bold tracking-widest text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
+                <p className={`text-lg sm:text-xl font-bold tracking-widest ${scrolled ? 'text-[#1a1a2e]' : 'text-white'}`} style={{ fontFamily: 'Playfair Display, serif' }}>
                   EMBOS
                 </p>
-                <p className="text-[10px] tracking-[0.25em] text-[#ADD8E6] font-medium uppercase">
+                <p className={`text-[10px] tracking-[0.25em] font-medium uppercase ${scrolled ? 'text-[#40BFFF]' : 'text-[#ADD8E6]'}`}>
                   Beauty Salon + Studio
                 </p>
               </div>
