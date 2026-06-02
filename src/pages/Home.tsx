@@ -12,6 +12,7 @@ import BookingModal from '../components/BookingModal';
 import Pricing from '../components/Pricing';
 import CustomerReviews from '../components/CustomerReviews';
 import WhatsAppButton from '../components/WhatsAppButton';
+import Credentials from '../components/Credentials';
 import { useNotifications } from '../hooks/useNotifications';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X } from 'lucide-react';
@@ -38,6 +39,7 @@ export default function Home() {
       <Offers />
       <CustomerReviews />
       <About />
+      <Credentials />
       <Contact onBookingClick={() => handleBookingClick()} />
       <Footer />
 

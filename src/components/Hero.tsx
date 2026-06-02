@@ -81,12 +81,12 @@ export default function Hero() {
           style={{
             backgroundColor: '#000',
             backgroundImage: 'url("/bg image.png")',
-            backgroundSize: '75%',
-            backgroundPosition: 'center 80px',
+            backgroundSize: '72%',
+            backgroundPosition: 'center 60px',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/55" />
         </div>
 
         {/* Accent portrait — bottom-right */}
