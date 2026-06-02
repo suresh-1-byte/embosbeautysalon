@@ -112,8 +112,8 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-[60] bg-white/97 backdrop-blur-xl flex flex-col items-center justify-center"
-            style={{ gap: 'clamp(1.25rem, 4vh, 2rem)' }}
+            className="fixed inset-0 z-[60] flex flex-col items-center justify-center"
+            style={{ gap: 'clamp(1.25rem, 4vh, 2rem)', backgroundColor: '#ffffff' }}
           >
             {/* Close button top-right */}
             <button
