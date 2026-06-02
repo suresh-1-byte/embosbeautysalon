@@ -12,10 +12,10 @@ export default function Hero() {
         className="lg:hidden relative w-full overflow-hidden"
         style={{ backgroundColor: '#000', paddingBottom: '2rem' }}
       >
-        {/* Background image — real img tag, fills width, natural height */}
+        {/* Background image — owner photo on mobile */}
         <img
-          src="/hero bg.jpeg"
-          alt=""
+          src="/profile.png"
+          alt="EMBOS Beauty"
           className="w-full block"
           style={{ marginTop: '64px', objectFit: 'contain' }}
         />
