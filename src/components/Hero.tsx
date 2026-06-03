@@ -18,9 +18,10 @@ export default function Hero() {
             inset: 0,
             zIndex: 0,
             backgroundImage: 'url("/hero bg.jpeg")',
-            backgroundSize: '110%',
-            backgroundPosition: 'center 5%',
+            backgroundSize: '85%',
+            backgroundPosition: 'center 64px',
             backgroundRepeat: 'no-repeat',
+            backgroundColor: '#000',
           }}
         />
 
@@ -30,7 +31,7 @@ export default function Hero() {
             position: 'absolute',
             inset: 0,
             zIndex: 1,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.80) 75%, rgba(0,0,0,0.92) 100%)',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.92) 100%)',
           }}
         />
 
