@@ -17,7 +17,7 @@ export default function Hero() {
           <img
             src="/hero bg.jpeg"
             alt="EMBOS Beauty"
-            style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+            style={{ width: '100%', display: 'block' }}
           />
           {/* Gradient fade bottom of image into content */}
           <div style={{
