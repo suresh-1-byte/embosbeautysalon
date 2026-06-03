@@ -10,7 +10,7 @@ export default function Hero() {
       <section
         id="home"
         className="lg:hidden w-full"
-        style={{ backgroundColor: '#000', margin: 0, padding: 0, display: 'block' }}
+        style={{ backgroundColor: '#000', margin: 0, padding: 0 }}
       >
         {/* Hero image — full width, natural height, no crop */}
         <div style={{ position: 'relative', width: '100%', paddingTop: '64px' }}>
