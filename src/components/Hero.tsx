@@ -5,78 +5,61 @@ export default function Hero() {
     <>
       {/* ══════════════════════════════════════
           MOBILE + TABLET (hidden on lg+)
-          Image as true background, content overlaid
+          Image on top, content below — clean black layout
       ══════════════════════════════════════ */}
       <section
         id="home"
-        className="lg:hidden relative w-full overflow-hidden"
-        style={{ minHeight: '100svh', backgroundColor: '#000' }}
+        className="lg:hidden w-full"
+        style={{ backgroundColor: '#000' }}
       >
-        {/* Background image — absolute, zoomed out ~15% from cover */}
+        {/* Navbar spacer */}
+        <div style={{ height: '64px' }} />
+
+        {/* Hero image — full width, natural height, no crop */}
+        <img
+          src="/hero bg.jpeg"
+          alt="EMBOS Beauty"
+          style={{ width: '100%', display: 'block' }}
+        />
+
+        {/* Content below image */}
         <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-          zIndex: 0,
-          backgroundImage: 'url("/hero bg.jpeg")',
-          backgroundSize: '115%',
-          backgroundPosition: 'center top',
-          backgroundRepeat: 'no-repeat',
           backgroundColor: '#000',
-        }} />
-
-        {/* Dark overlay */}
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 1,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.75) 68%, rgba(0,0,0,0.92) 100%)',
-        }} />
-
-        {/* Content overlaid at bottom */}
-        <div style={{
-          position: 'absolute', bottom: '6%', left: 0, right: 0,
-          zIndex: 10, display: 'flex', flexDirection: 'column',
-          alignItems: 'center', textAlign: 'center', padding: '0 20px',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', textAlign: 'center',
+          padding: '20px 20px 32px',
         }}>
-          {/* Logo + small bridal card */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '6px' }}>
-            <img
-              src="/logo wobg.png"
-              alt="EMBOS"
-              style={{ width: 'clamp(140px, 42vw, 185px)', objectFit: 'contain', mixBlendMode: 'screen' }}
-            />
-            <div style={{ width: '44px', height: '56px', borderRadius: '8px', overflow: 'hidden', border: '1.5px solid rgba(255,255,255,0.2)', flexShrink: 0 }}>
-              <img src="/kerala bridal.jpeg" alt="Bridal" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-            </div>
-          </div>
+          <img
+            src="/logo wobg.png"
+            alt="EMBOS"
+            style={{ width: 'clamp(160px, 55vw, 220px)', objectFit: 'contain', mixBlendMode: 'screen', marginBottom: '10px' }}
+          />
 
-          <p style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(244,194,194,0.9)', textTransform: 'uppercase', fontWeight: 500, marginBottom: '6px' }}>
+          <p style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(244,194,194,0.9)', textTransform: 'uppercase', fontWeight: 500, marginBottom: '8px' }}>
             For Ladies &amp; Kids
           </p>
 
-          <div style={{ width: '36px', height: '1px', background: 'linear-gradient(to right, transparent, #F4C2C2, transparent)', marginBottom: '8px' }} />
+          <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to right, transparent, #F4C2C2, transparent)', marginBottom: '12px' }} />
 
           <p style={{
-            fontSize: 'clamp(11px, 3vw, 13px)', color: 'rgba(255,255,255,0.88)',
-            lineHeight: 1.65, fontWeight: 300, maxWidth: '270px', marginBottom: '14px',
-            textShadow: '0 2px 8px rgba(0,0,0,0.95)',
+            fontSize: 'clamp(13px, 3.5vw, 15px)', color: 'rgba(255,255,255,0.88)',
+            lineHeight: 1.7, fontWeight: 300, maxWidth: '300px', marginBottom: '20px',
           }}>
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
           </p>
 
-          <div style={{ display: 'flex', gap: '10px', width: '100%', maxWidth: '280px', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '320px' }}>
             <a href="#services" style={{
-              flex: 1, padding: '10px 0', borderRadius: '999px',
+              width: '100%', padding: '14px 0', borderRadius: '999px',
               background: '#F4C2C2', color: '#1a1a2e', fontWeight: 600,
-              fontSize: '12px', textAlign: 'center', textDecoration: 'none',
-            }}>Explore</a>
+              fontSize: '14px', textAlign: 'center', textDecoration: 'none',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            }}>Explore Services</a>
             <a href="#contact" style={{
-              flex: 1, padding: '10px 0', borderRadius: '999px',
+              width: '100%', padding: '14px 0', borderRadius: '999px',
               background: '#40BFFF', color: '#fff', fontWeight: 600,
-              fontSize: '12px', textAlign: 'center', textDecoration: 'none',
-            }}>Book Now</a>
-          </div>
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '280px' }}>
-            <p style={{ fontSize: '7px', letterSpacing: '0.2em', color: 'rgba(173,216,230,0.5)', textTransform: 'uppercase' }}>Korean Beauty</p>
-            <p style={{ fontSize: '7px', letterSpacing: '0.2em', color: 'rgba(244,194,194,0.5)', textTransform: 'uppercase' }}>Bridal Studio</p>
+              fontSize: '14px', textAlign: 'center', textDecoration: 'none',
+            }}>Book Appointment</a>
           </div>
         </div>
       </section>
