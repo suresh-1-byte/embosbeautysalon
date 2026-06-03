@@ -18,7 +18,7 @@ export default function Hero() {
             inset: 0,
             zIndex: 0,
             backgroundImage: 'url("/hero bg.jpeg")',
-            backgroundSize: 'cover',
+            backgroundSize: '90%',
             backgroundPosition: 'center 0%',
             backgroundRepeat: 'no-repeat',
             backgroundColor: '#000',
