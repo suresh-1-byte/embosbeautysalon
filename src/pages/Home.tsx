@@ -29,9 +29,10 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans bg-[#FFF1F5] min-h-screen overflow-x-hidden w-full max-w-full" style={{ margin: 0, padding: 0 }}>
+    <div className="font-sans min-h-screen overflow-x-hidden w-full max-w-full" style={{ margin: 0, padding: 0, background: '#000' }}>
       <Navigation />
       <Hero />
+      <div className="bg-[#FFF1F5]">
       <PillarServices />
       <ServiceGrid />
       <Pricing onBookingClick={handleBookingClick} />
@@ -42,6 +43,7 @@ export default function Home() {
       <Credentials />
       <Contact onBookingClick={() => handleBookingClick()} />
       <Footer />
+      </div>
 
       {/* Modals & Floating UI */}
       <BookingModal

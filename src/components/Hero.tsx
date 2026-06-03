@@ -33,7 +33,7 @@ export default function Hero() {
           backgroundColor: '#000',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', textAlign: 'center',
-          padding: '0px 24px 32px',
+          padding: '0px 24px 60px',
           marginTop: '-2px',
         }}>
           {/* Logo + owner photo side by side */}
