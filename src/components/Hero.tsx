@@ -36,26 +36,13 @@ export default function Hero() {
           padding: '0px 24px 60px',
           marginTop: '-2px',
         }}>
-          {/* Logo + owner photo side by side */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', marginBottom: '10px' }}>
+          {/* Logo only */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
             <img
               src="/logo wobg.png"
               alt="EMBOS Beauty Salon & Studio"
               style={{ width: 'clamp(150px, 46vw, 200px)', objectFit: 'contain', mixBlendMode: 'screen' }}
             />
-            {/* Owner small photo */}
-            <div style={{
-              width: '52px', height: '64px', borderRadius: '10px',
-              overflow: 'hidden', flexShrink: 0,
-              border: '2px solid rgba(244,194,194,0.4)',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-            }}>
-              <img
-                src="/profile.png"
-                alt="Ms. Hemavathy"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
-              />
-            </div>
           </div>
 
           <p style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(244,194,194,0.9)', textTransform: 'uppercase', fontWeight: 500, marginBottom: '8px' }}>
