@@ -5,44 +5,50 @@ export default function Hero() {
     <>
       {/* ══════════════════════════════════════
           MOBILE + TABLET (hidden on lg+)
-          Image on top, content below — clean black layout
+          Image on top, content below in normal flow
       ══════════════════════════════════════ */}
       <section
         id="home"
         className="lg:hidden w-full"
         style={{ backgroundColor: '#000' }}
       >
-        {/* Navbar spacer */}
-        <div style={{ height: '64px' }} />
-
         {/* Hero image — full width, natural height, no crop */}
-        <img
-          src="/hero bg.jpeg"
-          alt="EMBOS Beauty"
-          style={{ width: '100%', display: 'block' }}
-        />
+        <div style={{ position: 'relative', width: '100%', paddingTop: '64px' }}>
+          <img
+            src="/hero bg.jpeg"
+            alt="EMBOS Beauty"
+            style={{ width: '100%', display: 'block' }}
+          />
+          {/* Gradient fade at bottom into content */}
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0, right: 0,
+            height: '30%',
+            background: 'linear-gradient(to bottom, transparent, #000)',
+            pointerEvents: 'none',
+          }} />
+        </div>
 
         {/* Content below image */}
         <div style={{
           backgroundColor: '#000',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', textAlign: 'center',
-          padding: '20px 20px 32px',
+          padding: '8px 24px 32px',
         }}>
           <img
             src="/logo wobg.png"
-            alt="EMBOS"
-            style={{ width: 'clamp(160px, 55vw, 220px)', objectFit: 'contain', mixBlendMode: 'screen', marginBottom: '10px' }}
+            alt="EMBOS Beauty Salon & Studio"
+            style={{ width: 'clamp(160px, 50vw, 220px)', objectFit: 'contain', mixBlendMode: 'screen', marginBottom: '8px' }}
           />
 
           <p style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(244,194,194,0.9)', textTransform: 'uppercase', fontWeight: 500, marginBottom: '8px' }}>
             For Ladies &amp; Kids
           </p>
 
-          <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to right, transparent, #F4C2C2, transparent)', marginBottom: '12px' }} />
+          <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to right, transparent, #F4C2C2, transparent)', marginBottom: '10px' }} />
 
           <p style={{
-            fontSize: 'clamp(13px, 3.5vw, 15px)', color: 'rgba(255,255,255,0.88)',
+            fontSize: 'clamp(12px, 3.5vw, 15px)', color: 'rgba(255,255,255,0.88)',
             lineHeight: 1.7, fontWeight: 300, maxWidth: '300px', marginBottom: '20px',
           }}>
             Architects of grace, beauty therapists by soul. We specialize in the art of the brow and the restoration of skin and hair.
