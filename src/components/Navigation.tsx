@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: 'Our Services', href: '#services' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Offers', href: '#offers' },
-  { label: 'About Us', href: '#about' },
+  { label: 'About Us', href: '/about-us' },
   { label: 'Contact Us', href: '#contact' },
 ];
 
