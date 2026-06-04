@@ -6,10 +6,10 @@ import OneSignalBell from './OneSignalBell';
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about-us' },
-  { label: 'Our Services', href: '#services' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Offers', href: '#offers' },
-  { label: 'Contact Us', href: '#contact' },
+  { label: 'Our Services', href: '/#services' },
+  { label: 'Gallery', href: '/#gallery' },
+  { label: 'Offers', href: '/#offers' },
+  { label: 'Contact Us', href: '/#contact' },
 ];
 
 export default function Navigation() {
@@ -43,7 +43,7 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <a href="#home" className="flex items-center gap-2 sm:gap-3 group no-min" style={{ minHeight: 'unset' }}>
+            <a href="/" className="flex items-center gap-2 sm:gap-3 group no-min" style={{ minHeight: 'unset' }}>
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-pink-200 shadow-md flex-shrink-0">
                 <img src="/logo.jpeg" alt="EMBOS Logo" className="w-full h-full object-cover" />
               </div>
@@ -78,7 +78,7 @@ export default function Navigation() {
             <div className="hidden md:flex items-center gap-3">
               <OneSignalBell variant={scrolled ? 'dark' : 'light'} />
               <a
-                href="#contact"
+                href="/#contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide bg-[#40BFFF] text-white hover:bg-[#1c9ff9] transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
               >
                 Book Now
