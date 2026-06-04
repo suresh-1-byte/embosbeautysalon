@@ -92,7 +92,7 @@ export default function AboutUs() {
         </motion.div>
 
         {/* Credential Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-16">
           {credentials.map((cred, i) => {
             const Icon = cred.icon;
             return (
@@ -112,6 +112,39 @@ export default function AboutUs() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Certificate Images */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="text-center mb-8"
+        >
+          <p className="text-xs tracking-[0.35em] text-pink-500 uppercase font-semibold mb-3">Official Documents</p>
+          <h3 className="text-2xl sm:text-3xl font-bold text-[#1a1a2e] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Our <span className="text-sky-500">Certificates</span>
+          </h3>
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-sky-400 to-transparent mx-auto" />
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="rounded-2xl overflow-hidden shadow-lg border border-pink-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            <img
+              src="/certificate1.jpeg"
+              alt="Pro Makeover & Hair Style Certification - B3 Bridal Studio"
+              className="w-full object-cover"
+            />
+            <div className="bg-white p-4">
+              <p className="text-sm font-bold text-[#1a1a2e]">Pro Makeover & Hair Style</p>
+              <p className="text-xs text-sky-500 font-semibold mt-0.5">B3 Bridal Studio — Nov 2022</p>
+            </div>
+          </motion.div>
         </div>
 
       </div>
