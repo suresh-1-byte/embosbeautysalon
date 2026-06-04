@@ -33,14 +33,14 @@ export default function Home() {
       <Navigation />
       <Hero />
       <div className="bg-[#FFF1F5]">
+      <About />
+      <Credentials />
       <PillarServices />
       <ServiceGrid />
       <Pricing onBookingClick={handleBookingClick} />
       <Gallery />
       <Offers />
       <CustomerReviews />
-      <About />
-      <Credentials />
       <Contact onBookingClick={() => handleBookingClick()} />
       <Footer />
       </div>
