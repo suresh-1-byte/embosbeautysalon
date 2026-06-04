@@ -4,11 +4,11 @@ import { Menu, X } from 'lucide-react';
 import OneSignalBell from './OneSignalBell';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about-us' },
   { label: 'Our Services', href: '#services' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Offers', href: '#offers' },
-  { label: 'About Us', href: '/about-us' },
   { label: 'Contact Us', href: '#contact' },
 ];
 
