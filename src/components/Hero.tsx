@@ -96,14 +96,6 @@ export default function Hero() {
         </div>
 
         <div
-          className="absolute bottom-16 right-10 z-10 w-36 h-48 xl:w-44 xl:h-60 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
-          style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.5)' }}
-        >
-          <img src="/kerala bridal.jpeg" alt="Kerala Bridal portrait" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
-
-        <div
           className="absolute left-0 right-0 z-10 flex flex-col items-center text-center px-6"
           style={{ top: '68%', transform: 'translateY(-50%)' }}
         >
