@@ -5,6 +5,8 @@ import Offers from '../components/Offers';
 import PillarServices from '../components/PillarServices';
 import ServiceGrid from '../components/ServiceGrid';
 import Gallery from '../components/Gallery';
+import About from '../components/About';
+import Credentials from '../components/Credentials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import BookingModal from '../components/BookingModal';
@@ -37,6 +39,8 @@ export default function Home() {
       <Gallery />
       <Offers />
       <CustomerReviews />
+      <About />
+      <Credentials />
       <Contact onBookingClick={() => handleBookingClick()} />
       <Footer />
       </div>
