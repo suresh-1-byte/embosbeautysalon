@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle, Bell, BellRing, Mail, ArrowRight, Loader2, Send } from 'lucide-react';
+import { X, CheckCircle, Bell, BellRing, Mail, ArrowRight, Loader2, Send, MessageCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
-type Step = 'push' | 'email' | 'done';
+type Step = 'push' | 'email' | 'whatsapp' | 'done';
 
 export default function SubscribePopup() {
   const [show, setShow] = useState(false);
   const [step, setStep] = useState<Step>('push');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneLoading, setPhoneLoading] = useState(false);
+  const [phoneDone, setPhoneDone] = useState(false);
   const [pushLoading, setPushLoading] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
   const [pushDone, setPushDone] = useState(false);
@@ -20,7 +23,9 @@ export default function SubscribePopup() {
     // Show only once per session — respect localStorage dismissal
     const dismissed = localStorage.getItem('embos_popup_dismissed');
     if (dismissed) return;
-    const timer = setTimeout(() => setShow(true), 3000);
+    // Delay 5 seconds on mobile, 3 seconds on desktop
+    const delay = window.innerWidth < 768 ? 5000 : 3000;
+    const timer = setTimeout(() => setShow(true), delay);
     return () => clearTimeout(timer);
   }, []);
 
@@ -102,13 +107,37 @@ export default function SubscribePopup() {
 
     setEmailDone(true);
     localStorage.setItem('embos_popup_dismissed', '1');
-    setTimeout(() => setShow(false), 2500);
+    setTimeout(() => setStep('whatsapp'), 1500);
   };
 
   const handleSkipEmail = () => {
     localStorage.setItem('embos_popup_dismissed', '1');
-    setStep('done');
-    setTimeout(() => setShow(false), 300);
+    setStep('whatsapp');
+  };
+
+  const handleWhatsAppSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    const digits = phone.replace(/[^0-9]/g, '');
+    if (digits.length < 10) { setError('Please enter a valid 10-digit number'); return; }
+    setPhoneLoading(true);
+    const fullPhone = digits.length === 10 ? `91${digits}` : digits;
+    const { error: err } = await supabase
+      .from('whatsapp_subscribers')
+      .insert({ phone: fullPhone, name: name.trim() || null });
+    setPhoneLoading(false);
+    if (err && err.code !== '23505') {
+      setError('Something went wrong. Please try again.');
+      return;
+    }
+    setPhoneDone(true);
+    localStorage.setItem('embos_popup_dismissed', '1');
+    setTimeout(() => setShow(false), 2000);
+  };
+
+  const handleSkipWhatsApp = () => {
+    localStorage.setItem('embos_popup_dismissed', '1');
+    setShow(false);
   };
 
   const handleDismiss = () => {
@@ -146,7 +175,8 @@ export default function SubscribePopup() {
             {/* Progress dots */}
             <div className="flex gap-1.5 justify-center pt-4">
               <div className={`w-6 h-1 rounded-full transition-colors ${step === 'push' ? 'bg-[#F4C2C2]' : 'bg-[#F4C2C2]'}`} />
-              <div className={`w-6 h-1 rounded-full transition-colors ${step === 'email' || step === 'done' ? 'bg-[#F4C2C2]' : 'bg-gray-200'}`} />
+              <div className={`w-6 h-1 rounded-full transition-colors ${step === 'email' || step === 'whatsapp' || step === 'done' ? 'bg-[#F4C2C2]' : 'bg-gray-200'}`} />
+              <div className={`w-6 h-1 rounded-full transition-colors ${step === 'whatsapp' || step === 'done' ? 'bg-[#25D366]' : 'bg-gray-200'}`} />
             </div>
 
             <button onClick={handleDismiss} className="absolute top-3 right-3 text-gray-300 hover:text-gray-500 p-1">
@@ -284,6 +314,74 @@ export default function SubscribePopup() {
                         <button
                           type="button"
                           onClick={handleSkipEmail}
+                          className="w-full py-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          No thanks
+                        </button>
+                      </form>
+                    </>
+                  )}
+                </motion.div>
+              )}
+
+              {/* ── STEP 3: WhatsApp ── */}
+              {step === 'whatsapp' && (
+                <motion.div
+                  key="whatsapp"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="px-6 pt-4 pb-6"
+                >
+                  {phoneDone ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex flex-col items-center py-6 text-center"
+                    >
+                      <CheckCircle size={48} className="text-[#25D366] mb-3" />
+                      <p className="font-bold text-[#1a1a2e] text-lg">All set! 🎉</p>
+                      <p className="text-xs text-gray-400 mt-1">You'll get exclusive offers on WhatsApp from EMBOS.</p>
+                    </motion.div>
+                  ) : (
+                    <>
+                      <div className="flex flex-col items-center text-center mb-4">
+                        <div className="w-14 h-14 rounded-2xl bg-[#25D366]/10 flex items-center justify-center mb-3">
+                          <MessageCircle size={26} className="text-[#25D366]" />
+                        </div>
+                        <h2 className="text-lg font-bold text-[#1a1a2e]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                          Get Offers on WhatsApp
+                        </h2>
+                        <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">
+                          Get instant offers, bridal packages & beauty tips directly on WhatsApp from <strong>91761 60204</strong>.
+                        </p>
+                      </div>
+                      <form onSubmit={handleWhatsAppSubmit} className="space-y-3">
+                        <div>
+                          <label className="block text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wide">WhatsApp Number *</label>
+                          <input
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => { setPhone(e.target.value); setError(''); }}
+                            placeholder="10-digit mobile number"
+                            style={{ fontSize: '16px' }}
+                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#25D366] focus:ring-1 focus:ring-[#25D366]"
+                          />
+                        </div>
+                        {error && <p className="text-red-400 text-xs">{error}</p>}
+                        <button
+                          type="submit"
+                          disabled={phoneLoading}
+                          className="w-full py-3 rounded-xl bg-[#25D366] text-white font-bold text-sm hover:bg-[#1ebe5d] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                        >
+                          {phoneLoading
+                            ? <><Loader2 size={15} className="animate-spin" /> Subscribing...</>
+                            : <><MessageCircle size={15} /> Subscribe on WhatsApp</>
+                          }
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleSkipWhatsApp}
                           className="w-full py-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
                         >
                           No thanks

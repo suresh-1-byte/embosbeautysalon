@@ -103,8 +103,26 @@ export async function showLocalNotification(title: string, body: string): Promis
 }
 
 /**
- * Send a Telegram message to ALL Telegram subscribers.
+ * Send a WhatsApp message to ALL WhatsApp subscribers via PayPerWA.
  */
+export async function sendWhatsAppToAll(
+  title: string,
+  body: string,
+  url = '/'
+): Promise<{ success: boolean; sent?: number; error?: string }> {
+  try {
+    const result = await withTimeout(
+      supabase.functions.invoke('send-whatsapp', { body: { title, body, url } }),
+      15000
+    );
+    if (!result) return { success: false, error: 'WhatsApp timed out' };
+    const { data, error } = result;
+    if (error) return { success: false, error: error.message };
+    return { success: true, sent: data?.sent ?? 0 };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
 export async function sendTelegramToAll(
   title: string,
   body: string,

@@ -161,16 +161,17 @@ export default function Contact({ onBookingClick }: ContactProps) {
             style={{ minHeight: '360px' }}
           >
             <iframe
-              src="https://www.openstreetmap.org/export/embed.html?bbox=80.1725%2C13.0435%2C80.1825%2C13.0535&layer=mapnik&marker=13.0485%2C80.1775"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.0!2d80.1775!3d13.0485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sEMBOS+Beauty+Salon+%26+Studio!5e0!3m2!1sen!2sin!4v1!5m2!1sen!2sin&q=EMBOS+Beauty+Salon+Studio+148+3rd+Main+Rd+Ashtalakshmi+Nagar+Alapakkam+Valasaravakkam+Chennai+600116"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '300px', flex: 1 }}
               allowFullScreen
               loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
               title="EMBOS Beauty Salon - 148, 3rd Main Rd, Ashtalakshmi Nagar, Alapakkam, Valasaravakkam, Chennai"
             />
             <a
-              href="https://www.google.com/maps/search/148+3rd+Main+Rd+Ashtalakshmi+Nagar+Alapakkam+Valasaravakkam+Chennai+600116"
+              href="https://www.google.com/maps/search/EMBOS+Beauty+Salon+Studio+148+3rd+Main+Rd+Ashtalakshmi+Nagar+Alapakkam+Valasaravakkam+Chennai+600116"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 py-3 bg-white text-sm font-medium text-[#40BFFF] hover:bg-pink-50 transition-colors border-t border-pink-100 flex-shrink-0"

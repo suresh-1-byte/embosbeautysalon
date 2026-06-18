@@ -1,22 +1,31 @@
-import { useState } from 'react';
-import Navigation from '../components/Navigation';
-import Hero from '../components/Hero';
-import Offers from '../components/Offers';
-import PillarServices from '../components/PillarServices';
-import ServiceGrid from '../components/ServiceGrid';
-import Gallery from '../components/Gallery';
-import About from '../components/About';
-import Credentials from '../components/Credentials';
-import Contact from '../components/Contact';
-import Footer from '../components/Footer';
-import BookingModal from '../components/BookingModal';
-import Pricing from '../components/Pricing';
-import CustomerReviews from '../components/CustomerReviews';
-import WhatsAppButton from '../components/WhatsAppButton';
-import { useNotifications } from '../hooks/useNotifications';
+import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X } from 'lucide-react';
-import SubscribePopup from '../components/SubscribePopup';
+import { useNotifications } from '../hooks/useNotifications';
+
+// Above-the-fold — load eagerly
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+
+// Below-the-fold — lazy load to reduce initial bundle
+const About = lazy(() => import('../components/About'));
+const Credentials = lazy(() => import('../components/Credentials'));
+const PillarServices = lazy(() => import('../components/PillarServices'));
+const ServiceGrid = lazy(() => import('../components/ServiceGrid'));
+const Pricing = lazy(() => import('../components/Pricing'));
+const Gallery = lazy(() => import('../components/Gallery'));
+const Offers = lazy(() => import('../components/Offers'));
+const CustomerReviews = lazy(() => import('../components/CustomerReviews'));
+const Contact = lazy(() => import('../components/Contact'));
+const Footer = lazy(() => import('../components/Footer'));
+const BookingModal = lazy(() => import('../components/BookingModal'));
+const WhatsAppButton = lazy(() => import('../components/WhatsAppButton'));
+const SubscribePopup = lazy(() => import('../components/SubscribePopup'));
+
+// Lightweight section placeholder while lazy chunks load
+function SectionLoader() {
+  return <div style={{ minHeight: 200, background: '#FFF1F5' }} />;
+}
 
 export default function Home() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -32,27 +41,55 @@ export default function Home() {
     <div className="font-sans overflow-x-hidden w-full max-w-full" style={{ margin: 0, padding: 0, background: '#000' }}>
       <Navigation />
       <Hero />
+
+      {/* Below-fold sections wrapped in Suspense */}
       <div className="bg-[#FFF1F5]">
-      <About />
-      <Credentials />
-      <PillarServices />
-      <ServiceGrid />
-      <Pricing onBookingClick={handleBookingClick} />
-      <Gallery />
-      <Offers />
-      <CustomerReviews />
-      <Contact onBookingClick={() => handleBookingClick()} />
-      <Footer />
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Credentials />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <PillarServices />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <ServiceGrid />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Pricing onBookingClick={handleBookingClick} />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Gallery />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Offers />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <CustomerReviews />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Contact onBookingClick={() => handleBookingClick()} />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Footer />
+        </Suspense>
       </div>
 
       {/* Modals & Floating UI */}
-      <BookingModal
-        isOpen={bookingModalOpen}
-        onClose={() => setBookingModalOpen(false)}
-        preselectedService={preselectedService}
-      />
-      <WhatsAppButton />
-      <SubscribePopup />
+      <Suspense fallback={null}>
+        <BookingModal
+          isOpen={bookingModalOpen}
+          onClose={() => setBookingModalOpen(false)}
+          preselectedService={preselectedService}
+        />
+      </Suspense>
+      <Suspense fallback={null}>
+        <WhatsAppButton />
+      </Suspense>
+      <Suspense fallback={null}>
+        <SubscribePopup />
+      </Suspense>
 
       {/* Notification permission banner */}
       <AnimatePresence>

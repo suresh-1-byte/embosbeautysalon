@@ -52,6 +52,7 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [whatsappOptIn, setWhatsappOptIn] = useState(true);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -105,6 +106,15 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
         time_slot: formData.time_slot, notes: formData.notes.trim(), status: 'pending',
       }]);
       if (dbError) throw dbError;
+      // Save WhatsApp opt-in
+      if (whatsappOptIn && formData.phone.trim()) {
+        const digits = formData.phone.replace(/[^0-9]/g, '');
+        const fullPhone = digits.length === 10 ? `91${digits}` : digits;
+        await supabase.from('whatsapp_subscribers')
+          .insert({ phone: fullPhone, name: formData.name.trim() })
+          .select()
+          .maybeSingle(); // ignore duplicate errors
+      }
       await sendBookingEmail('new_booking', {
         name: formData.name.trim(), phone: formData.phone.trim(),
         email: formData.email.trim(), service: formData.service,
@@ -278,6 +288,19 @@ export default function BookingModal({ isOpen, onClose, preselectedService = '' 
                               ))}
                             </select>
                           </div>
+
+                          {/* WhatsApp opt-in */}
+                          <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                            <input
+                              type="checkbox"
+                              checked={whatsappOptIn}
+                              onChange={(e) => setWhatsappOptIn(e.target.checked)}
+                              className="w-4 h-4 mt-0.5 accent-[#25D366] flex-shrink-0"
+                            />
+                            <span className="text-xs text-gray-500 leading-relaxed">
+                              📲 Send me exclusive offers & updates on <strong className="text-[#25D366]">WhatsApp</strong> from EMBOS Salon
+                            </span>
+                          </label>
 
                           <div>
                             <label className="block text-sm font-semibold text-[#1a1a2e] mb-2">Location *</label>

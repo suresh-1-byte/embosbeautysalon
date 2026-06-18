@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Award, CheckCircle, GraduationCap, Heart, Star, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Award, CheckCircle, GraduationCap, Heart, Star, Sparkles, X, ZoomIn } from 'lucide-react';
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
@@ -59,7 +60,26 @@ const credentials = [
   },
 ];
 
+const certificates = [
+  {
+    src: '/certificate2.png',
+    title: 'Certificate in Beauty Technician',
+    org: 'Bharat Sevak Samaj — May 2016',
+  },
+  {
+    src: '/certificate3.jpeg',
+    title: 'Certificate of Excellence',
+    org: 'SK Beauty Academy',
+  },
+  {
+    src: '/certificate4.png',
+    title: 'Pro Makeover & Hair Style Certification',
+    org: 'B3 Bridal Studio — Nov 2022',
+  },
+];
+
 export default function AboutUs() {
+  const [lightbox, setLightbox] = useState<string | null>(null);
   return (
     <div className="bg-[#FFF1F5]">
       <Navigation />
@@ -205,7 +225,7 @@ export default function AboutUs() {
               {/* Profile image */}
               <div className="flex-shrink-0">
                 <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl mx-auto">
-                  <img src="/profile.png" alt="Ms. T. S. Hemavathy" className="w-full h-full object-cover" />
+                  <img src="/profileadmin.jpeg?v=2" alt="Ms. T. S. Hemavathy" className="w-full h-full object-cover" />
                 </div>
                 <div className="mt-4 text-center">
                   <div className="inline-flex items-center gap-1 bg-white/70 backdrop-blur-sm rounded-full px-3 py-1 border border-sky-200">
@@ -284,21 +304,73 @@ export default function AboutUs() {
             <div className="w-14 h-px bg-gradient-to-r from-transparent via-sky-400 to-transparent mx-auto" />
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div
-              {...fadeUp(0.6)}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl overflow-hidden shadow-lg border border-pink-100 hover:shadow-xl transition-all duration-300"
-            >
-              <img src="/certificate1.jpeg" alt="Pro Makeover & Hair Style Certification" className="w-full object-cover" />
-              <div className="bg-white p-4 border-t border-pink-50">
-                <p className="text-sm font-bold text-[#1a1a2e]">Pro Makeover & Hair Style</p>
-                <p className="text-xs text-sky-500 font-semibold mt-0.5">B3 Bridal Studio — Nov 2022</p>
-              </div>
-            </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:max-w-4xl lg:mx-auto">
+            {certificates.map((cert, i) => (
+              <motion.div
+                key={cert.src}
+                {...fadeUp(0.6 + i * 0.1)}
+                whileHover={{ y: -4 }}
+                className="rounded-2xl overflow-hidden shadow-lg border border-pink-100 hover:shadow-xl transition-all duration-300 flex flex-col"
+              >
+                <div className="relative overflow-hidden group cursor-pointer" onClick={() => setLightbox(cert.src)}>
+                  <img src={cert.src} alt={cert.title} className="w-full object-cover aspect-[3/4] group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="bg-white/90 rounded-full p-3 shadow-lg">
+                      <ZoomIn size={20} className="text-[#1a1a2e]" />
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white p-4 border-t border-pink-50 flex flex-col gap-2 flex-1">
+                  <div>
+                    <p className="text-sm font-bold text-[#1a1a2e]">{cert.title}</p>
+                    <p className="text-xs text-sky-500 font-semibold mt-0.5">{cert.org}</p>
+                  </div>
+                  <button
+                    onClick={() => setLightbox(cert.src)}
+                    className="mt-auto w-full py-2 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 text-white text-xs font-semibold tracking-wide hover:from-pink-500 hover:to-rose-500 transition-all duration-300 shadow-sm"
+                  >
+                    View Certificate
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+            onClick={() => setLightbox(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              className="relative max-w-2xl w-full max-h-[90vh]"
+              onClick={e => e.stopPropagation()}
+            >
+              <img
+                src={lightbox}
+                alt="Certificate"
+                className="w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl"
+              />
+              <button
+                onClick={() => setLightbox(null)}
+                className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-pink-50 transition-colors duration-200"
+              >
+                <X size={20} className="text-[#1a1a2e]" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

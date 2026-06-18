@@ -17,6 +17,8 @@ export default function Hero() {
           <img
             src="/hero bg.jpeg"
             alt="EMBOS Beauty"
+            fetchpriority="high"
+            decoding="async"
             style={{ width: '100%', display: 'block' }}
           />
           {/* Gradient fade at bottom into content */}

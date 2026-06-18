@@ -7,7 +7,7 @@ import {
   Sparkles, Gift, Star, Scissors, MessageSquare, ArrowLeft, Heart, ThumbsUp,
 } from 'lucide-react';
 import { supabase, type Offer, type GalleryImage, type Booking, type Review, type StickyNote, type GoogleReview } from '../lib/supabase';
-import { sendPushToAll, showLocalNotification, sendBookingEmail, sendBulkOfferEmail, sendTelegramToAll } from '../lib/notifications';
+import { sendPushToAll, showLocalNotification, sendBookingEmail, sendBulkOfferEmail, sendTelegramToAll, sendWhatsAppToAll } from '../lib/notifications';
 import Toast, { useToast } from '../components/Toast';
 
 const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL as string;
@@ -521,10 +521,11 @@ export default function Admin() {
   const sendCustomPush = async () => {
     if (!pushTitle.trim() || !pushBody.trim()) { addToast('info', 'Fill in title and message'); return; }
     setPushSending(true);
-    const [pushResult, emailResult, telegramResult] = await Promise.all([
+    const [pushResult, emailResult, telegramResult, whatsappResult] = await Promise.all([
       sendPushToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
       sendBulkOfferEmail(pushTitle.trim(), pushBody.trim(), pushUrl || '/', pushImageUrl || undefined),
       sendTelegramToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
+      sendWhatsAppToAll(pushTitle.trim(), pushBody.trim(), pushUrl || '/'),
     ]);
     showLocalNotification(pushTitle.trim(), pushBody.trim()).catch(() => {});
     setPushSending(false);
@@ -532,6 +533,7 @@ export default function Admin() {
     if (pushResult.success) parts.push('Push sent');
     if (telegramResult.success && (telegramResult.sent ?? 0) > 0) parts.push(`Telegram: ${telegramResult.sent}`);
     if (emailResult.success && (emailResult.sent ?? 0) > 0) parts.push(`Email: ${emailResult.sent}`);
+    if (whatsappResult.success && (whatsappResult.sent ?? 0) > 0) parts.push(`WhatsApp: ${whatsappResult.sent}`);
     if (parts.length > 0) {
       addToast('success', 'Notifications sent!', parts.join(' · '));
       setPushTitle(''); setPushBody(''); setPushUrl('/');

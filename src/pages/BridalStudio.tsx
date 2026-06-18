@@ -6,14 +6,14 @@ import BookingModal from '../components/BookingModal';
 import Footer from '../components/Footer';
 
 const BRIDAL_SERVICES = [
-  { name: 'Bridal Makeup Trial', desc: 'Perfect your wedding day look', image: '/bridal makeup trial.jpg' },
-  { name: 'Full Bridal Makeover', desc: 'Complete transformation for your special day', image: '/bridal makeover.jpg' },
+  { name: 'Bridal Makeup Trial', desc: 'Perfect your wedding day look', image: '/bridal look 1.jpeg' },
+  { name: 'Full Bridal Makeover', desc: 'Complete transformation for your special day', image: '/bridal look 8.jpeg' },
   { name: 'Mehendi & Nail Art', desc: 'Traditional and modern designs', image: '/mehendi and nail art.jpg' },
   { name: 'Pre-Bridal Skin Package', desc: 'Glow preparation before the big day', image: '/prebridal skincare.jpg' },
   { name: 'Hair Styling & Updo', desc: 'Elegant and lasting bridal hairstyles', image: '/hairstyling.jpg' },
-  { name: 'Bridal Glow Facial', desc: 'Luminous, radiant bridal complexion', image: '/facial treatment.jpg' },
+  { name: 'Bridal Glow Facial', desc: 'Luminous, radiant bridal complexion', image: '/kerala bridal.jpeg' },
   { name: 'Saree Draping Assistance', desc: 'Perfect blouse and saree styling', image: '/saree draping.jpg' },
-  { name: 'Jewellery & Blouse Consultation', desc: 'Expert styling advice', image: '/jewellery and blouse consultation.jpg' },
+  { name: 'Engagement Look', desc: 'Expert styling for your engagement day', image: '/Engegment look.webp' },
 ];
 
 const containerVariants = {
@@ -201,7 +201,7 @@ export default function BridalStudio() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <motion.img
               whileHover={{ scale: 1.05 }}
-              src="/bridal vision.jpg"
+              src="/bridal look gallery.png"
               alt="Bridal Vision"
               className="w-full h-80 md:h-full object-cover"
             />

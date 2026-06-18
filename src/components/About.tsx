@@ -29,6 +29,8 @@ export default function About() {
               <img
                 src="/interior.png" 
                 alt="EMBOS Studio"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -40,6 +42,8 @@ export default function About() {
               <img
                 src="/logo.jpeg"
                 alt="EMBOS Logo"
+                loading="lazy"
+                decoding="async"
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full mx-auto mb-2 object-cover border-2 border-sky-400"
               />
               <p className="text-center text-xs text-gray-500 font-medium">Est. in Chennai</p>
@@ -106,11 +110,25 @@ export default function About() {
           className={`mb-12 sm:mb-24 bg-[#FFD1DC] rounded-3xl p-6 sm:p-10 md:p-14 border-2 border-sky-400 ${pinkSmoke}`}
         >
           <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center">
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden flex-shrink-0 shadow-lg border-4 border-white mx-auto md:mx-0">
+            {/* Profile circle */}
+            <div
+              className="flex-shrink-0 mx-auto md:mx-0 rounded-full border-4 border-white shadow-lg overflow-hidden"
+              style={{
+                width: 'clamp(160px, 22vw, 220px)',
+                height: 'clamp(160px, 22vw, 220px)',
+              }}
+            >
               <img
-                src="/profile.png"
+                src="/profileadmin.jpeg?v=2"
                 alt="Ms. T. S. Hemavathy"
-                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center 20%',
+                }}
               />
             </div>
 

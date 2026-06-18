@@ -29,7 +29,7 @@
     <meta name="twitter:description" content="Premium bridal makeup, Korean beauty & hair care in Valasaravakkam, Chennai." />
     <meta name="twitter:image" content="https://embosbeautysalon.in/logo.jpeg" />
 
-    <!-- Local Business Schema (helps Google Maps ranking) -->
+    <!-- Local Business Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -64,7 +64,6 @@
         "https://jsdl.in/DT-20D8MGUKDYT"
       ],
       "priceRange": "₹₹",
-      "servesCuisine": "Beauty Services",
       "description": "EMBOS Beauty Salon & Studio offers premium bridal makeup, Korean glass skin facial, hair care, nail art and home beauty services in Valasaravakkam, Chennai."
     }
     </script>
@@ -78,10 +77,32 @@
     <meta name="apple-mobile-web-app-title" content="EMBOS" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Fonts -->
+    <!-- Preload LCP hero image — critical for First Contentful Paint & LCP score -->
+    <link rel="preload" as="image" href="/hero bg.jpeg" fetchpriority="high" />
+
+    <!-- Preload the logo used in the hero (above the fold) -->
+    <link rel="preload" as="image" href="/logo wobg.png" />
+
+    <!-- DNS prefetch for external services -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://firebaseapp.com" />
+
+    <!-- Font preconnects -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Fonts — load non-render-blocking with media trick, then swap to all -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
