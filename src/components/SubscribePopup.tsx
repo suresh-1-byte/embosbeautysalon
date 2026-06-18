@@ -94,6 +94,10 @@ export default function SubscribePopup() {
     setShow(false);
   };
 
+  const handleSkipPush = () => {
+    setStep('email');
+  };
+
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
