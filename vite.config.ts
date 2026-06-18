@@ -6,13 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'esnext',
-    // Raise chunk warning threshold slightly — large vendor libs are expected
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        // Split large vendor libraries into separate cacheable chunks
         manualChunks(id) {
-          // Firebase into its own chunk (heavy, rarely changes)
+          // Firebase into its own chunk
           if (id.includes('node_modules/firebase')) {
             return 'vendor-firebase';
           }
@@ -24,11 +22,8 @@ export default defineConfig({
           if (id.includes('node_modules/@supabase')) {
             return 'vendor-supabase';
           }
-          // React core into its own chunk
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) {
-            return 'vendor-react';
-          }
-          // Everything else from node_modules into a general vendor chunk
+          // DO NOT split React — keep it in the main vendor chunk
+          // Splitting React causes forwardRef undefined errors
           if (id.includes('node_modules')) {
             return 'vendor';
           }
