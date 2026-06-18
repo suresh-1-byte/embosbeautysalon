@@ -20,8 +20,15 @@ export default function SubscribePopup() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Show only once per session — respect localStorage dismissal
-    const dismissed = localStorage.getItem('embos_popup_dismissed');
+    // Check dismissal — try localStorage first, fall back to sessionStorage
+    let dismissed = false;
+    try {
+      dismissed = !!localStorage.getItem('embos_popup_dismissed');
+    } catch {
+      try {
+        dismissed = !!sessionStorage.getItem('embos_popup_dismissed');
+      } catch { dismissed = false; }
+    }
     if (dismissed) return;
     // Delay 5 seconds on mobile, 3 seconds on desktop
     const delay = window.innerWidth < 768 ? 5000 : 3000;
@@ -82,8 +89,9 @@ export default function SubscribePopup() {
     }
   };
 
-  const handleSkipPush = () => {
-    setStep('email');
+  const handleDismiss = () => {
+    saveDismissed();
+    setShow(false);
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -106,12 +114,12 @@ export default function SubscribePopup() {
     }
 
     setEmailDone(true);
-    localStorage.setItem('embos_popup_dismissed', '1');
+    saveDismissed();
     setTimeout(() => setStep('whatsapp'), 1500);
   };
 
   const handleSkipEmail = () => {
-    localStorage.setItem('embos_popup_dismissed', '1');
+    saveDismissed();
     setStep('whatsapp');
   };
 
@@ -131,18 +139,18 @@ export default function SubscribePopup() {
       return;
     }
     setPhoneDone(true);
-    localStorage.setItem('embos_popup_dismissed', '1');
+    saveDismissed();
     setTimeout(() => setShow(false), 2000);
   };
 
   const handleSkipWhatsApp = () => {
-    localStorage.setItem('embos_popup_dismissed', '1');
+    saveDismissed();
     setShow(false);
   };
 
-  const handleDismiss = () => {
-    localStorage.setItem('embos_popup_dismissed', '1');
-    setShow(false);
+  const saveDismissed = () => {
+    try { localStorage.setItem('embos_popup_dismissed', '1'); } catch {}
+    try { sessionStorage.setItem('embos_popup_dismissed', '1'); } catch {}
   };
 
   return (
